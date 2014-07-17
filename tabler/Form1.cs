@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
@@ -14,19 +9,31 @@ namespace tabler
 {
     public partial class Form1 : Form
     {
+        private string _currentpath = "Z:\\git\\AGM";
+        private string _selectedPath = "C:\\Users\\dajo\\Documents\\GitHub\\AGM";
+        private string _selectedPath2 = "Z:\\git\\AGM";
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private string _selectedPath = "C:\\Users\\dajo\\Documents\\GitHub\\AGM" ;
-
         private void btnBrowseModFolder_Click(object sender, EventArgs e)
         {
-
+            string curPath = "";
             if (_selectedPath != "" && Directory.Exists(_selectedPath))
             {
-                folderBrowserDialog1.SelectedPath = _selectedPath;
+                curPath = _selectedPath;
+            }
+
+            if (_selectedPath2 != "" && Directory.Exists(_selectedPath2))
+            {
+                curPath = _selectedPath2;
+            }
+
+            if (curPath != "")
+            {
+                folderBrowserDialog1.SelectedPath = curPath;
             }
 
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
@@ -42,17 +49,35 @@ namespace tabler
             var fsh = new FileSystemHelper();
             List<String> allStringTablePaths = fsh.GetAllStringTablePaths(_selectedPath);
 
-            var test = new List<XDocument>();
+            var lstXDocuments = new List<XDocument>();
 
-            foreach (var stringTablePath in allStringTablePaths)
+            var lstLanguages = new List<string>();
+
+            foreach (string stringTablePath in allStringTablePaths)
             {
                 XDocument xdoc = XDocument.Load(stringTablePath);
+                lstXDocuments.Add(xdoc);
 
-                var Project = xdoc.Element("Project").Value;
-                var Package = xdoc.Element("Package").Value;
+                //var elem = xdoc.Descendants().Where(a => a.Attribute("ID") != null && a.Attribute("ID").Value == "AGM_Explosives").FirstOrDefault();
 
+                IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == "Key");
+
+                // all keys
+                foreach (XElement key in keys)
+                {
+
+                    // all languages of a key
+                    foreach (XElement language in key.Descendants())
+                    {
+
+                        // save all the languages
+                        if (lstLanguages.Contains(language.Name.ToString()) == false)
+                        {
+                            lstLanguages.Add(language.Name.ToString());
+                        }
+                    }
+                }
             }
-
         }
     }
 }
