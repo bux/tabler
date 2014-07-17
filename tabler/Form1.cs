@@ -53,6 +53,8 @@ namespace tabler
 
             var lstLanguages = new List<string>();
 
+            var allTranslations = new List<Dictionary<string, Dictionary<string, string>>>();
+
             foreach (string stringTablePath in allStringTablePaths)
             {
                 XDocument xdoc = XDocument.Load(stringTablePath);
@@ -62,21 +64,35 @@ namespace tabler
 
                 IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == "Key");
 
+                var dicKeyWithTranslations = new Dictionary<string, Dictionary<string, string>>();
+
                 // all keys
                 foreach (XElement key in keys)
                 {
 
+                    var currentKeyId = key.Attribute("ID").Value;
+
+                    var dicTranslations = new Dictionary<string, string>();
+                    
                     // all languages of a key
                     foreach (XElement language in key.Descendants())
                     {
+                        var languageName = language.Name.ToString();
+
+                        dicTranslations.Add(languageName, language.Value);
 
                         // save all the languages
-                        if (lstLanguages.Contains(language.Name.ToString()) == false)
+                        if (lstLanguages.Contains(languageName) == false)
                         {
-                            lstLanguages.Add(language.Name.ToString());
+                            lstLanguages.Add(languageName);
                         }
                     }
+
+                    dicKeyWithTranslations.Add(currentKeyId, dicTranslations);
                 }
+
+
+                allTranslations.Add(dicKeyWithTranslations);
             }
 
             lstLanguages.Remove("English");
@@ -88,6 +104,7 @@ namespace tabler
             var eh = new ExcelHelper();
             ExcelPackage pck = eh.CreateExcelDoc(path,"sample");
             eh.CreateHeaderRow(pck, lstLanguages);
+            eh.WriteEntries(pck, allTranslations, lstLanguages);
             eh.SaveExcelDoc(pck);
 
         }
