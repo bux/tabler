@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using OfficeOpenXml;
 
 namespace tabler
 {
     public partial class Form1 : Form
     {
-        private string _currentpath = "Z:\\git\\AGM";
         private string _selectedPath = "C:\\Users\\dajo\\Documents\\GitHub\\AGM";
         private string _selectedPath2 = "Z:\\git\\AGM";
 
@@ -78,6 +78,18 @@ namespace tabler
                     }
                 }
             }
+
+            lstLanguages.Remove("English");
+            lstLanguages = lstLanguages.OrderBy(l => l).ToList();
+            lstLanguages.Insert(0, "English");
+
+            var path = AppDomain.CurrentDomain.BaseDirectory;
+
+            var eh = new ExcelHelper();
+            ExcelPackage pck = eh.CreateExcelDoc(path,"sample");
+            eh.CreateHeaderRow(pck, lstLanguages);
+            eh.SaveExcelDoc(pck);
+
         }
     }
 }
