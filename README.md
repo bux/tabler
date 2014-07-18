@@ -12,3 +12,7 @@ Parse all the stringtable.xml files in every subfolder into one big Excel Worksh
 
 ### Current Work in progress
 * Create stringtable.xml files from Excel
+
+### Planned
+* Replace Excel with a custom Grid UI
+* Keep Excel as an export/import option
