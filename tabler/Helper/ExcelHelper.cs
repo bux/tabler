@@ -10,10 +10,12 @@ namespace tabler
     public class ExcelHelper
     {
         private const string WORKSHEETNAME = "Translation";
+        public const string COLUMN_MODNAME = "Mod";
+        public const string COLUMN_IDNAME = "ID";
 
         public ExcelWorksheet LoadExcelDoc(FileInfo file)
         {
-            if (file.Exists == false )
+            if (file.Exists == false)
             {
                 return null;
             }
@@ -21,18 +23,17 @@ namespace tabler
             var pck = new ExcelPackage(file);
 
             //todo check if exists
-            var ws = pck.Workbook.Worksheets[WORKSHEETNAME];
+            ExcelWorksheet ws = pck.Workbook.Worksheets[WORKSHEETNAME];
             return ws;
         }
 
         public ExcelPackage CreateExcelDoc(FileInfo newFile)
         {
-        
             if (newFile.Exists)
             {
                 newFile.Delete();
             }
-            
+
             var pck = new ExcelPackage(newFile);
 
             ExcelWorksheet ws = pck.Workbook.Worksheets.Add(WORKSHEETNAME);
@@ -49,7 +50,7 @@ namespace tabler
 
         public void CreateHeaderRow(ExcelPackage pck, List<string> lstLanguages)
         {
-            var ws = GetWorksheetByName(pck, WORKSHEETNAME);
+            ExcelWorksheet ws = GetWorksheetByName(pck, WORKSHEETNAME);
             if (ws == null)
             {
                 return;
@@ -71,59 +72,57 @@ namespace tabler
 
             //set headerstyle
             ws.Row(1).Style.Font.Bold = true;
-            ws.Column(1).Style.Border.Right.Style = ExcelBorderStyle.Thin;
-            ws.Column(1).Width = 50;
+            ws.Column(2).Style.Border.Right.Style = ExcelBorderStyle.Thin;
+            ws.Column(2).Width = 50;
         }
 
 
         private int GetHeaderPosition(string name, ExcelWorksheet ws)
         {
-            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column+1; currentColumn++)
+            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column + 1; currentColumn++)
             {
-                if (ws.GetValue(1, currentColumn).ToString().ToUpperInvariant() == name.ToUpperInvariant()  )
+                if (ws.GetValue(1, currentColumn).ToString().ToUpperInvariant() == name.ToUpperInvariant())
                 {
                     return currentColumn;
-                } ;
+                }
+                ;
             }
 
             return -1;
         }
 
 
-        public const string COLUMN_MODNAME = "Mod";
-        public const string COLUMN_IDNAME = "ID";
-        
-        private Dictionary<string,int> GetHeaderIndexes(ExcelWorksheet ws)
+        private Dictionary<string, int> GetHeaderIndexes(ExcelWorksheet ws)
         {
-            var dicHeader = new Dictionary<string,int>();
+            var dicHeader = new Dictionary<string, int>();
 
-            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column+1; currentColumn++)
+            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column + 1; currentColumn++)
             {
-                dicHeader.Add(ws.GetValue(1, currentColumn).ToString(), currentColumn);  
+                dicHeader.Add(ws.GetValue(1, currentColumn).ToString(), currentColumn);
             }
 
             return dicHeader;
         }
 
-        public void WriteEntries(ExcelPackage pck, List <ModInfoContainer > lstModInfos)
+        public void WriteEntries(ExcelPackage pck, List<ModInfoContainer> lstModInfos)
         {
-            var ws = GetWorksheetByName(pck, WORKSHEETNAME);
+            ExcelWorksheet ws = GetWorksheetByName(pck, WORKSHEETNAME);
             if (ws == null)
             {
                 return;
             }
 
             //  structure of headers (columns) -> MOD | ID | English | lang1 | lang2, ...
-            var currentRow = 2;
+            int currentRow = 2;
 
             Dictionary<string, int> dicHeader = GetHeaderIndexes(ws);
 
             int modColumn = dicHeader[COLUMN_MODNAME];
             int idColumn = dicHeader[COLUMN_IDNAME];
 
-        
+
             //for each mod
-            foreach (var currentModInfo in lstModInfos)
+            foreach (ModInfoContainer currentModInfo in lstModInfos)
             {
                 //create mod entry once
                 ws.Cells[currentRow, 1].Value = currentModInfo.Name;
@@ -148,28 +147,24 @@ namespace tabler
                             continue;
                         }
 
-                        var cell = ws.Cells[currentRow, currentColumn.Value ];
+                        ExcelRange cell = ws.Cells[currentRow, currentColumn.Value];
 
-                        if (currentID.Value.ContainsKey(currentColumn.Key) == false )
-	                    {
-		                    //this mod has no entrry for this language
+                        if (currentID.Value.ContainsKey(currentColumn.Key) == false)
+                        {
+                            //this mod has no entrry for this language
                             cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
                             cell.Style.Fill.BackgroundColor.SetColor(Color.Lavender);
 
-                            continue ;
-	                    }
+                            continue;
+                        }
 
                         //set value
                         cell.Value = currentID.Value[currentColumn.Key];
-                         
                     }
 
                     currentRow += 1;
-
                 }
-
             }
-
         }
 
         private ExcelWorksheet GetWorksheetByName(ExcelPackage pck, string name)
@@ -181,34 +176,30 @@ namespace tabler
         {
             var lstModInfos = new List<ModInfoContainer>();
 
-          
 
             Dictionary<string, int> dicHeader = GetHeaderIndexes(ws);
 
             int modColumn = dicHeader[COLUMN_MODNAME];
             int idColumn = dicHeader[COLUMN_IDNAME];
 
-            ModInfoContainer currentMod  = null;
-         
+            ModInfoContainer currentMod = null;
 
-            var allHeaderOrdered = dicHeader.OrderBy(x => x.Value).ToList();
+
+            List<KeyValuePair<string, int>> allHeaderOrdered = dicHeader.OrderBy(x => x.Value).ToList();
 
             //each row
             for (int currentRow = 2; currentRow < ws.Dimension.End.Row + 1; currentRow++)
             {
-
                 //<language,value>
-                Dictionary<string, string> dicLanguagesOfCurrentID = null  ;
+                Dictionary<string, string> dicLanguagesOfCurrentID = null;
 
 
                 //each col
                 //for each language in xlsx
                 foreach (var currentColumn in allHeaderOrdered)
                 {
-
-                    var isEmpty = ws.Cells[currentRow, currentColumn.Value].IsEmpty();
-                    var value = ws.Cells[currentRow, currentColumn.Value].Value ;
-
+                    bool isEmpty = ws.Cells[currentRow, currentColumn.Value].IsEmpty();
+                    object value = ws.Cells[currentRow, currentColumn.Value].Value;
 
 
                     //if column mod
@@ -226,11 +217,11 @@ namespace tabler
                         continue;
                     }
 
-                   //if column id
+                    //if column id
                     if (currentColumn.Value == idColumn)
                     {
                         //ids can never be empty
-                        if (isEmpty == true)
+                        if (isEmpty)
                         {
                             break;
                         }
@@ -242,27 +233,16 @@ namespace tabler
                     }
 
 
-
-                    if (isEmpty == true)
+                    if (isEmpty)
                     {
                         continue;
                     }
 
 
                     dicLanguagesOfCurrentID.Add(currentColumn.Key, value.ToString());
-
-
-
                 }
-
-
-              
-
-
-
             }
             return lstModInfos;
-
         }
     }
 }
