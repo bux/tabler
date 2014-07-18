@@ -10,7 +10,7 @@ namespace tabler
     public class FileSystemHelper
     {
         private List<string> _allStringTablePaths = new List<string>();
-        private const string STRINGTABLE_NAME= "stringtable.xml";
+        public  const string STRINGTABLE_NAME= "stringtable.xml";
 
         public List<string> GetAllStringTablePaths(string path)
         {
