@@ -77,19 +77,19 @@ namespace tabler
         }
 
 
-        private int GetHeaderPosition(string name, ExcelWorksheet ws)
-        {
-            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column + 1; currentColumn++)
-            {
-                if (ws.GetValue(1, currentColumn).ToString().ToUpperInvariant() == name.ToUpperInvariant())
-                {
-                    return currentColumn;
-                }
-                ;
-            }
+        //private int GetHeaderPosition(string name, ExcelWorksheet ws)
+        //{
+        //    for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column + 1; currentColumn++)
+        //    {
+        //        if (ws.GetValue(1, currentColumn).ToString().ToUpperInvariant() == name.ToUpperInvariant())
+        //        {
+        //            return currentColumn;
+        //        }
+                
+        //    }
 
-            return -1;
-        }
+        //    return -1;
+        //}
 
 
         private Dictionary<string, int> GetHeaderIndexes(ExcelWorksheet ws)

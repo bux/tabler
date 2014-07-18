@@ -34,6 +34,8 @@ namespace tabler
 
         private void btnBrowseModFolder_Click(object sender, EventArgs e)
         {
+
+            // TODO - remove this for release
             string preDefSelectedPath = "C:\\Users\\dajo\\Documents\\GitHub\\AGM";
             string preDefSelectedPath2 = "Z:\\git\\AGM";
             string preDefSelectedPath3 = @" J:\arbeit\githubrepo\AGM";
