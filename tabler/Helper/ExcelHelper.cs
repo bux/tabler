@@ -90,8 +90,8 @@ namespace tabler
         }
 
 
-        public const string COLUMN_MODNAME = "mod";
-        public const string COLUMN_IDNAME = "id";
+        public const string COLUMN_MODNAME = "Mod";
+        public const string COLUMN_IDNAME = "ID";
         
         private Dictionary<string,int> GetHeaderIndexes(ExcelWorksheet ws)
         {
@@ -99,7 +99,7 @@ namespace tabler
 
             for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column+1; currentColumn++)
             {
-                dicHeader.Add(ws.GetValue(1, currentColumn).ToString().ToLowerInvariant (), currentColumn);  
+                dicHeader.Add(ws.GetValue(1, currentColumn).ToString(), currentColumn);  
             }
 
             return dicHeader;
