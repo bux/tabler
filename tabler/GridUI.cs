@@ -19,7 +19,14 @@ namespace tabler
 
         private void btnBrowseModFolder_Click(object sender, EventArgs e)
         {
-            string curPath = ConfigHelper.GetLastPathOfDataFiles().FullName;
+            string curPath = "";
+
+            var lastPath = ConfigHelper.GetLastPathOfDataFiles();
+
+            if (lastPath != null)
+            {
+                curPath = lastPath.FullName;
+            }
 
             if (string.IsNullOrEmpty(curPath) == false)
             {
