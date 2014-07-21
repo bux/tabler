@@ -3,16 +3,9 @@ tabler
 
 Easier translation handling for Arma 3 Mods.
 
-Parse all the stringtable.xml files in every subfolder into one big Excel Worksheet and translate it. Then parse it back with one click of a button.
+Parse all the stringtable.xml files in every subfolder, edit them and then parse it back with one click of a button. There's no need anymore to open every stringtable.xml file one by one.
 
 ### Features
-* Update existing translations
-* Add new Keys
-* Add new languages
-
-### Current Work in progress
-* Create stringtable.xml files from Excel
-
-### Planned
-* Replace Excel with a custom Grid UI
-* Keep Excel as an export/import option
+* Open all stringtable.xml files in one UI
+* Add keys or edit translations in an Excel-like grid view
+* Save all changes back to the stringtable.xml files
