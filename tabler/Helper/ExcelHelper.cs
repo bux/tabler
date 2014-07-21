@@ -10,8 +10,6 @@ namespace tabler
     public class ExcelHelper
     {
         private const string WORKSHEETNAME = "Translation";
-        public const string COLUMN_MODNAME = "Mod";
-        public const string COLUMN_IDNAME = "ID";
 
         public ExcelWorksheet LoadExcelDoc(FileInfo file)
         {
@@ -117,8 +115,8 @@ namespace tabler
 
             Dictionary<string, int> dicHeader = GetHeaderIndexes(ws);
 
-            int modColumn = dicHeader[COLUMN_MODNAME];
-            int idColumn = dicHeader[COLUMN_IDNAME];
+            int modColumn = dicHeader[TranslationManager.COLUMN_MODNAME];
+            int idColumn = dicHeader[TranslationManager.COLUMN_IDNAME];
 
 
             //for each mod
@@ -179,8 +177,8 @@ namespace tabler
 
             Dictionary<string, int> dicHeader = GetHeaderIndexes(ws);
 
-            int modColumn = dicHeader[COLUMN_MODNAME];
-            int idColumn = dicHeader[COLUMN_IDNAME];
+            int modColumn = dicHeader[TranslationManager.COLUMN_MODNAME];
+            int idColumn = dicHeader[TranslationManager.COLUMN_IDNAME];
 
             ModInfoContainer currentMod = null;
 

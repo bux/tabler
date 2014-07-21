@@ -51,6 +51,7 @@
     <Compile Include="Classes\ModInfoContainer.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
     <Compile Include="Classes\TranslationManager.cs" />
+    <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -58,6 +59,13 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GridUI.Designer.cs">
+      <DependentUpon>GridUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\GridUiHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
@@ -65,6 +73,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridUI.resx">
+      <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

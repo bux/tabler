@@ -7,7 +7,6 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
-using OfficeOpenXml;
 
 namespace tabler
 {
@@ -18,23 +17,21 @@ namespace tabler
 
         private readonly FileInfo _fiConfig = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"config\config.xml"));
         private readonly FileInfo _fiExcelFile = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"ExcelFile\Translations.xlsx"));
+        private readonly TranslationManager _translationManager;
         private Configuration _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
         private DirectoryInfo _lastPathToDataFiles;
         private ConfigurationSection _section;
         private XDocument _xDocConfig;
 
-        private TranslationManager _translationManager ;
-
         public Form1()
         {
             InitializeComponent();
-           _translationManager = new TranslationManager(_fiExcelFile);
+            _translationManager = new TranslationManager(_fiExcelFile);
         }
 
         private void btnBrowseModFolder_Click(object sender, EventArgs e)
         {
-
             // TODO - remove this for release
             string preDefSelectedPath = "C:\\Users\\dajo\\Documents\\GitHub\\AGM";
             string preDefSelectedPath2 = "Z:\\git\\AGM";
@@ -89,12 +86,8 @@ namespace tabler
         }
 
 
-
-
-
         private void btnConvertToExcel_Click(object sender, EventArgs e)
         {
-
             if (_fiExcelFile.Exists)
             {
                 if (MessageBox.Show("Overwrite existing Excel file?", "Overwrite?", MessageBoxButtons.YesNo) != DialogResult.Yes)
@@ -103,23 +96,18 @@ namespace tabler
                 }
             }
 
-            _translationManager.ConvertXmlToExcel(_lastPathToDataFiles );
+            _translationManager.ConvertXmlToExcel(_lastPathToDataFiles, true);
 
             m_btnOpenCreatedExcel.Enabled = true;
         }
 
 
-
-
-
         private void m_btnExcelToXml_Click(object sender, EventArgs e)
         {
-
             _translationManager.ConvertExcelToXml(_lastPathToDataFiles);
-            
         }
 
-        
+
         private void m_btnOpenCreatedExcel_Click(object sender, EventArgs e)
         {
             Process.Start(_fiExcelFile.FullName);

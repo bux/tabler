@@ -138,23 +138,36 @@ namespace tabler
             }
 
 
-            xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language select xel).FirstOrDefault();
+            xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language.ToLowerInvariant() select xel).FirstOrDefault();
 
 
             if (xLanguage != null)
             {
-                //exist -> update
+                //exist -> update (or delete)
                 if (xLanguage.Value != value)
                 {
-                    xLanguage.Value = value;
+
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        xLanguage.Remove();
+                    }
+                    else
+                    {
+                        xLanguage.Value = value;    
+                    }
+
                     changed = true;
                 }
             }
             else
             {
-                xID.Add(new XElement(language, value));
+                // don't add a new language if the value is empty
+                if (!string.IsNullOrEmpty(value))
+                {
+                    xID.Add(new XElement(language, value));
 
-                changed = true;
+                    changed = true;
+                }
             }
 
             return changed;
