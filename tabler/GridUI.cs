@@ -19,30 +19,7 @@ namespace tabler
 
         private void btnBrowseModFolder_Click(object sender, EventArgs e)
         {
-            // TODO - remove this for release
-            string preDefSelectedPath = "C:\\Users\\dajo\\Documents\\GitHub\\AGM";
-            string preDefSelectedPath2 = "Z:\\git\\AGM";
-            string preDefSelectedPath3 = @" J:\arbeit\githubrepo\AGM";
-
             string curPath = ConfigHelper.GetLastPathOfDataFiles().FullName;
-
-            if (string.IsNullOrEmpty(curPath))
-            {
-                if (preDefSelectedPath != "" && Directory.Exists(preDefSelectedPath))
-                {
-                    curPath = preDefSelectedPath;
-                }
-
-                if (preDefSelectedPath2 != "" && Directory.Exists(preDefSelectedPath2))
-                {
-                    curPath = preDefSelectedPath2;
-                }
-
-                if (preDefSelectedPath3 != "" && Directory.Exists(preDefSelectedPath3))
-                {
-                    curPath = preDefSelectedPath3;
-                }
-            }
 
             if (string.IsNullOrEmpty(curPath) == false)
             {
@@ -53,12 +30,8 @@ namespace tabler
 
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                preDefSelectedPath = folderBrowserDialog1.SelectedPath;
-
-                m_tbModFolder.Text = preDefSelectedPath;
-
+                m_tbModFolder.Text = folderBrowserDialog1.SelectedPath;
                 btnLoadStringtablexmls.Enabled = true;
-
                 ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
             }
         }
