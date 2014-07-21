@@ -28,14 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridUI));
             this.btnBrowseModFolder = new System.Windows.Forms.Button();
             this.m_tbModFolder = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSaveStringtableXmls = new System.Windows.Forms.Button();
             this.btnLoadStringtablexmls = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.btnSaveStringtableXmls = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -84,6 +85,17 @@
             this.panel1.Size = new System.Drawing.Size(1184, 94);
             this.panel1.TabIndex = 5;
             // 
+            // btnSaveStringtableXmls
+            // 
+            this.btnSaveStringtableXmls.Enabled = false;
+            this.btnSaveStringtableXmls.Location = new System.Drawing.Point(144, 30);
+            this.btnSaveStringtableXmls.Name = "btnSaveStringtableXmls";
+            this.btnSaveStringtableXmls.Size = new System.Drawing.Size(134, 23);
+            this.btnSaveStringtableXmls.TabIndex = 5;
+            this.btnSaveStringtableXmls.Text = "Save stringtable.xml files";
+            this.btnSaveStringtableXmls.UseVisualStyleBackColor = true;
+            this.btnSaveStringtableXmls.Click += new System.EventHandler(this.btnSaveStringtableXmls_Click);
+            // 
             // btnLoadStringtablexmls
             // 
             this.btnLoadStringtablexmls.Enabled = false;
@@ -105,23 +117,13 @@
             this.tabControl1.TabIndex = 6;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             // 
-            // btnSaveStringtableXmls
-            // 
-            this.btnSaveStringtableXmls.Enabled = false;
-            this.btnSaveStringtableXmls.Location = new System.Drawing.Point(144, 30);
-            this.btnSaveStringtableXmls.Name = "btnSaveStringtableXmls";
-            this.btnSaveStringtableXmls.Size = new System.Drawing.Size(134, 23);
-            this.btnSaveStringtableXmls.TabIndex = 5;
-            this.btnSaveStringtableXmls.Text = "Save stringtable.xml files";
-            this.btnSaveStringtableXmls.UseVisualStyleBackColor = true;
-            this.btnSaveStringtableXmls.Click += new System.EventHandler(this.btnSaveStringtableXmls_Click);
-            // 
             // GridUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1190, 649);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GridUI";
             this.Text = "tabler - Arma 3 Translation Helper";
             this.Load += new System.EventHandler(this.GridUI_Load);
