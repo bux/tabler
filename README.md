@@ -11,4 +11,4 @@ Parse all the stringtable.xml files in every subfolder, edit them and then parse
 * Save all changes back to the stringtable.xml files
 
 
-*BIF Thread:* http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper
+**BIF Thread:** http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper
