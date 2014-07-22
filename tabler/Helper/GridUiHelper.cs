@@ -116,8 +116,10 @@ namespace tabler
 
             gridView.EditMode = DataGridViewEditMode.EditOnKeystroke;
 
+
             gridView.CellValueChanged += gridView_CellValueChanged;
             gridView.CellBeginEdit += gridView_CellBeginEdit;
+            gridView.KeyUp += gridView_KeyUp;
 
             foreach (string header in tc.Headers)
             {
@@ -183,6 +185,24 @@ namespace tabler
             return gridView;
         }
 
+        void gridView_KeyUp(object sender, KeyEventArgs e)
+        {
+
+
+            var activeCells = ((DataGridView) sender).SelectedCells;
+
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                foreach (DataGridViewCell activeCell in activeCells)
+                {
+                    activeCell.Value = "";
+                }
+                ((DataGridView)sender).BeginEdit(false);
+            }
+
+        }
+
+
         private string _editedCellValue;
 
         void gridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
@@ -214,7 +234,7 @@ namespace tabler
 
             if (cell.Value.ToString() != _editedCellValue)
             {
-                cell.Style.BackColor = Color.LightSalmon;
+                cell.Style.BackColor = Color.LightGreen;
             }
         }
 
