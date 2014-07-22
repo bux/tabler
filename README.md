@@ -9,3 +9,6 @@ Parse all the stringtable.xml files in every subfolder, edit them and then parse
 * Open all stringtable.xml files in one UI
 * Add keys or edit translations in an Excel-like grid view
 * Save all changes back to the stringtable.xml files
+
+
+*BIF Thread:* http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper
