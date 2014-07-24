@@ -9,6 +9,10 @@ namespace tabler
 {
     public class XmlHelper
     {
+        private const string KEY_NAME = "Key";
+        private const string ID_NAME = "ID";
+        private const string PACKAGE_NAME = "Package";
+
         public TranslationComponents ParseXmlFiles(List<FileInfo> allStringTablePaths)
         {
             var lstXDocuments = new List<XDocument>();
@@ -29,14 +33,14 @@ namespace tabler
                 XDocument xdoc = XDocument.Load(currentFile.FullName);
                 lstXDocuments.Add(xdoc);
 
-                IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == "Key");
+                IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
 
                 var dicKeyWithTranslations = new Dictionary<string, Dictionary<string, string>>();
 
                 // all keys
                 foreach (XElement key in keys)
                 {
-                    string currentKeyId = key.Attribute("ID").Value;
+                    string currentKeyId = key.Attribute(ID_NAME).Value;
 
                     var dicTranslations = new Dictionary<string, string>();
 
@@ -98,6 +102,23 @@ namespace tabler
                     }
                 }
 
+
+                // Now check if someone deleted a row
+                IEnumerable<XElement> keysInXml = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
+                foreach (var currentKeyElement in keysInXml.ToList())
+                {
+                    string currentKeyId = currentKeyElement.Attribute(ID_NAME).Value;
+                    if (foundModInfo.Values.Keys.Contains(currentKeyId))
+                    {
+                        var a = true;
+                    }
+                    else
+                    {
+                        currentKeyElement.Remove();
+                        changed = true;
+                    }
+                }
+
                 if (changed)
                 {
 
@@ -134,7 +155,18 @@ namespace tabler
             bool changed = false;
 
             //get keys
-            List<XElement> keys = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == "key" select xel).ToList();
+            List<XElement> keys = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == KEY_NAME.ToLowerInvariant() select xel).ToList();
+
+            XElement parent;
+
+            if (keys.Any())
+            {
+                parent = keys.FirstOrDefault().Parent;
+            }
+            else
+            {
+                parent = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == PACKAGE_NAME.ToLowerInvariant() select xel).FirstOrDefault();
+            }
 
             //get ids
             XElement xID = (from xel in keys where xel.Attributes().Any(x => x.Value.ToString().ToLowerInvariant() == id.ToLowerInvariant()) select xel).FirstOrDefault();
@@ -147,11 +179,10 @@ namespace tabler
             {
                 //new create
                 //Too tired to make that in 1 single block :D
-                var xelKeyNew = new XElement("Key");
-                xelKeyNew.Add(new XAttribute("ID", id));
-                //todo: if added first, problem here
+                var xelKeyNew = new XElement(KEY_NAME);
+                xelKeyNew.Add(new XAttribute(ID_NAME, id));
 
-                keys.FirstOrDefault().Parent.Add(xelKeyNew);
+                parent.Add(xelKeyNew);
                 xID = xelKeyNew;
             }
 

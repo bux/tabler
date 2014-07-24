@@ -17,7 +17,8 @@ namespace tabler
 
         public List<CellEditHistory> EditHistory = new List<CellEditHistory>();
         private string _editedCellValue;
-
+        private bool _ignoreForHistory;
+        private bool _rowDeleted = false;
 
         public GridUiHelper(GridUI gridUi)
         {
@@ -125,6 +126,7 @@ namespace tabler
             gridView.CellBeginEdit += gridView_CellBeginEdit;
             gridView.KeyUp += gridView_KeyUp;
             gridView.KeyDown += gridView_KeyDown;
+            gridView.UserDeletedRow += gridView_UserDeletedRow;
 
             foreach (string header in tc.Headers)
             {
@@ -191,7 +193,12 @@ namespace tabler
             return gridView;
         }
 
-        void gridView_KeyDown(object sender, KeyEventArgs e)
+        void gridView_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            _rowDeleted = true;
+        }
+
+        private void gridView_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
             {
@@ -201,10 +208,17 @@ namespace tabler
         }
 
 
+
         private void gridView_KeyUp(object sender, KeyEventArgs e)
         {
             var grid = ((DataGridView) sender);
             DataGridViewSelectedCellCollection activeCells = grid.SelectedCells;
+
+            if (_rowDeleted)
+            {
+                _rowDeleted = false;
+                return;
+            }
 
             if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
@@ -212,16 +226,20 @@ namespace tabler
                 {
                     //_editedCellValue = activeCell.Value.ToString();
 
-                    var oldValue = activeCell.Value.ToString();
-                    var oldColor = activeCell.Style.BackColor;
+                    if (activeCell == null)
+                    {
+                        return;
+                    }
+
+                    string oldValue = activeCell.Value.ToString();
+                    Color oldColor = activeCell.Style.BackColor;
 
                     _ignoreForHistory = true;
 
                     activeCell.Value = "";
-                   // gridView_CellValueChanged(sender, new DataGridViewCellEventArgs(activeCell.ColumnIndex, activeCell.RowIndex));
+                    // gridView_CellValueChanged(sender, new DataGridViewCellEventArgs(activeCell.ColumnIndex, activeCell.RowIndex));
 
                     AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, activeCell, oldValue, activeCell.Value.ToString(), oldColor);
-                    
                 }
                 ((DataGridView) sender).BeginEdit(false);
             }
@@ -281,7 +299,8 @@ namespace tabler
 
             EditHistory.Add(new CellEditHistory {
                 Mod = currentMod,
-                Cell = cell,
+                CellColumnIndex = cell.ColumnIndex,
+                CellRowIndex = cell.RowIndex,
                 OldValue = oldValue,
                 NewValue = newValue,
                 ModifiedDate = DateTime.Now,
@@ -289,9 +308,7 @@ namespace tabler
             });
         }
 
-        private bool _ignoreForHistory = false;
 
-        
         public void Undo()
         {
             if (EditHistory.Any() == false)
@@ -301,20 +318,28 @@ namespace tabler
 
             _ignoreForHistory = true;
 
-            var lastEdit = EditHistory.Last();
+            CellEditHistory lastEdit = EditHistory.Last();
 
-            var tabPage = _gridUi.tabControl1.TabPages[lastEdit.Mod];
+            TabPage tabPage = _gridUi.tabControl1.TabPages[lastEdit.Mod];
             _gridUi.tabControl1.SelectTab(tabPage);
 
             // it has to be there
-            //var grid = (DataGridView)tabPage.Controls[0];
+            var grid = (DataGridView) tabPage.Controls[0];
 
-//            var cell = 
-            var currentColor = lastEdit.Cell.Style.BackColor;
-            lastEdit.Cell.Value = lastEdit.OldValue;
-            lastEdit.Cell.Style.BackColor = lastEdit.OldBackColor;
+            DataGridViewCell cell = grid.Rows[lastEdit.CellRowIndex].Cells[lastEdit.CellColumnIndex];
 
-            //AddNewEditHistory(lastEdit.Mod, lastEdit.Cell, lastEdit.NewValue, lastEdit.OldValue, currentColor);
+            if (cell == null)
+            {
+                // cell has been deleted -> probably the whole row or column (not yet)
+            }
+            else
+            {
+                cell.Value = lastEdit.OldValue;
+                cell.Style.BackColor = lastEdit.OldBackColor;
+            }
+
+            //TODO
+
 
             EditHistory.Remove(lastEdit);
         }
