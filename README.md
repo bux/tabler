@@ -7,7 +7,7 @@ Parse all the stringtable.xml files in every subfolder, edit them and then parse
 
 ### Features
 * Open all stringtable.xml files in one UI
-* Add keys or edit translations in an Excel-like grid view
+* Add keys, languages and edit translations in an Excel-like grid view
 * Save all changes back to the stringtable.xml files
 
 
