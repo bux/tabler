@@ -70,6 +70,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddLanguage.Designer.cs">
+      <DependentUpon>AddLanguage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Classes\CellEditHistory.cs" />
     <Compile Include="Classes\ModInfoContainer.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
@@ -88,6 +94,9 @@
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddLanguage.resx">
+      <DependentUpon>AddLanguage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GridUI.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>

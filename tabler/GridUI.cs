@@ -10,19 +10,22 @@ namespace tabler
     {
         public readonly ConfigHelper ConfigHelper;
         private GridUiHelper _gridUiHelper;
+        private TranslationManager _tm;
 
         public GridUI()
         {
             InitializeComponent();
             ConfigHelper = new ConfigHelper();
+            _tm = new TranslationManager();
         }
 
+        #region " Events "
 
-        private void btnBrowseModFolder_Click(object sender, EventArgs e)
+        private void openModFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string curPath = "";
 
-            var lastPath = ConfigHelper.GetLastPathOfDataFiles();
+            DirectoryInfo lastPath = ConfigHelper.GetLastPathOfDataFiles();
 
             if (lastPath != null)
             {
@@ -39,58 +42,55 @@ namespace tabler
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 m_tbModFolder.Text = folderBrowserDialog1.SelectedPath;
-                btnLoadStringtablexmls.Enabled = true;
+
+                saveToolStripMenuItem.Enabled = true;
+                addLanguageToolStripMenuItem.Enabled = true;
+
                 ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
+
+                // start the process
+                TranslationComponents tc = _tm.GetGridData(ConfigHelper.GetLastPathOfDataFiles());
+
+                _gridUiHelper = new GridUiHelper(this);
+                _gridUiHelper.ShowData(tc);
+
+                openModFolderToolStripMenuItem.Enabled = false;
             }
         }
 
 
-        private void GridUI_Load(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DirectoryInfo lastPathToDataFiles = ConfigHelper.GetLastPathOfDataFiles();
+            List<ModInfoContainer> lstModInfos = _gridUiHelper.ParseAllTables();
 
-            if (lastPathToDataFiles != null)
-            {
-                m_tbModFolder.Text = lastPathToDataFiles.FullName;
-                btnLoadStringtablexmls.Enabled = true;
-            }
-        }
-
-        private void btnLoadStringtablexmls_Click(object sender, EventArgs e)
-        {
-            var tm = new TranslationManager();
-            TranslationComponents tc = tm.GetGridData(ConfigHelper.GetLastPathOfDataFiles());
-
-            _gridUiHelper = new GridUiHelper(this);
-            _gridUiHelper.ShowData(tc);
-
-            btnLoadStringtablexmls.Enabled = false;
-            btnSaveStringtableXmls.Enabled = true;
-
+            _tm.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
         }
 
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            var tabControl = (TabControl)sender;
+            var tabControl = (TabControl) sender;
 
-            var tabPage = tabControl.SelectedTab;
+            TabPage tabPage = tabControl.SelectedTab;
 
-            foreach (var pb in tabPage.Controls.OfType<DataGridView>())
+            foreach (DataGridView pb in tabPage.Controls.OfType<DataGridView>())
             {
                 pb.Focus();
                 pb.Select();
             }
         }
 
-        private void btnSaveStringtableXmls_Click(object sender, EventArgs e)
+        private void addLanguageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<ModInfoContainer> lstModInfos = _gridUiHelper.ParseAllTables();
-
-            var tm = new TranslationManager();
-            tm.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+            var frmAddLanguage = new AddLanguage(this);
+            frmAddLanguage.ShowDialog(this);
         }
 
+        #endregion
 
+        public void HandleAddLanguage(string newLanguage)
+        {
+            _gridUiHelper.AddLanguage(newLanguage);
+        }
     }
 }

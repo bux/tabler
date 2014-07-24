@@ -18,7 +18,8 @@ namespace tabler
         public List<CellEditHistory> EditHistory = new List<CellEditHistory>();
         private string _editedCellValue;
         private bool _ignoreForHistory;
-        private bool _rowDeleted = false;
+        private bool _rowDeleted;
+        private TranslationComponents _tc;
 
         public GridUiHelper(GridUI gridUi)
         {
@@ -27,6 +28,7 @@ namespace tabler
 
         public void ShowData(TranslationComponents tc)
         {
+            _tc = tc;
             PrepareTabControl(tc);
         }
 
@@ -132,7 +134,6 @@ namespace tabler
             {
                 var dgvc = new DataGridViewTextBoxColumn();
                 dgvc.HeaderText = header;
-                dgvc.DataPropertyName = "Value";
 
                 if (header != TranslationManager.COLUMN_IDNAME)
                 {
@@ -193,102 +194,6 @@ namespace tabler
             return gridView;
         }
 
-        void gridView_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            _rowDeleted = true;
-        }
-
-        private void gridView_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
-            {
-                // Ctrl + Z
-                Undo();
-            }
-        }
-
-
-
-        private void gridView_KeyUp(object sender, KeyEventArgs e)
-        {
-            var grid = ((DataGridView) sender);
-            DataGridViewSelectedCellCollection activeCells = grid.SelectedCells;
-
-            if (_rowDeleted)
-            {
-                _rowDeleted = false;
-                return;
-            }
-
-            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
-            {
-                foreach (DataGridViewCell activeCell in activeCells)
-                {
-                    //_editedCellValue = activeCell.Value.ToString();
-
-                    if (activeCell == null)
-                    {
-                        return;
-                    }
-
-                    string oldValue = activeCell.Value.ToString();
-                    Color oldColor = activeCell.Style.BackColor;
-
-                    _ignoreForHistory = true;
-
-                    activeCell.Value = "";
-                    // gridView_CellValueChanged(sender, new DataGridViewCellEventArgs(activeCell.ColumnIndex, activeCell.RowIndex));
-
-                    AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, activeCell, oldValue, activeCell.Value.ToString(), oldColor);
-                }
-                ((DataGridView) sender).BeginEdit(false);
-            }
-        }
-
-
-        private void gridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
-        {
-            DataGridViewCell cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
-            if (cell.Value == null)
-            {
-                _editedCellValue = string.Empty;
-            }
-            else
-            {
-                _editedCellValue = cell.Value.ToString();
-            }
-        }
-
-
-        private void gridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewCell cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            if (cell.Value == null)
-            {
-                cell.Value = "";
-            }
-
-            if (_ignoreForHistory != true)
-            {
-                AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, cell, _editedCellValue, cell.Value.ToString(), cell.Style.BackColor);
-            }
-            else
-            {
-                _ignoreForHistory = false;
-            }
-
-            if (cell.Value.ToString() != _editedCellValue && cell.Value.ToString() != "")
-            {
-                cell.Style.BackColor = Color.FromKnownColor(COLOR_EDITEDCELL);
-            }
-
-            if (cell.Value.ToString() == "")
-            {
-                cell.Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
-            }
-        }
-
         private void AddNewEditHistory(string currentMod, DataGridViewCell cell, string oldValue, string newValue, Color oldBackColor)
         {
             if (EditHistory.Count >= HISTORY_COUNT)
@@ -342,6 +247,122 @@ namespace tabler
 
 
             EditHistory.Remove(lastEdit);
+        }
+
+        #region " Events "
+
+        private void gridView_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            _rowDeleted = true;
+        }
+
+        private void gridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
+            {
+                // Ctrl + Z
+                Undo();
+            }
+        }
+
+        private void gridView_KeyUp(object sender, KeyEventArgs e)
+        {
+            var grid = ((DataGridView) sender);
+            DataGridViewSelectedCellCollection activeCells = grid.SelectedCells;
+
+            if (_rowDeleted)
+            {
+                _rowDeleted = false;
+                return;
+            }
+
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
+            {
+                foreach (DataGridViewCell activeCell in activeCells)
+                {
+                    //_editedCellValue = activeCell.Value.ToString();
+
+                    if (activeCell == null)
+                    {
+                        return;
+                    }
+
+                    string oldValue = activeCell.Value.ToString();
+                    Color oldColor = activeCell.Style.BackColor;
+
+                    _ignoreForHistory = true;
+
+                    activeCell.Value = "";
+                    // gridView_CellValueChanged(sender, new DataGridViewCellEventArgs(activeCell.ColumnIndex, activeCell.RowIndex));
+
+                    AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, activeCell, oldValue, activeCell.Value.ToString(), oldColor);
+                }
+                ((DataGridView) sender).BeginEdit(false);
+            }
+        }
+
+        private void gridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            DataGridViewCell cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (cell.Value == null)
+            {
+                _editedCellValue = string.Empty;
+            }
+            else
+            {
+                _editedCellValue = cell.Value.ToString();
+            }
+        }
+
+        private void gridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridViewCell cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            if (cell.Value == null)
+            {
+                cell.Value = "";
+            }
+
+            if (_ignoreForHistory != true)
+            {
+                AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, cell, _editedCellValue, cell.Value.ToString(), cell.Style.BackColor);
+            }
+            else
+            {
+                _ignoreForHistory = false;
+            }
+
+            if (cell.Value.ToString() != _editedCellValue && cell.Value.ToString() != "")
+            {
+                cell.Style.BackColor = Color.FromKnownColor(COLOR_EDITEDCELL);
+            }
+
+            if (cell.Value.ToString() == "")
+            {
+                cell.Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
+            }
+        }
+
+        #endregion
+
+        public void AddLanguage(string newLanguage)
+        {
+            if (_tc.Headers.Any(l => l.ToLowerInvariant() == newLanguage.ToLowerInvariant()))
+            {
+                return;
+            }
+
+            foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
+            {
+                var grid = (DataGridView)tabPage.Controls[0];
+
+                var dgvc = new DataGridViewTextBoxColumn();
+                dgvc.HeaderText = newLanguage;
+                dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                grid.Columns.Add(dgvc);
+            }
+            _tc.Headers.Add(newLanguage);
         }
     }
 }
