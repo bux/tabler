@@ -127,6 +127,7 @@
             this.Name = "GridUI";
             this.Text = "tabler - Arma 3 Translation Helper";
             this.Load += new System.EventHandler(this.GridUI_Load);
+          
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

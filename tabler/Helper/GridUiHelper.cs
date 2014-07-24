@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -8,7 +8,16 @@ namespace tabler
 {
     public class GridUiHelper
     {
+        private const KnownColor COLOR_EMPTYCELL = KnownColor.Lavender;
+        private const KnownColor COLOR_EDITEDCELL = KnownColor.LightGreen;
+        private const KnownColor COLOR_BASELANGUAGE = KnownColor.LightYellow;
+        private const int HISTORY_COUNT = 99;
+
         private readonly GridUI _gridUi;
+
+        public List<CellEditHistory> EditHistory = new List<CellEditHistory>();
+        private string _editedCellValue;
+
 
         public GridUiHelper(GridUI gridUi)
         {
@@ -23,13 +32,12 @@ namespace tabler
 
         public List<ModInfoContainer> ParseAllTables()
         {
-
             var allModInfo = new List<ModInfoContainer>();
 
             // iterating through the modules
             foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
             {
-                var currentModuleName = tabPage.Text;
+                string currentModuleName = tabPage.Text;
 
                 // it has to be there
                 var gridView = (DataGridView) tabPage.Controls[0];
@@ -41,7 +49,6 @@ namespace tabler
                 // iterating through the keys
                 foreach (DataGridViewRow row in gridView.Rows)
                 {
-
                     string keyName = string.Empty;
                     var dicTranslations = new Dictionary<string, string>();
 
@@ -80,7 +87,6 @@ namespace tabler
                 modInfo.Values = translationsWithKeys;
                 modInfo.Name = currentModuleName;
 
-                //modInfo.FileInfoStringTable = GetFileInfoForStringtableWithName(currentModuleName);
 
                 allModInfo.Add(modInfo);
             }
@@ -88,17 +94,14 @@ namespace tabler
             return allModInfo;
         }
 
-        private FileInfo GetFileInfoForStringtableWithName(string currentModuleName)
-        {
-            return FileSystemHelper.GetFilesByNameInDirectory(_gridUi.ConfigHelper.GetLastPathOfDataFiles(), Path.Combine(currentModuleName , TranslationManager.STRINGTABLE_NAME), SearchOption.AllDirectories).FirstOrDefault();
-        }
-
 
         private void PrepareTabControl(TranslationComponents tc)
         {
             foreach (ModInfoContainer modInfoContainer in tc.AllModInfo)
             {
-                _gridUi.tabControl1.TabPages.Add(modInfoContainer.Name);
+                var tabPage = new TabPage(modInfoContainer.Name);
+                tabPage.Name = modInfoContainer.Name;
+                _gridUi.tabControl1.TabPages.Add(tabPage);
             }
 
             foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
@@ -108,6 +111,7 @@ namespace tabler
                 tabPage.Controls.Add(gridView);
             }
         }
+
 
         private DataGridView CreateGridViewAndFillWithData(TranslationComponents tc, string currentModule)
         {
@@ -120,6 +124,7 @@ namespace tabler
             gridView.CellValueChanged += gridView_CellValueChanged;
             gridView.CellBeginEdit += gridView_CellBeginEdit;
             gridView.KeyUp += gridView_KeyUp;
+            gridView.KeyDown += gridView_KeyDown;
 
             foreach (string header in tc.Headers)
             {
@@ -135,7 +140,7 @@ namespace tabler
                 gridView.Columns.Add(dgvc);
             }
 
-            ModInfoContainer modInfoContainer = tc.AllModInfo.Where(mi => mi.Name == currentModule).FirstOrDefault();
+            ModInfoContainer modInfoContainer = tc.AllModInfo.FirstOrDefault(mi => mi.Name == currentModule);
 
             if (modInfoContainer != null)
             {
@@ -145,7 +150,7 @@ namespace tabler
                     row.CreateCells(gridView);
 
                     int index = 1;
-                    //row.Cells[0].Value = currentModule;
+
                     row.Cells[0].Value = translationsWithKey.Key;
 
 
@@ -158,12 +163,12 @@ namespace tabler
 
                         if (header == "English")
                         {
-                            row.Cells[index].Style.BackColor = Color.LightYellow;
+                            row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_BASELANGUAGE);
                         }
 
                         if (!translationsWithKey.Value.ContainsKey(header))
                         {
-                            row.Cells[index].Style.BackColor = Color.Lavender;
+                            row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
                         }
                         else
                         {
@@ -182,63 +187,136 @@ namespace tabler
 
             gridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+
             return gridView;
         }
 
-        void gridView_KeyUp(object sender, KeyEventArgs e)
+        void gridView_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
+            {
+                // Ctrl + Z
+                Undo();
+            }
+        }
 
 
-            var activeCells = ((DataGridView) sender).SelectedCells;
+        private void gridView_KeyUp(object sender, KeyEventArgs e)
+        {
+            var grid = ((DataGridView) sender);
+            DataGridViewSelectedCellCollection activeCells = grid.SelectedCells;
 
             if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back)
             {
                 foreach (DataGridViewCell activeCell in activeCells)
                 {
-                    activeCell.Value = "";
-                }
-                ((DataGridView)sender).BeginEdit(false);
-            }
+                    //_editedCellValue = activeCell.Value.ToString();
 
+                    var oldValue = activeCell.Value.ToString();
+                    var oldColor = activeCell.Style.BackColor;
+
+                    _ignoreForHistory = true;
+
+                    activeCell.Value = "";
+                   // gridView_CellValueChanged(sender, new DataGridViewCellEventArgs(activeCell.ColumnIndex, activeCell.RowIndex));
+
+                    AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, activeCell, oldValue, activeCell.Value.ToString(), oldColor);
+                    
+                }
+                ((DataGridView) sender).BeginEdit(false);
+            }
         }
 
 
-        private string _editedCellValue;
-
-        void gridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        private void gridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            var cell = ((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+            DataGridViewCell cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
             if (cell.Value == null)
             {
                 _editedCellValue = string.Empty;
             }
             else
             {
-                _editedCellValue = cell.Value.ToString();    
+                _editedCellValue = cell.Value.ToString();
             }
-            
         }
 
 
-
-
-        void gridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void gridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            var cell = ((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+            DataGridViewCell cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
 
             if (cell.Value == null)
             {
-                cell.Style.BackColor = Color.Lavender;
-                return;
+                cell.Value = "";
             }
 
-            if (cell.Value.ToString() != _editedCellValue)
+            if (_ignoreForHistory != true)
             {
-                cell.Style.BackColor = Color.LightGreen;
+                AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, cell, _editedCellValue, cell.Value.ToString(), cell.Style.BackColor);
+            }
+            else
+            {
+                _ignoreForHistory = false;
+            }
+
+            if (cell.Value.ToString() != _editedCellValue && cell.Value.ToString() != "")
+            {
+                cell.Style.BackColor = Color.FromKnownColor(COLOR_EDITEDCELL);
+            }
+
+            if (cell.Value.ToString() == "")
+            {
+                cell.Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
             }
         }
 
+        private void AddNewEditHistory(string currentMod, DataGridViewCell cell, string oldValue, string newValue, Color oldBackColor)
+        {
+            if (EditHistory.Count >= HISTORY_COUNT)
+            {
+                EditHistory = EditHistory.OrderBy(ceh => ceh.ModifiedDate).ToList();
+                EditHistory.RemoveAt(0);
+            }
+
+            EditHistory.Add(new CellEditHistory {
+                Mod = currentMod,
+                Cell = cell,
+                OldValue = oldValue,
+                NewValue = newValue,
+                ModifiedDate = DateTime.Now,
+                OldBackColor = oldBackColor
+            });
+        }
+
+        private bool _ignoreForHistory = false;
 
         
+        public void Undo()
+        {
+            if (EditHistory.Any() == false)
+            {
+                return;
+            }
+
+            _ignoreForHistory = true;
+
+            var lastEdit = EditHistory.Last();
+
+            var tabPage = _gridUi.tabControl1.TabPages[lastEdit.Mod];
+            _gridUi.tabControl1.SelectTab(tabPage);
+
+            // it has to be there
+            //var grid = (DataGridView)tabPage.Controls[0];
+
+//            var cell = 
+            var currentColor = lastEdit.Cell.Style.BackColor;
+            lastEdit.Cell.Value = lastEdit.OldValue;
+            lastEdit.Cell.Style.BackColor = lastEdit.OldBackColor;
+
+            //AddNewEditHistory(lastEdit.Mod, lastEdit.Cell, lastEdit.NewValue, lastEdit.OldValue, currentColor);
+
+            EditHistory.Remove(lastEdit);
+        }
     }
 }

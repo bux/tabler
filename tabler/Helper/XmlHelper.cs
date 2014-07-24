@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace tabler
@@ -98,6 +100,22 @@ namespace tabler
 
                 if (changed)
                 {
+
+                    var comment = (from node in xdoc.Nodes()
+                                  where node.NodeType == XmlNodeType.Comment
+                                  select node as XComment).FirstOrDefault();
+
+                    var commentText = String.Format(" Edited with tabler - {0} ", DateTime.Now.ToShortDateString());
+
+                    if (comment == null)
+                    {
+                        xdoc.AddFirst(new XComment(commentText));
+                    }
+                    else
+                    {
+                        comment.Value = commentText;
+                    }
+                    
                     xdoc.Save(currentFileInfo.FullName);
                 }
             }

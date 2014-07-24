@@ -9,6 +9,7 @@ namespace tabler
     public partial class GridUI : Form
     {
         public readonly ConfigHelper ConfigHelper;
+        private GridUiHelper _gridUiHelper;
 
         public GridUI()
         {
@@ -60,8 +61,8 @@ namespace tabler
             var tm = new TranslationManager();
             TranslationComponents tc = tm.GetGridData(ConfigHelper.GetLastPathOfDataFiles());
 
-            var guiH = new GridUiHelper(this);
-            guiH.ShowData(tc);
+            _gridUiHelper = new GridUiHelper(this);
+            _gridUiHelper.ShowData(tc);
 
             btnLoadStringtablexmls.Enabled = false;
             btnSaveStringtableXmls.Enabled = true;
@@ -84,8 +85,7 @@ namespace tabler
 
         private void btnSaveStringtableXmls_Click(object sender, EventArgs e)
         {
-            var gh = new GridUiHelper(this);
-            List<ModInfoContainer> lstModInfos = gh.ParseAllTables();
+            List<ModInfoContainer> lstModInfos = _gridUiHelper.ParseAllTables();
 
             var tm = new TranslationManager();
             tm.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
