@@ -10,6 +10,5 @@ namespace tabler
 
         public string Name { get; set; }
         public FileInfo FileInfoStringTable { get; set; }
-
     }
 }

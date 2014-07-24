@@ -5,7 +5,7 @@ namespace tabler
 {
     public partial class AddLanguage : Form
     {
-        private GridUI _myParent;
+        private readonly GridUI _myParent;
 
         public AddLanguage(GridUI parent)
         {

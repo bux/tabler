@@ -83,7 +83,7 @@ namespace tabler
         //        {
         //            return currentColumn;
         //        }
-                
+
         //    }
 
         //    return -1;

@@ -15,7 +15,6 @@ namespace tabler
 
         public TranslationManager()
         {
-            
         }
 
         public TranslationManager(FileInfo fiExcelFile)
@@ -37,9 +36,9 @@ namespace tabler
             headers.Insert(0, COLUMN_IDNAME);
             if (insertMod)
             {
-                headers.Insert(0, COLUMN_MODNAME);    
+                headers.Insert(0, COLUMN_MODNAME);
             }
-            
+
 
             //remove duplicates
             headers = headers.Distinct().ToList();
@@ -50,7 +49,7 @@ namespace tabler
 
         public void ConvertXmlToExcel(DirectoryInfo lastPathToDataFiles, bool insertMod)
         {
-            var transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
+            TranslationComponents transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
 
             var eh = new ExcelHelper();
             ExcelPackage pck = eh.CreateExcelDoc(_fiExcelFile);
@@ -112,6 +111,5 @@ namespace tabler
         {
             SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
         }
-
     }
 }

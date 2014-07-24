@@ -5,7 +5,6 @@ namespace tabler
 {
     public class CellEditHistory
     {
-        
         public int CellColumnIndex { get; set; }
 
         public int CellRowIndex { get; set; }

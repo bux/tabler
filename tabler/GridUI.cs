@@ -9,8 +9,8 @@ namespace tabler
     public partial class GridUI : Form
     {
         public readonly ConfigHelper ConfigHelper;
+        private readonly TranslationManager _tm;
         private GridUiHelper _gridUiHelper;
-        private TranslationManager _tm;
 
         public GridUI()
         {
@@ -99,14 +99,13 @@ namespace tabler
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
             if (_gridUiHelper == null)
             {
                 Close();
                 return;
             }
 
-            var canClose = _gridUiHelper.CanClose();
+            bool canClose = _gridUiHelper.CanClose();
             if (canClose)
             {
                 Close();
@@ -118,7 +117,6 @@ namespace tabler
                     Close();
                 }
             }
-            
         }
     }
 }

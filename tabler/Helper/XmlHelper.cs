@@ -105,12 +105,12 @@ namespace tabler
 
                 // Now check if someone deleted a row
                 IEnumerable<XElement> keysInXml = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
-                foreach (var currentKeyElement in keysInXml.ToList())
+                foreach (XElement currentKeyElement in keysInXml.ToList())
                 {
                     string currentKeyId = currentKeyElement.Attribute(ID_NAME).Value;
                     if (foundModInfo.Values.Keys.Contains(currentKeyId))
                     {
-                        var a = true;
+                        bool a = true;
                     }
                     else
                     {
@@ -121,12 +121,9 @@ namespace tabler
 
                 if (changed)
                 {
+                    XComment comment = (from node in xdoc.Nodes() where node.NodeType == XmlNodeType.Comment select node as XComment).FirstOrDefault();
 
-                    var comment = (from node in xdoc.Nodes()
-                                  where node.NodeType == XmlNodeType.Comment
-                                  select node as XComment).FirstOrDefault();
-
-                    var commentText = String.Format(" Edited with tabler - {0} ", DateTime.Now.ToShortDateString());
+                    string commentText = String.Format(" Edited with tabler - {0} ", DateTime.Now.ToShortDateString());
 
                     if (comment == null)
                     {
@@ -136,7 +133,7 @@ namespace tabler
                     {
                         comment.Value = commentText;
                     }
-                    
+
                     xdoc.Save(currentFileInfo.FullName);
                 }
             }
@@ -195,14 +192,13 @@ namespace tabler
                 //exist -> update (or delete)
                 if (xLanguage.Value != value)
                 {
-
                     if (string.IsNullOrEmpty(value))
                     {
                         xLanguage.Remove();
                     }
                     else
                     {
-                        xLanguage.Value = value;    
+                        xLanguage.Value = value;
                     }
 
                     changed = true;

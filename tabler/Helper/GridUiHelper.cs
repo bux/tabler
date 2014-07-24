@@ -249,6 +249,31 @@ namespace tabler
             EditHistory.Remove(lastEdit);
         }
 
+        public void AddLanguage(string newLanguage)
+        {
+            if (_tc.Headers.Any(l => l.ToLowerInvariant() == newLanguage.ToLowerInvariant()))
+            {
+                return;
+            }
+
+            foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
+            {
+                var grid = (DataGridView) tabPage.Controls[0];
+
+                var dgvc = new DataGridViewTextBoxColumn();
+                dgvc.HeaderText = newLanguage;
+                dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                grid.Columns.Add(dgvc);
+            }
+            _tc.Headers.Add(newLanguage);
+        }
+
+        public bool CanClose()
+        {
+            return !EditHistory.Any();
+        }
+
         #region " Events "
 
         private void gridView_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
@@ -344,30 +369,5 @@ namespace tabler
         }
 
         #endregion
-
-        public void AddLanguage(string newLanguage)
-        {
-            if (_tc.Headers.Any(l => l.ToLowerInvariant() == newLanguage.ToLowerInvariant()))
-            {
-                return;
-            }
-
-            foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
-            {
-                var grid = (DataGridView)tabPage.Controls[0];
-
-                var dgvc = new DataGridViewTextBoxColumn();
-                dgvc.HeaderText = newLanguage;
-                dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
-
-                grid.Columns.Add(dgvc);
-            }
-            _tc.Headers.Add(newLanguage);
-        }
-
-        public bool CanClose()
-        {
-            return !EditHistory.Any();
-        }
     }
 }
