@@ -66,6 +66,11 @@ namespace tabler
         {
             List<FileInfo> allStringtableFiles = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories).ToList();
 
+            if (allStringtableFiles.Any() == false)
+            {
+                return null;
+            }
+
             var xh = new XmlHelper();
             TranslationComponents transComp = xh.ParseXmlFiles(allStringtableFiles);
 

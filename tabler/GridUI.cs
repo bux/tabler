@@ -43,18 +43,22 @@ namespace tabler
             {
                 m_tbModFolder.Text = folderBrowserDialog1.SelectedPath;
 
-                saveToolStripMenuItem.Enabled = true;
-                addLanguageToolStripMenuItem.Enabled = true;
-
-                ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
-
                 // start the process
-                TranslationComponents tc = _tm.GetGridData(ConfigHelper.GetLastPathOfDataFiles());
+                TranslationComponents tc = _tm.GetGridData(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
+
+                if (tc == null)
+                {
+                    MessageBox.Show("No 'stringtable.xml' files found.");
+                    return;
+                }
 
                 _gridUiHelper = new GridUiHelper(this);
                 _gridUiHelper.ShowData(tc);
 
                 openModFolderToolStripMenuItem.Enabled = false;
+                saveToolStripMenuItem.Enabled = true;
+                addLanguageToolStripMenuItem.Enabled = true;
+                ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
             }
         }
 
@@ -91,6 +95,30 @@ namespace tabler
         public void HandleAddLanguage(string newLanguage)
         {
             _gridUiHelper.AddLanguage(newLanguage);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (_gridUiHelper == null)
+            {
+                Close();
+                return;
+            }
+
+            var canClose = _gridUiHelper.CanClose();
+            if (canClose)
+            {
+                Close();
+            }
+            else
+            {
+                if (MessageBox.Show("Discard all changes?", "Exit?", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    Close();
+                }
+            }
+            
         }
     }
 }

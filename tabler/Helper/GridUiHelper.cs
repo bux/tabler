@@ -364,5 +364,10 @@ namespace tabler
             }
             _tc.Headers.Add(newLanguage);
         }
+
+        public bool CanClose()
+        {
+            return !EditHistory.Any();
+        }
     }
 }
