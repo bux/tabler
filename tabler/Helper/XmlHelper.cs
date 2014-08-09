@@ -123,7 +123,7 @@ namespace tabler
                 {
                     XComment comment = (from node in xdoc.Nodes() where node.NodeType == XmlNodeType.Comment select node as XComment).FirstOrDefault();
 
-                    string commentText = String.Format(" Edited with tabler - {0} ", DateTime.Now.ToShortDateString());
+                    string commentText = String.Format(" Edited with tabler - {0} ", DateTime.Now.ToString("yyyy-MM-dd"));
 
                     if (comment == null)
                     {
