@@ -147,6 +147,7 @@ namespace tabler
 
             if (modInfoContainer != null)
             {
+
                 foreach (var translationsWithKey in modInfoContainer.Values)
                 {
                     var row = new DataGridViewRow();
@@ -156,7 +157,7 @@ namespace tabler
 
                     row.Cells[0].Value = translationsWithKey.Key;
 
-
+                    
                     foreach (string header in tc.Headers)
                     {
                         if (header == TranslationManager.COLUMN_IDNAME || header == TranslationManager.COLUMN_MODNAME)
@@ -172,6 +173,7 @@ namespace tabler
                         if (!translationsWithKey.Value.ContainsKey(header))
                         {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
+                            AddMissingTranslationToStatistics(tc.Statistics, header, currentModule);
                         }
                         else
                         {
@@ -369,5 +371,38 @@ namespace tabler
         }
 
         #endregion
+
+
+
+
+        private void AddMissingTranslationToStatistics(List<LanguageStatistics> statistics, string language, string modName)
+        {
+
+            if (statistics.Any(ls => ls.LanguageName == language))
+            {
+                var languageStatistics = statistics.First(ls => ls.LanguageName == language);
+
+                if (languageStatistics.MissingModStrings.ContainsKey(modName))
+                {
+                    // increment
+                    languageStatistics.MissingModStrings[modName] = languageStatistics.MissingModStrings[modName] + 1;
+                }
+                else
+                {
+                    languageStatistics.MissingModStrings.Add(modName, 1);
+                }
+
+            }
+            else
+            {
+                var languageStatistics = new LanguageStatistics();
+                languageStatistics.LanguageName = language;
+                languageStatistics.MissingModStrings = new Dictionary<string, int>();
+                languageStatistics.MissingModStrings.Add(modName, 1);
+
+                statistics.Add(languageStatistics);
+            }
+
+        }
     }
 }

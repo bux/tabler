@@ -9,14 +9,14 @@ namespace tabler
     public partial class GridUI : Form
     {
         public readonly ConfigHelper ConfigHelper;
-        private readonly TranslationManager _tm;
+        public readonly TranslationManager TranslationManager;
         private GridUiHelper _gridUiHelper;
 
         public GridUI()
         {
             InitializeComponent();
             ConfigHelper = new ConfigHelper();
-            _tm = new TranslationManager();
+            TranslationManager = new TranslationManager();
         }
 
         #region " Events "
@@ -44,7 +44,7 @@ namespace tabler
                 m_tbModFolder.Text = folderBrowserDialog1.SelectedPath;
 
                 // start the process
-                TranslationComponents tc = _tm.GetGridData(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
+                TranslationComponents tc = TranslationManager.GetGridData(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
 
                 if (tc == null)
                 {
@@ -58,6 +58,8 @@ namespace tabler
                 openModFolderToolStripMenuItem.Enabled = false;
                 saveToolStripMenuItem.Enabled = true;
                 addLanguageToolStripMenuItem.Enabled = true;
+                statisticsToolStripMenuItem.Enabled = true;
+
                 ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
             }
         }
@@ -67,7 +69,7 @@ namespace tabler
         {
             List<ModInfoContainer> lstModInfos = _gridUiHelper.ParseAllTables();
 
-            _tm.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+            TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
         }
 
 
@@ -97,6 +99,13 @@ namespace tabler
             _gridUiHelper.AddLanguage(newLanguage);
         }
 
+
+        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var frmStatistics = new TranslationStatistics(this);
+            frmStatistics.ShowDialog(this);
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_gridUiHelper == null)
@@ -118,5 +127,6 @@ namespace tabler
                 }
             }
         }
+
     }
 }

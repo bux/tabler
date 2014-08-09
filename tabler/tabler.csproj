@@ -60,6 +60,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,6 +78,7 @@
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\CellEditHistory.cs" />
+    <Compile Include="Classes\LanguageStatistics.cs" />
     <Compile Include="Classes\ModInfoContainer.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
     <Compile Include="Classes\TranslationManager.cs" />
@@ -94,6 +96,12 @@
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Translation Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Translation Statistics.Designer.cs">
+      <DependentUpon>Translation Statistics.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AddLanguage.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </EmbeddedResource>
@@ -109,6 +117,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Translation Statistics.resx">
+      <DependentUpon>Translation Statistics.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

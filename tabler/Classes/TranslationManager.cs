@@ -12,6 +12,7 @@ namespace tabler
         public const string STRINGTABLE_NAME = "stringtable.xml";
 
         private readonly FileInfo _fiExcelFile;
+        public TranslationComponents TranslationComponents;
 
         public TranslationManager()
         {
@@ -75,7 +76,8 @@ namespace tabler
 
             transComp.Headers = PrepareHeaders(transComp.Headers, insertMod);
 
-            return transComp;
+            TranslationComponents = transComp;
+            return TranslationComponents;
         }
 
 
