@@ -85,7 +85,8 @@ namespace tabler
                 innterSb.AppendLine(String.Format("{0}{1}{2} missing stringtable entry/entries. ({3})", modInfoStatistics.LanguageName, spacer, missingTranslationCount.ToString().PadLeft(3), mods));
             }
 
-            outerSb.AppendLine(String.Format("Total number of missing keys: {0}", total));
+            outerSb.AppendLine(String.Format("Total number of keys: {0}", _myParent.TranslationManager.TranslationComponents.KeyCount));
+            outerSb.AppendLine(String.Format("Total number of missing translations: {0}", total));
             outerSb.AppendLine("");
             outerSb.Append(innterSb);
 

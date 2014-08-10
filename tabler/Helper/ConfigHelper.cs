@@ -12,9 +12,6 @@ namespace tabler
     {
         private const string LASTPATHTODATAFILES = "LastPathToDataFiles";
         private readonly FileInfo _fiConfig = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"config\config.xml"));
-        private Configuration _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-        private DirectoryInfo _lastPathToDataFiles;
         private XDocument _xDocConfig;
 
         public ConfigHelper()
@@ -39,15 +36,13 @@ namespace tabler
                 {
                     var path = new XElement(LASTPATHTODATAFILES);
 
-                    //XElement config = new XElement("config",
-                    //                               new XElement("lastSavePath",
-                    //                                            XmlConvert.EncodeLocalName(m_tbTargetLocation.Text)));
-
                     var lstElements = new List<XElement>();
-
                     lstElements.Add(path);
 
-                    _xDocConfig = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), new XComment("Config file"), new XElement("config", lstElements.ToArray()));
+                    _xDocConfig = new XDocument(
+                        new XDeclaration("1.0", "utf-8", "yes"), 
+                        new XComment("Config file"), 
+                        new XElement("config", lstElements.ToArray()));
 
                     _xDocConfig.Save(_fiConfig.FullName);
                     SaveConfigXML();

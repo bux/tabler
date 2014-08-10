@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace tabler
 {
@@ -20,6 +21,19 @@ namespace tabler
                 return m_statistics;
             }
             set { m_statistics = value; }
+        }
+
+        public int KeyCount
+        {
+            get
+            {
+                int count = 0;
+                if (AllModInfo != null)
+                {
+                    count = AllModInfo.Sum(mi => mi.Values.Count);
+                }
+                return count;
+            }
         }
     }
 }
