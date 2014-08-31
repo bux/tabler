@@ -129,17 +129,13 @@ namespace tabler
             gridView.KeyUp += gridView_KeyUp;
             gridView.KeyDown += gridView_KeyDown;
             gridView.UserDeletedRow += gridView_UserDeletedRow;
+            gridView.ColumnHeaderMouseClick +=gridView_ColumnHeaderMouseClick;
 
             foreach (string header in tc.Headers)
             {
                 var dgvc = new DataGridViewTextBoxColumn();
                 dgvc.HeaderText = header;
-
-                if (header != TranslationManager.COLUMN_IDNAME)
-                {
-                    dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
-                }
-
+                dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
                 gridView.Columns.Add(dgvc);
             }
 
@@ -195,6 +191,8 @@ namespace tabler
 
             return gridView;
         }
+
+        
 
         private void AddNewEditHistory(string currentMod, DataGridViewCell cell, string oldValue, string newValue, Color oldBackColor)
         {
@@ -276,7 +274,41 @@ namespace tabler
             return !EditHistory.Any();
         }
 
+        private void PasteEntriesToGrid(String[] arrEntries, DataGridView grid)
+        {
+            var selCells = grid.SelectedCells;
+            if (selCells.Count != arrEntries.Length)
+            {
+                return;
+            }
+
+            arrEntries = arrEntries.Reverse().ToArray();
+
+            var i = 0;
+            foreach (DataGridViewCell selCell in selCells)
+            {
+                selCell.Value = arrEntries[i];
+                i += 1;
+            }
+        }
+
+
         #region " Events "
+
+        private void gridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            var grid = ((DataGridView)sender);
+            DataGridViewColumn selectedColumn = grid.Columns[e.ColumnIndex];
+
+            grid.ClearSelection();
+
+            foreach (DataGridViewRow row in grid.Rows)
+            {
+                var cell = row.Cells[selectedColumn.Index];
+                cell.Selected = true;
+            }
+        }
+
 
         private void gridView_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
@@ -285,12 +317,24 @@ namespace tabler
 
         private void gridView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.Z)
+            if (e.Modifiers == Keys.Control)
             {
-                // Ctrl + Z
-                Undo();
+                if (e.KeyCode == Keys.Z)
+                {
+                    // Ctrl + Z
+                    Undo();
+                }
+                if (e.KeyCode == Keys.V)
+                {
+                    // Ctrl + V
+                    var clipboard = Clipboard.GetText();
+                    clipboard = clipboard.Replace("\r\n", "Ѡ");
+                    var arrEntries = clipboard.Split('Ѡ');
+                    PasteEntriesToGrid(arrEntries, ((DataGridView)sender));
+                }
             }
         }
+
 
         private void gridView_KeyUp(object sender, KeyEventArgs e)
         {
