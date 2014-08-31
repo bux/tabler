@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=120 />
+</p>
+
 tabler
 ======
 
