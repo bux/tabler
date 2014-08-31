@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace tabler
 {
-    [Serializable]
-    public class DuplicateKeyException : Exception, ISerializable
+    public class DuplicateKeyException : Exception
     {
         public string KeyName { get; set; }
         public string FileName { get; set; }
