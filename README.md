@@ -2,7 +2,7 @@
 <img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=120 />
 </p>
 
-tabler
+tabler - Arma 3 Translation Helper
 ======
 
 Easier translation handling for Arma 3 Missions and Mods.
