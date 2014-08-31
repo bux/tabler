@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -49,6 +50,11 @@ namespace tabler
                     {
                         string languageName = language.Name.ToString();
 
+                        if (dicTranslations.ContainsKey(languageName))
+                        {
+                            throw new DuplicateKeyException(languageName, currentFile.FullName);
+                        }
+
                         dicTranslations.Add(languageName, language.Value);
 
                         // save all the languages
@@ -58,6 +64,10 @@ namespace tabler
                         }
                     }
 
+                    if (dicKeyWithTranslations.ContainsKey(currentKeyId))
+                    {
+                        throw new DuplicateKeyException(currentKeyId, currentFile.FullName);
+                    }
                     dicKeyWithTranslations.Add(currentKeyId, dicTranslations);
                 }
 

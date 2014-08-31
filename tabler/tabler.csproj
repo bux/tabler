@@ -90,6 +90,7 @@
     <Compile Include="GridUI.Designer.cs">
       <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Classes\DuplicateKeyException.cs" />
     <Compile Include="Helper\GridUiHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
