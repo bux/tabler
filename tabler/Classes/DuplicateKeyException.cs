@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace tabler
 {
+    [Serializable]
     public class DuplicateKeyException : Exception, ISerializable
     {
         public string KeyName { get; set; }
