@@ -5,6 +5,8 @@
 tabler - Arma 3 Translation Helper
 ======
 
+[![](http://img.shields.io/badge/release-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
+
 Easier translation handling for Arma 3 Missions and Mods.
 
 Parse all the stringtable.xml files in every subfolder, edit them and then parse them back with one click of a button. There's no need anymore to open every stringtable.xml file one by one.
