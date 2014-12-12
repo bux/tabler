@@ -7,7 +7,7 @@
 [![](http://img.shields.io/badge/version-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
 [![](http://img.shields.io/badge/download-338_KB-blue.svg)](https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip) [![](http://img.shields.io/github/issues/bux578/tabler.svg)](https://github.com/bux578/tabler/issues)
 
-Easier translation handling for Arma 3 Missions and Mods.
+**tabler** provides easier translation handling for Arma 3 missions and mods.
 
 Parse all the stringtable.xml files in every subfolder, edit them and then parse them back with one click of a button. There's no need anymore to open every stringtable.xml file one by one.
 
