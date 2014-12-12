@@ -104,6 +104,8 @@ namespace tabler
             {
                 var tabPage = new TabPage(modInfoContainer.Name);
                 tabPage.Name = modInfoContainer.Name;
+                tabPage.AutoScroll = true;
+
                 _gridUi.tabControl1.TabPages.Add(tabPage);
             }
 
