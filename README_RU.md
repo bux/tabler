@@ -17,7 +17,7 @@ tabler - Помощник Arma 3 Переводчика
 * Быстрое сохранение всех изменений во всех редактируемых файлах
 * Сравнительное отслеживание общего прогресса над переводом проектов
 
-**Тема на форуме БИС:** http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper
+#### <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper">Тема на форуме БИС</a>
 
 ---
 <sub><strong>tabler</strong> за авторством от <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/bux578" property="cc:attributionName" rel="cc:attributionURL">bux578</a> носит лицензию <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons «Attribution-ShareAlike» («Атрибуция — На тех же условиях») 4.0 Всемирная</a></sub><br /><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Лицензия Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
