@@ -1,10 +1,16 @@
 <p align="center">
-<img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
-<h1 align="center">Arma 3 Translation Helper</h3>
+  <img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
+  <h1 align="center">Arma 3 Translation Helper</h3><br />
+  <a href="https://github.com/bux578/tabler/releases">
+    <img src="http://img.shields.io/badge/version-0.4.0-green.svg?style=flat" alt="tabler version">
+  </a>
+    <a href="https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
+    <img src="http://img.shields.io/badge/download-338_KB-blue.svg?style=flat" alt="tabler download">
+  </a>
+    <a href="https://github.com/bux578/tabler/issues">
+    <img src="http://img.shields.io/github/issues/bux578/tabler.svg?style=flat" alt="tabler issues">
+  </a>
 </p>
-
-[![](http://img.shields.io/badge/version-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
-[![](http://img.shields.io/badge/download-338_KB-blue.svg)](https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip) [![](http://img.shields.io/github/issues/bux578/tabler.svg)](https://github.com/bux578/tabler/issues)
 
 **tabler** provides easier translation handling for Arma 3 missions and mods.
 
