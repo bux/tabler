@@ -1,10 +1,13 @@
 <p align="center">
-<img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
-<h1 align="center">Arma 3 Помощник Перевода</h3>
+  <img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
+  <h1 align="center">Arma 3 Помощник Перевода</h3><br />
+  <a href="https://github.com/bux578/tabler/releases">
+    <img src="http://img.shields.io/badge/версия-0.4.0-green.svg?style=flat" alt="версия tabler">
+  </a>
+  <a href="ttps://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
+    <img src="http://img.shields.io/badge/скачать-338_КБ-blue.svg?style=flat" alt="версия tabler">
+  </a>
 </p>
-
-[![](http://img.shields.io/badge/версия-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
-[![](http://img.shields.io/badge/скачать-338_КБ-blue.svg)](https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip)
 
 **tabler** упрощает и делает более доступным процесс локализации миссий и модов Arma 3.
 
