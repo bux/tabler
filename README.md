@@ -5,7 +5,8 @@
 tabler - Arma 3 Translation Helper
 ======
 
-[![](http://img.shields.io/badge/release-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
+[![](http://img.shields.io/badge/version-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
+[![](http://img.shields.io/badge/download-338_KB-blue.svg)](https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip) [![](http://img.shields.io/github/issues/bux578/tabler.svg)](https://github.com/bux578/tabler/issues)
 
 Easier translation handling for Arma 3 Missions and Mods.
 
