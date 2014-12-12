@@ -112,7 +112,7 @@ namespace tabler
 
         private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var frmStatistics = new TranslationStatistics(this);
+            var frmStatistics = new TranslationProgress(this);
             frmStatistics.ShowDialog(this);
         }
 

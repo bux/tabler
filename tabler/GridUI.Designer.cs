@@ -41,9 +41,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -69,7 +69,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(978, 585);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(978, 513);
             this.tableLayoutPanel1.TabIndex = 4;
             // 
             // panel1
@@ -88,9 +88,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 40);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(93, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Mod Path";
+            this.label1.Text = "Mod/Mission Path";
             // 
             // menuStrip1
             // 
@@ -147,16 +147,24 @@
             this.addLanguageToolStripMenuItem,
             this.statisticsToolStripMenuItem});
             this.languagesToolStripMenuItem.Name = "languagesToolStripMenuItem";
-            this.languagesToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
-            this.languagesToolStripMenuItem.Text = "Languages";
+            this.languagesToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.languagesToolStripMenuItem.Text = "Tools";
             // 
             // addLanguageToolStripMenuItem
             // 
             this.addLanguageToolStripMenuItem.Enabled = false;
             this.addLanguageToolStripMenuItem.Name = "addLanguageToolStripMenuItem";
-            this.addLanguageToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.addLanguageToolStripMenuItem.Text = "Add";
+            this.addLanguageToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.addLanguageToolStripMenuItem.Text = "Add Language";
             this.addLanguageToolStripMenuItem.Click += new System.EventHandler(this.addLanguageToolStripMenuItem_Click);
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            this.statisticsToolStripMenuItem.Enabled = false;
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.statisticsToolStripMenuItem.Text = "Translation Progress";
+            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
             // tabControl1
             // 
@@ -164,23 +172,15 @@
             this.tabControl1.Location = new System.Drawing.Point(3, 103);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(972, 543);
+            this.tabControl1.Size = new System.Drawing.Size(972, 407);
             this.tabControl1.TabIndex = 6;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
-            // 
-            // statisticsToolStripMenuItem
-            // 
-            this.statisticsToolStripMenuItem.Enabled = false;
-            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.statisticsToolStripMenuItem.Text = "Statistics";
-            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
             // GridUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(978, 585);
+            this.ClientSize = new System.Drawing.Size(978, 513);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
