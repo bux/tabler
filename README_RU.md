@@ -1,14 +1,12 @@
 <p align="center">
-<img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 />
+<img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
+<h1 align="center">Arma 3 Помощник Перевода</h3>
 </p>
-
-tabler - Arma 3 Помощник Перевода
-======
 
 [![](http://img.shields.io/badge/версия-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
 [![](http://img.shields.io/badge/скачать-338_КБ-blue.svg)](https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip)
 
-Упрощает и делает более доступным процесс локализации миссий и модов Arma 3.
+**tabler** упрощает и делает более доступным процесс локализации миссий и модов Arma 3.
 
 Позволяет легко загрузить все имеющиеся в определённой директории (и её подпапках) файлы stringtable.xml, отредактировать их через общий интерфейс и одной кнопкой сохранить все изменения, с автоматическим штампом даты изменения во всех файлах. Таким образом, Вам больше не придется вручную редактировать каждый stringtable.xml по отдельности, при этом переживая о целостности структуры формата XML.
 
