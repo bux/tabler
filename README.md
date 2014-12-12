@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
+  <img src="https://github.com/bux578/tabler/blob/master/tabler/Content/Icon-256.png" width=128 /><br />
   <h1 align="center">Arma 3 Translation Helper</h3><br />
   <a href="https://github.com/bux578/tabler/releases">
     <img src="http://img.shields.io/badge/version-0.4.0-green.svg?style=flat" alt="tabler version">
