@@ -138,6 +138,7 @@ namespace tabler
                 var dgvc = new DataGridViewTextBoxColumn();
                 dgvc.HeaderText = header;
                 dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgvc.Resizable = DataGridViewTriState.True;
                 gridView.Columns.Add(dgvc);
             }
 
@@ -189,7 +190,7 @@ namespace tabler
 
 
             gridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             return gridView;
         }
