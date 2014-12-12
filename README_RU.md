@@ -5,7 +5,8 @@
 tabler - Помощник Arma 3 Переводчика
 ======
 
-[![](http://img.shields.io/badge/release-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
+[![](http://img.shields.io/badge/версия-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
+[![](http://img.shields.io/badge/скачать-338_КБ-blue.svg)](https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip)
 
 Упрощает и делает более доступным процесс локализации миссий и модов Arma 3.
 
