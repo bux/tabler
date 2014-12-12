@@ -4,8 +4,8 @@
   <a href="https://github.com/bux578/tabler/releases">
     <img src="http://img.shields.io/badge/версия-0.4.0-green.svg?style=flat" alt="версия tabler">
   </a>
-  <a href="ttps://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
-    <img src="http://img.shields.io/badge/скачать-338_КБ-blue.svg?style=flat" alt="версия tabler">
+  <a href="https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
+    <img src="http://img.shields.io/badge/скачать-338_КБ-blue.svg?style=flat" alt="скачать tabler">
   </a>
 </p>
 
