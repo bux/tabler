@@ -2,7 +2,7 @@
 <img src="https://github.com/jodav/tabler/blob/master/tabler/Content/Icon-256.png" width=120 />
 </p>
 
-tabler - Помощник Arma 3 Переводчика
+tabler - Arma 3 Помощник Перевода
 ======
 
 [![](http://img.shields.io/badge/версия-0.4.0-green.svg)](https://github.com/bux578/tabler/releases)
