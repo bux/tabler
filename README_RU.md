@@ -7,6 +7,10 @@
   <a href="https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
     <img src="http://img.shields.io/badge/скачать-338_КБ-blue.svg?style=flat" alt="скачать tabler">
   </a>
+  </a>
+    <a href="https://github.com/bux578/tabler/issues">
+    <img src="http://img.shields.io/github/issues-raw/bux578/tabler.svg?style=flat&label=задачи" alt="tabler задачи">
+  </a>
 </p>
 
 **tabler** упрощает и делает более доступным процесс локализации миссий и модов Arma 3.
