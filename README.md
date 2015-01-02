@@ -8,7 +8,7 @@
     <img src="http://img.shields.io/badge/download-338_KB-blue.svg?style=flat" alt="tabler download">
   </a>
     <a href="https://github.com/bux578/tabler/issues">
-    <img src="http://img.shields.io/github/issues/bux578/tabler.svg?style=flat" alt="tabler issues">
+    <img src="http://img.shields.io/github/issues-raw/bux578/tabler.svg?style=flat" alt="tabler issues">
   </a>
 </p>
 
