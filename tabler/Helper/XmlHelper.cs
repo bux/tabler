@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -120,7 +119,8 @@ namespace tabler
                     string currentKeyId = currentKeyElement.Attribute(ID_NAME).Value;
                     if (foundModInfo.Values.Keys.Contains(currentKeyId))
                     {
-                        bool a = true;
+                        // hmm, forgot what this was for
+                        var a = true;
                     }
                     else
                     {
@@ -133,7 +133,7 @@ namespace tabler
                 {
                     XComment comment = (from node in xdoc.Nodes() where node.NodeType == XmlNodeType.Comment select node as XComment).FirstOrDefault();
 
-                    string commentText = String.Format(" Edited with tabler - {0} ", DateTime.Now.ToString("yyyy-MM-dd"));
+                    string commentText = String.Format(" Edited with tabler. ");
 
                     if (comment == null)
                     {
@@ -144,7 +144,14 @@ namespace tabler
                         comment.Value = commentText;
                     }
 
-                    xdoc.Save(currentFileInfo.FullName);
+                    var settings = new XmlWriterSettings();
+                    settings.Indent = true;
+                    settings.IndentChars = "    "; // Indent 3 Spaces
+
+                    using (XmlWriter writer = XmlWriter.Create(currentFileInfo.FullName, settings))
+                    {
+                        xdoc.Save(writer);
+                    }
                 }
             }
         }
@@ -179,7 +186,6 @@ namespace tabler
             XElement xID = (from xel in keys where xel.Attributes().Any(x => x.Value.ToString().ToLowerInvariant() == id.ToLowerInvariant()) select xel).FirstOrDefault();
 
             //get language
-            XElement xLanguage = null;
 
 
             if (xID == null)
@@ -194,7 +200,7 @@ namespace tabler
             }
 
 
-            xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language.ToLowerInvariant() select xel).FirstOrDefault();
+            XElement xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language.ToLowerInvariant() select xel).FirstOrDefault();
 
 
             if (xLanguage != null)

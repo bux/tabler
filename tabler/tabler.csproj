@@ -55,7 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>..\packages\EPPlus.4.0.1.1\lib\net20\EPPlus.dll</HintPath>
+      <HintPath>..\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -82,8 +82,10 @@
     <Compile Include="Classes\ModInfoContainer.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
     <Compile Include="Classes\TranslationManager.cs" />
+    <Compile Include="Extensions\Extensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Helper\ConfigHelper.cs" />
-    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="GridUI.cs">
       <SubType>Form</SubType>
     </Compile>

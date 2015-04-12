@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("tabler")]
-[assembly: AssemblyCopyright("© Copyright MaMilaCan, jodav - 2014")]
+[assembly: AssemblyCopyright("© Copyright MaMilaCan, bux578 - 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Minor Version 
 //      Patch
 
-[assembly: AssemblyVersion("0.3.1")]
-[assembly: AssemblyFileVersion("0.3.1")]
+[assembly: AssemblyVersion("0.4.1")]
+[assembly: AssemblyFileVersion("0.4.1")]
