@@ -4,16 +4,16 @@
 </p>
 <h1 align="center">Arma 3 Помошник Перевода</h1>
 <p align="center">
-  <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper">
+  <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper&p=2736174&viewfull=1#post2736174">
     <img src="https://img.shields.io/badge/BIF-Тема-lightgrey.svg?style=flat"
          alt="BIF Тема" />
   </a>
   <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Версия-0.4.0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Версия-0.4.1-green.svg?style=flat"
          alt="Версия" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
-    <img src="http://img.shields.io/badge/Скачать-338_КБ-blue.svg?style=flat"
+  <a href="https://github.com/bux578/tabler/releases/download/v0.4.1/tabler-v0.4.1.zip">
+    <img src="http://img.shields.io/badge/Скачать-426_КБ-blue.svg?style=flat"
          alt="Скачать" />
   </a>
   <a href="https://github.com/bux578/tabler/issues">
