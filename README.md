@@ -4,16 +4,16 @@
 </p>
 <h1 align="center">Arma 3 Translation Helper</h1>
 <p align="center">
-  <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper">
+  <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper&p=2736174&viewfull=1#post2736174">
     <img src="https://img.shields.io/badge/BIF-Thread-lightgrey.svg?style=flat"
          alt="BIF Thread" />
   </a>
   <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Version-0.4.0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Version-0.4.1-green.svg?style=flat"
          alt="Version" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.4.0/tabler-v0.4.0.zip">
-    <img src="http://img.shields.io/badge/Download-338_KB-blue.svg?style=flat"
+  <a href="https://github.com/bux578/tabler/releases/download/v0.4.1/tabler-v0.4.1.zip">
+    <img src="http://img.shields.io/badge/Download-426_KB-blue.svg?style=flat"
          alt="Download" />
   </a>
   <a href="https://github.com/bux578/tabler/issues">
@@ -29,14 +29,14 @@
 <strong>tabler</strong> provides easier translation handling for Arma 3 missions and mods.
 </p>
 <p>
-Parse all the stringtable.xml files in every subfolder, edit them and then parse them back with one click of a button. There's no need anymore to open every <code>stringtable.xml</code> file one by one.
+Parse all the <code>stringtable.xml</code> files in every subfolder, edit them and then parse them back with one click of a button. There's no need anymore to open every localization file one by one.
 </p>
 <h3>Features</h3>
 <ul>
-  <li>Open all stringtable.xml files in one UI.</li>
+  <li>Open all <code>stringtable.xml</code> files in one UI.</li>
   <li>Add keys, languages and edit translations in an Excel-like grid view.</li>
-  <li>Save all changes back to the stringtable.xml files.</li>
-  <li>Keep an eye on the translation progress with statistics — right-clicking the chart let's you copy them to clipboard.</li>
+  <li>Save all changes back to the loicalization files.</li>
+  <li>Keep an eye on the translation progress with statistics – right-clicking the chart let's you copy them to clipboard.</li>
 </ul>
 <!--
 <hr>
