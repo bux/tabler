@@ -5,16 +5,12 @@ using System.Linq;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 
-namespace tabler
-{
-    public class ExcelHelper
-    {
+namespace tabler {
+    public class ExcelHelper {
         private const string WORKSHEETNAME = "Translation";
 
-        public ExcelWorksheet LoadExcelDoc(FileInfo file)
-        {
-            if (file.Exists == false)
-            {
+        public ExcelWorksheet LoadExcelDoc(FileInfo file) {
+            if (file.Exists == false) {
                 return null;
             }
 
@@ -25,10 +21,8 @@ namespace tabler
             return ws;
         }
 
-        public ExcelPackage CreateExcelDoc(FileInfo newFile)
-        {
-            if (newFile.Exists)
-            {
+        public ExcelPackage CreateExcelDoc(FileInfo newFile) {
+            if (newFile.Exists) {
                 newFile.Delete();
             }
 
@@ -40,17 +34,14 @@ namespace tabler
             return pck;
         }
 
-        public void SaveExcelDoc(ExcelPackage pck)
-        {
+        public void SaveExcelDoc(ExcelPackage pck) {
             pck.Save();
         }
 
 
-        public void CreateHeaderRow(ExcelPackage pck, List<string> lstLanguages)
-        {
+        public void CreateHeaderRow(ExcelPackage pck, List<string> lstLanguages) {
             ExcelWorksheet ws = GetWorksheetByName(pck, WORKSHEETNAME);
-            if (ws == null)
-            {
+            if (ws == null) {
                 return;
             }
 
@@ -60,8 +51,7 @@ namespace tabler
 
             int curColumn = 1;
 
-            foreach (string header in lstLanguages)
-            {
+            foreach (string header in lstLanguages) {
                 ws.Cells[1, curColumn].Value = header;
                 ws.Column(curColumn).Style.WrapText = true;
                 ws.Column(curColumn).Width = 50;
@@ -90,23 +80,19 @@ namespace tabler
         //}
 
 
-        private Dictionary<string, int> GetHeaderIndexes(ExcelWorksheet ws)
-        {
+        private Dictionary<string, int> GetHeaderIndexes(ExcelWorksheet ws) {
             var dicHeader = new Dictionary<string, int>();
 
-            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column + 1; currentColumn++)
-            {
+            for (int currentColumn = 1; currentColumn < ws.Dimension.End.Column + 1; currentColumn++) {
                 dicHeader.Add(ws.GetValue(1, currentColumn).ToString(), currentColumn);
             }
 
             return dicHeader;
         }
 
-        public void WriteEntries(ExcelPackage pck, List<ModInfoContainer> lstModInfos)
-        {
+        public void WriteEntries(ExcelPackage pck, List<ModInfoContainer> lstModInfos) {
             ExcelWorksheet ws = GetWorksheetByName(pck, WORKSHEETNAME);
-            if (ws == null)
-            {
+            if (ws == null) {
                 return;
             }
 
@@ -120,35 +106,29 @@ namespace tabler
 
 
             //for each mod
-            foreach (ModInfoContainer currentModInfo in lstModInfos)
-            {
+            foreach (ModInfoContainer currentModInfo in lstModInfos) {
                 //create mod entry once
                 ws.Cells[currentRow, 1].Value = currentModInfo.Name;
 
                 // for each ID
-                foreach (var currentID in currentModInfo.Values)
-                {
+                foreach (var currentID in currentModInfo.Values) {
                     //is the id
                     ws.Cells[currentRow, idColumn].Value = currentID.Key;
 
 
                     //for each language in xlsx
-                    foreach (var currentColumn in dicHeader)
-                    {
+                    foreach (var currentColumn in dicHeader) {
                         //dont handle id and mod column
-                        if (currentColumn.Value == modColumn)
-                        {
+                        if (currentColumn.Value == modColumn) {
                             continue;
                         }
-                        if (currentColumn.Value == idColumn)
-                        {
+                        if (currentColumn.Value == idColumn) {
                             continue;
                         }
 
                         ExcelRange cell = ws.Cells[currentRow, currentColumn.Value];
 
-                        if (currentID.Value.ContainsKey(currentColumn.Key) == false)
-                        {
+                        if (currentID.Value.ContainsKey(currentColumn.Key) == false) {
                             //this mod has no entrry for this language
                             cell.Style.Fill.PatternType = ExcelFillStyle.Solid;
                             cell.Style.Fill.BackgroundColor.SetColor(Color.Lavender);
@@ -165,13 +145,11 @@ namespace tabler
             }
         }
 
-        private ExcelWorksheet GetWorksheetByName(ExcelPackage pck, string name)
-        {
+        private ExcelWorksheet GetWorksheetByName(ExcelPackage pck, string name) {
             return pck.Workbook.Worksheets.FirstOrDefault(w => w.Name == name);
         }
 
-        public List<ModInfoContainer> LoadModInfos(ExcelWorksheet ws)
-        {
+        public List<ModInfoContainer> LoadModInfos(ExcelWorksheet ws) {
             var lstModInfos = new List<ModInfoContainer>();
 
 
@@ -186,26 +164,22 @@ namespace tabler
             List<KeyValuePair<string, int>> allHeaderOrdered = dicHeader.OrderBy(x => x.Value).ToList();
 
             //each row
-            for (int currentRow = 2; currentRow < ws.Dimension.End.Row + 1; currentRow++)
-            {
+            for (int currentRow = 2; currentRow < ws.Dimension.End.Row + 1; currentRow++) {
                 //<language,value>
                 Dictionary<string, string> dicLanguagesOfCurrentID = null;
 
 
                 //each col
                 //for each language in xlsx
-                foreach (var currentColumn in allHeaderOrdered)
-                {
+                foreach (var currentColumn in allHeaderOrdered) {
                     bool isEmpty = ws.Cells[currentRow, currentColumn.Value].IsEmpty();
                     object value = ws.Cells[currentRow, currentColumn.Value].Value;
 
 
                     //if column mod
-                    if (currentColumn.Value == modColumn)
-                    {
+                    if (currentColumn.Value == modColumn) {
                         //check if new mod starts
-                        if (isEmpty == false)
-                        {
+                        if (isEmpty == false) {
                             currentMod = new ModInfoContainer();
 
                             currentMod.Name = value.ToString();
@@ -216,11 +190,9 @@ namespace tabler
                     }
 
                     //if column id
-                    if (currentColumn.Value == idColumn)
-                    {
+                    if (currentColumn.Value == idColumn) {
                         //ids can never be empty
-                        if (isEmpty)
-                        {
+                        if (isEmpty) {
                             break;
                         }
 
@@ -231,8 +203,7 @@ namespace tabler
                     }
 
 
-                    if (isEmpty)
-                    {
+                    if (isEmpty) {
                         continue;
                     }
 

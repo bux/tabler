@@ -6,42 +6,33 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace tabler
-{
-    public class ConfigHelper
-    {
+namespace tabler {
+    public class ConfigHelper {
         private const string LASTPATHTODATAFILES = "LastPathToDataFiles";
         private readonly FileInfo _fiConfig = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"config\config.xml"));
         private XDocument _xDocConfig;
 
-        public ConfigHelper()
-        {
+        public ConfigHelper() {
             //create dir
-            if (_fiConfig.Directory.Exists == false)
-            {
+            if (_fiConfig.Directory.Exists == false) {
                 _fiConfig.Directory.Create();
             }
         }
 
 
-        public void CreateOrLoadConfig()
-        {
-            if (_xDocConfig == null)
-            {
-                if (_fiConfig.Exists)
-                {
+        public void CreateOrLoadConfig() {
+            if (_xDocConfig == null) {
+                if (_fiConfig.Exists) {
                     _xDocConfig = XDocument.Load(_fiConfig.FullName);
-                }
-                else
-                {
+                } else {
                     var path = new XElement(LASTPATHTODATAFILES);
 
                     var lstElements = new List<XElement>();
                     lstElements.Add(path);
 
                     _xDocConfig = new XDocument(
-                        new XDeclaration("1.0", "utf-8", "yes"), 
-                        new XComment("Config file"), 
+                        new XDeclaration("1.0", "utf-8", "yes"),
+                        new XComment("Config file"),
                         new XElement("config", lstElements.ToArray()));
 
                     _xDocConfig.Save(_fiConfig.FullName);
@@ -50,25 +41,20 @@ namespace tabler
             }
         }
 
-        public void SetLastPathOfDataFiles(DirectoryInfo path)
-        {
-            if (path == null || path.Exists == false)
-            {
+        public void SetLastPathOfDataFiles(DirectoryInfo path) {
+            if (path == null || path.Exists == false) {
                 return;
             }
 
-            if (_xDocConfig == null)
-            {
+            if (_xDocConfig == null) {
                 CreateOrLoadConfig();
             }
 
 
-            if (_xDocConfig != null)
-            {
+            if (_xDocConfig != null) {
                 XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES);
 
-                if (pathElement != null)
-                {
+                if (pathElement != null) {
                     pathElement.Value = XmlConvert.EncodeName(path.FullName);
                 }
             }
@@ -76,23 +62,18 @@ namespace tabler
             SaveConfigXML();
         }
 
-        public DirectoryInfo GetLastPathOfDataFiles()
-        {
-            if (_xDocConfig == null)
-            {
+        public DirectoryInfo GetLastPathOfDataFiles() {
+            if (_xDocConfig == null) {
                 CreateOrLoadConfig();
             }
 
 
-            if (_xDocConfig != null)
-            {
+            if (_xDocConfig != null) {
                 XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES);
 
-                if (pathElement != null)
-                {
+                if (pathElement != null) {
                     string value = XmlConvert.DecodeName(pathElement.Value);
-                    if (String.IsNullOrEmpty(value) == false)
-                    {
+                    if (String.IsNullOrEmpty(value) == false) {
                         return new DirectoryInfo(value);
                     }
                 }
@@ -101,10 +82,8 @@ namespace tabler
             return null;
         }
 
-        private void SaveConfigXML()
-        {
-            if (_xDocConfig != null)
-            {
+        private void SaveConfigXML() {
+            if (_xDocConfig != null) {
                 _xDocConfig.Save(_fiConfig.FullName);
             }
         }

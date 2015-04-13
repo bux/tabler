@@ -78,6 +78,7 @@
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\CellEditHistory.cs" />
+    <Compile Include="Classes\GenericXmlException.cs" />
     <Compile Include="Classes\LanguageStatistics.cs" />
     <Compile Include="Classes\ModInfoContainer.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
