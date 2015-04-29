@@ -36,6 +36,7 @@
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyDataasMdTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.contextMenu.SuspendLayout();
@@ -68,21 +69,28 @@
             this.chart.Size = new System.Drawing.Size(785, 466);
             this.chart.TabIndex = 0;
             this.chart.Text = "Translation Chart";
-            this.chart.Click += new System.EventHandler(this.chart_Click);
             // 
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyDataToolStripMenuItem});
+            this.copyDataToolStripMenuItem,
+            this.copyDataasMdTableToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(129, 26);
+            this.contextMenu.Size = new System.Drawing.Size(201, 70);
             // 
             // copyDataToolStripMenuItem
             // 
             this.copyDataToolStripMenuItem.Name = "copyDataToolStripMenuItem";
-            this.copyDataToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
+            this.copyDataToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
             this.copyDataToolStripMenuItem.Text = "Copy data";
             this.copyDataToolStripMenuItem.Click += new System.EventHandler(this.copyDataToolStripMenuItem_Click);
+            // 
+            // copyDataasMdTableToolStripMenuItem
+            // 
+            this.copyDataasMdTableToolStripMenuItem.Name = "copyDataasMdTableToolStripMenuItem";
+            this.copyDataasMdTableToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.copyDataasMdTableToolStripMenuItem.Text = "Copy data (as md table)";
+            this.copyDataasMdTableToolStripMenuItem.Click += new System.EventHandler(this.copyDataasMdTableToolStripMenuItem_Click);
             // 
             // TranslationProgress
             // 
@@ -107,5 +115,6 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.ContextMenuStrip contextMenu;
         private System.Windows.Forms.ToolStripMenuItem copyDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyDataasMdTableToolStripMenuItem;
     }
 }

@@ -96,7 +96,33 @@ namespace tabler {
             Clipboard.SetText(outerSb.ToString());
         }
 
-        private void chart_Click(object sender, EventArgs e) {
+        private void copyDataasMdTableToolStripMenuItem_Click(object sender, EventArgs e) {
+
+            var outerSb = new StringBuilder();
+            var innerSb = new StringBuilder();
+
+            var totalKeys = _myParent.TranslationManager.TranslationComponents.KeyCount;
+
+
+            foreach (LanguageStatistics modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics) {
+                int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
+                string mods = AggregateMods(modInfoStatistics, ", ");
+
+                double percentage = ((double)totalKeys - (double)missingTranslationCount)/(double)totalKeys*100;
+
+                innerSb.AppendLine(String.Format("| {0} | {1} | {2} | {3} |", modInfoStatistics.LanguageName, missingTranslationCount, mods, Math.Round(percentage, 1)));
+            }
+
+            outerSb.AppendLine(DateTime.Now.ToString("yyMMdd HH:mm"));
+            outerSb.AppendLine(String.Format("Total number of keys: {0}", totalKeys));
+            outerSb.AppendLine("");
+            outerSb.AppendLine("| Language | Missing Entries | Relevant Modules | % done |");
+            outerSb.AppendLine("|----------|----------------:|------------------|--------|");
+
+            outerSb.Append(innerSb);
+
+            Clipboard.SetText(outerSb.ToString());
+
         }
     }
 }
