@@ -133,7 +133,7 @@ Eintrag: '{2}'</value>
     <value>Beenden?</value>
   </data>
   <data name="GridUI_Generic_xml_exception" xml:space="preserve">
-    <value>Allgemeiner XML-Fehler
+    <value>Allgemeiner XML-Fehler.
 Name: '{0}'
 Datei: '{1}'
 Eintrag: '{2}'</value>
