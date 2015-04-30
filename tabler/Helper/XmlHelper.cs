@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using tabler.Classes;
 
 namespace tabler {
     public class XmlHelper {
@@ -132,11 +133,34 @@ namespace tabler {
                     //    comment.Value = commentText;
                     //}
 
-                    var settings = new XmlWriterSettings();
-                    settings.Indent = true;
-                    settings.IndentChars = "    "; // Indent 4 Spaces
+                    var xmlSettings = new XmlWriterSettings {
+                        Indent = true, 
+                        IndentChars = "    "
+                    };
 
-                    using (XmlWriter writer = XmlWriter.Create(currentFileInfo.FullName, settings)) {
+                    var configHelper = new ConfigHelper();
+                    var settings = configHelper.GetSettings();
+
+                    if (settings != null) {
+
+                        if (settings.IndentationSettings == IndentationSettings.Spaces) {
+
+                            var indentChars = "";
+
+                            for (int i = 0; i < settings.TabSize; i++) {
+                                indentChars += " ";
+                            }
+
+                            xmlSettings.IndentChars = indentChars;
+                        }
+                        if (settings.IndentationSettings == IndentationSettings.Tabs) {
+                            xmlSettings.IndentChars = "\t";
+                        }
+
+                        
+                    }
+
+                    using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings)) {
                         xdoc.Save(writer);
                     }
                 }

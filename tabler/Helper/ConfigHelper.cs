@@ -5,40 +5,51 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using tabler.Classes;
 
 namespace tabler {
     public class ConfigHelper {
-        private const string LASTPATHTODATAFILES = "LastPathToDataFiles";
+        private const string LASTPATHTODATAFILES_NAME = "LastPathToDataFiles";
+        private const string INDENTATION_NAME = "Indentation";
+        private const string TABSIZE_NAME = "TabSize";
+
         private readonly FileInfo _fiConfig = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"config\config.xml"));
         private XDocument _xDocConfig;
 
         public ConfigHelper() {
             //create dir
-            if (_fiConfig.Directory.Exists == false) {
+            if (_fiConfig.Directory != null && _fiConfig.Directory.Exists == false) {
                 _fiConfig.Directory.Create();
             }
         }
 
 
-        public void CreateOrLoadConfig() {
-            if (_xDocConfig == null) {
-                if (_fiConfig.Exists) {
-                    _xDocConfig = XDocument.Load(_fiConfig.FullName);
-                } else {
-                    var path = new XElement(LASTPATHTODATAFILES);
-
-                    var lstElements = new List<XElement>();
-                    lstElements.Add(path);
-
-                    _xDocConfig = new XDocument(
-                        new XDeclaration("1.0", "utf-8", "yes"),
-                        new XComment("Config file"),
-                        new XElement("config", lstElements.ToArray()));
-
-                    _xDocConfig.Save(_fiConfig.FullName);
-                    SaveConfigXML();
-                }
+        private XDocument CreateOrLoadConfig(bool forceCreation) {
+            if (_xDocConfig != null && forceCreation == false) {
+                return _xDocConfig;
             }
+
+            if (_fiConfig.Exists && forceCreation == false) {
+                _xDocConfig = XDocument.Load(_fiConfig.FullName);
+            } else {
+                var path = new XElement(LASTPATHTODATAFILES_NAME);
+                var indent = new XElement(INDENTATION_NAME, 0);
+                var tabsize = new XElement(TABSIZE_NAME, 4);
+
+                var lstElements = new List<XElement> { path, indent, tabsize };
+
+                _xDocConfig = new XDocument(
+                    new XDeclaration("1.0", "utf-8", "yes"),
+                    new XComment("Config file"),
+                    new XElement("config", lstElements.ToArray()));
+
+                SaveConfigXml();
+
+                return _xDocConfig;
+            }
+
+            return null;
         }
 
         public void SetLastPathOfDataFiles(DirectoryInfo path) {
@@ -47,45 +58,121 @@ namespace tabler {
             }
 
             if (_xDocConfig == null) {
-                CreateOrLoadConfig();
+                CreateOrLoadConfig(false);
             }
 
 
             if (_xDocConfig != null) {
-                XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES);
+                XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES_NAME);
 
                 if (pathElement != null) {
                     pathElement.Value = XmlConvert.EncodeName(path.FullName);
                 }
             }
 
-            SaveConfigXML();
+            SaveConfigXml();
         }
 
         public DirectoryInfo GetLastPathOfDataFiles() {
             if (_xDocConfig == null) {
-                CreateOrLoadConfig();
+                CreateOrLoadConfig(false);
             }
 
 
             if (_xDocConfig != null) {
-                XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES);
+                XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES_NAME);
 
                 if (pathElement != null) {
                     string value = XmlConvert.DecodeName(pathElement.Value);
                     if (String.IsNullOrEmpty(value) == false) {
                         return new DirectoryInfo(value);
                     }
+                } else {
+                    CreateOrLoadConfig(true);
                 }
             }
 
             return null;
         }
 
-        private void SaveConfigXML() {
+        /// <summary>
+        /// Saves the xml to the file system
+        /// </summary>
+        private void SaveConfigXml() {
             if (_xDocConfig != null) {
                 _xDocConfig.Save(_fiConfig.FullName);
             }
+        }
+
+        /// <summary>
+        /// Read Settings from config file
+        /// </summary>
+        /// <returns></returns>
+        public Settings GetSettings() {
+            if (_xDocConfig == null) {
+                CreateOrLoadConfig(false);
+            }
+
+            if (_xDocConfig == null) {
+                return null;
+            }
+
+            var loadedSettings = new Settings();
+
+            var indentElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == INDENTATION_NAME);
+            if (indentElement != null) {
+                try {
+                    loadedSettings.IndentationSettings = (IndentationSettings)Enum.Parse(typeof(IndentationSettings), indentElement.Value);
+                } catch (Exception) {
+                    // in case of error, use the better method
+                    loadedSettings.IndentationSettings = IndentationSettings.Spaces;
+                }
+                
+            }
+
+            var tabSizeElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == TABSIZE_NAME);
+            if (tabSizeElement != null) {
+                loadedSettings.TabSize = int.Parse(tabSizeElement.Value);
+            }
+
+            return loadedSettings;
+        }
+
+        /// <summary>
+        /// Read Settings from config file
+        /// </summary>
+        /// <returns></returns>
+        public bool SaveSettings(Settings settingsToSave) {
+
+            if (settingsToSave == null) {
+                return false;
+            }
+
+            if (_xDocConfig == null) {
+                CreateOrLoadConfig(false);
+            }
+
+            if (_xDocConfig != null) {
+
+                var indentElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == INDENTATION_NAME);
+                if (indentElement != null) {
+                    indentElement.Value = settingsToSave.IndentationSettings.ToString();
+                } else {
+                    CreateOrLoadConfig(true);
+                }
+
+                var tabSizeElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == TABSIZE_NAME);
+                if (tabSizeElement != null) {
+                    tabSizeElement.Value = settingsToSave.TabSize.ToString();
+                } else {
+                    CreateOrLoadConfig(true);
+                }
+
+                SaveConfigXml();
+                return true;
+            }
+
+            return false;
         }
     }
 }

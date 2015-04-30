@@ -87,7 +87,15 @@ namespace tabler {
             frmAddLanguage.ShowDialog(this);
         }
 
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
+            var frmSettings = new SettingsForm(this);
+            frmSettings.ShowDialog(this);
+        }
+
+
         #endregion
+
 
         public void HandleAddLanguage(string newLanguage) {
             _gridUiHelper.AddLanguage(newLanguage);
@@ -114,5 +122,8 @@ namespace tabler {
                 }
             }
         }
+
+
+
     }
 }
