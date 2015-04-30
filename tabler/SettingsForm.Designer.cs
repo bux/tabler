@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSaveSettings = new System.Windows.Forms.Button();
             this.grpBIndentation = new System.Windows.Forms.GroupBox();
@@ -103,6 +104,7 @@
             this.Controls.Add(this.grpBIndentation);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveSettings);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsForm";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
