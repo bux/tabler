@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslationProgress));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TranslationProgress));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -44,63 +44,45 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Controls.Add(this.chart, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 496F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(815, 496);
-            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // chart
             // 
+            resources.ApplyResources(this.chart, "chart");
             chartArea1.Name = "ChartArea1";
             this.chart.ChartAreas.Add(chartArea1);
-            this.chart.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
             this.chart.Legends.Add(legend1);
-            this.chart.Location = new System.Drawing.Point(15, 15);
-            this.chart.Margin = new System.Windows.Forms.Padding(15);
             this.chart.Name = "chart";
-            this.chart.Size = new System.Drawing.Size(785, 466);
-            this.chart.TabIndex = 0;
-            this.chart.Text = "Translation Chart";
             // 
             // contextMenu
             // 
+            resources.ApplyResources(this.contextMenu, "contextMenu");
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.copyDataToolStripMenuItem,
             this.copyDataasMdTableToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(201, 70);
             // 
             // copyDataToolStripMenuItem
             // 
+            resources.ApplyResources(this.copyDataToolStripMenuItem, "copyDataToolStripMenuItem");
             this.copyDataToolStripMenuItem.Name = "copyDataToolStripMenuItem";
-            this.copyDataToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.copyDataToolStripMenuItem.Text = "Copy data";
             this.copyDataToolStripMenuItem.Click += new System.EventHandler(this.copyDataToolStripMenuItem_Click);
             // 
             // copyDataasMdTableToolStripMenuItem
             // 
+            resources.ApplyResources(this.copyDataasMdTableToolStripMenuItem, "copyDataasMdTableToolStripMenuItem");
             this.copyDataasMdTableToolStripMenuItem.Name = "copyDataasMdTableToolStripMenuItem";
-            this.copyDataasMdTableToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.copyDataasMdTableToolStripMenuItem.Text = "Copy data (as md table)";
             this.copyDataasMdTableToolStripMenuItem.Click += new System.EventHandler(this.copyDataasMdTableToolStripMenuItem_Click);
             // 
             // TranslationProgress
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(815, 496);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TranslationProgress";
-            this.Text = "Translation Progress";
             this.Load += new System.EventHandler(this.TranslationStatistics_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();

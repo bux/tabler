@@ -59,5 +59,74 @@ namespace tabler.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard all changes?.
+        /// </summary>
+        internal static string GridUI_Discard_all_changes {
+            get {
+                return ResourceManager.GetString("GridUI_Discard_all_changes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate Key found.
+        ///Name: &apos;{0}&apos;
+        ///File: &apos;{1}&apos;
+        ///Entry: &apos;{2}&apos;.
+        /// </summary>
+        internal static string GridUI_Duplicate_key_found {
+            get {
+                return ResourceManager.GetString("GridUI_Duplicate_key_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duplicate Key Error.
+        /// </summary>
+        internal static string GridUI_Duplicate_key_found_title {
+            get {
+                return ResourceManager.GetString("GridUI_Duplicate_key_found_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit?.
+        /// </summary>
+        internal static string GridUI_Exit {
+            get {
+                return ResourceManager.GetString("GridUI_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generic XML Exception.
+        ///Name: &apos;{0}&apos;
+        ///File: &apos;{1}&apos;
+        ///Entry: &apos;{2}&apos;.
+        /// </summary>
+        internal static string GridUI_Generic_xml_exception {
+            get {
+                return ResourceManager.GetString("GridUI_Generic_xml_exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to XML Exception.
+        /// </summary>
+        internal static string GridUI_Generic_xml_exception_title {
+            get {
+                return ResourceManager.GetString("GridUI_Generic_xml_exception_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No &apos;stringtable.xml&apos; files found..
+        /// </summary>
+        internal static string GridUI_No_stringtable_xml_files_found {
+            get {
+                return ResourceManager.GetString("GridUI_No_stringtable_xml_files_found", resourceCulture);
+            }
+        }
     }
 }

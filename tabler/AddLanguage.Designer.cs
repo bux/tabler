@@ -37,53 +37,38 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 25);
+            resources.ApplyResources(this.textBox1, "textBox1");
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(156, 20);
-            this.textBox1.TabIndex = 0;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            resources.ApplyResources(this.label1, "label1");
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(55, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Language";
             // 
             // btnAddThisLanguage
             // 
-            this.btnAddThisLanguage.Location = new System.Drawing.Point(12, 51);
+            resources.ApplyResources(this.btnAddThisLanguage, "btnAddThisLanguage");
             this.btnAddThisLanguage.Name = "btnAddThisLanguage";
-            this.btnAddThisLanguage.Size = new System.Drawing.Size(75, 23);
-            this.btnAddThisLanguage.TabIndex = 2;
-            this.btnAddThisLanguage.Text = "Add";
             this.btnAddThisLanguage.UseVisualStyleBackColor = true;
             this.btnAddThisLanguage.Click += new System.EventHandler(this.btnAddThisLanguage_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(93, 51);
+            resources.ApplyResources(this.btnCancel, "btnCancel");
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 3;
-            this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.button1_Click);
             // 
             // AddLanguage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(180, 83);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAddThisLanguage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddLanguage";
             this.ShowInTaskbar = false;
-            this.Text = "Add";
             this.ResumeLayout(false);
             this.PerformLayout();
 

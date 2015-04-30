@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml;
+using tabler.Properties;
 
 namespace tabler {
     public partial class GridUI : Form {
@@ -41,7 +41,7 @@ namespace tabler {
                     TranslationComponents tc = TranslationManager.GetGridData(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
 
                     if (tc == null) {
-                        MessageBox.Show("No 'stringtable.xml' files found.");
+                        MessageBox.Show(Resources.GridUI_No_stringtable_xml_files_found);
                         return;
                     }
 
@@ -56,9 +56,9 @@ namespace tabler {
 
                     ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
                 } catch (DuplicateKeyException duplicateKeyException) {
-                    MessageBox.Show(String.Format("Duplicate Key found.\nName: '{0}' \nFile: '{1}' \nEntry: '{2}'", duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), "Duplicate Key Error");
+                    MessageBox.Show(String.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
                 } catch (GenericXmlException xmlException) {
-                    MessageBox.Show(String.Format("Generic XML Exception.\nName: '{0}' \nFile: '{1}' \nEntry: '{2}'", xmlException.KeyName, xmlException.FileName, xmlException.EntryName), "XML Exception");
+                    MessageBox.Show(String.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
                 }
             }
         }
@@ -72,7 +72,7 @@ namespace tabler {
 
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e) {
-            var tabControl = (TabControl)sender;
+            var tabControl = (TabControl) sender;
 
             TabPage tabPage = tabControl.SelectedTab;
 
@@ -93,9 +93,7 @@ namespace tabler {
             frmSettings.ShowDialog(this);
         }
 
-
         #endregion
-
 
         public void HandleAddLanguage(string newLanguage) {
             _gridUiHelper.AddLanguage(newLanguage);
@@ -117,13 +115,10 @@ namespace tabler {
             if (canClose) {
                 Close();
             } else {
-                if (MessageBox.Show("Discard all changes?", "Exit?", MessageBoxButtons.YesNo) == DialogResult.Yes) {
+                if (MessageBox.Show(Resources.GridUI_Discard_all_changes, Resources.GridUI_Exit, MessageBoxButtons.YesNo) == DialogResult.Yes) {
                     Close();
                 }
             }
         }
-
-
-
     }
 }

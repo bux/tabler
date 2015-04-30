@@ -114,8 +114,14 @@
     <Compile Include="TranslationProgress.Designer.cs">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddLanguage.de.resx">
+      <DependentUpon>AddLanguage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddLanguage.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridUI.de.resx">
+      <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GridUI.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
@@ -130,8 +136,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.de.resx" />
+    <EmbeddedResource Include="SettingsForm.de.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TranslationProgress.de.resx">
+      <DependentUpon>TranslationProgress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TranslationProgress.resx">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
