@@ -119,13 +119,19 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 116</value>
+    <value>114, 142</value>
   </data>
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
   <data name="btnSaveSettings.Text" xml:space="preserve">
     <value>Speichern</value>
+  </data>
+  <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 72</value>
+  </data>
+  <data name="grpBIndentation.Text" xml:space="preserve">
+    <value>Einrückung</value>
   </data>
   <data name="rbIndentSpaces.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 17</value>
@@ -145,14 +151,20 @@
   <data name="rbIndentTabs.Text" xml:space="preserve">
     <value>Tabulatoren</value>
   </data>
-  <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 72</value>
+  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 46</value>
   </data>
-  <data name="grpBIndentation.Text" xml:space="preserve">
-    <value>Einrückung</value>
+  <data name="groupBox1.Text" xml:space="preserve">
+    <value>Leere Nodes</value>
+  </data>
+  <data name="cbRemoveEmptyNodes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 17</value>
+  </data>
+  <data name="cbRemoveEmptyNodes.Text" xml:space="preserve">
+    <value>Leere XML-Nodes entfernen</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>201, 151</value>
+    <value>201, 179</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

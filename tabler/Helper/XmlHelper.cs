@@ -157,8 +157,13 @@ namespace tabler {
                             xmlSettings.IndentChars = "\t";
                         }
 
-                        
+
+                        if (settings.RemoveEmptyNodes) {
+                            xdoc.Descendants().Where(d => d.IsEmpty || String.IsNullOrWhiteSpace(d.Value)).Remove();
+                        }
+
                     }
+
 
                     using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings)) {
                         xdoc.Save(writer);

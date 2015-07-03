@@ -147,7 +147,7 @@ namespace tabler {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_BASELANGUAGE);
                         }
 
-                        if (!translationsWithKey.Value.ContainsKey(header)) {
+                        if (!translationsWithKey.Value.ContainsKey(header) || String.IsNullOrWhiteSpace(translationsWithKey.Value[header])) {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
                             AddMissingTranslationToStatistics(tc.Statistics, header, currentModule);
                         } else {

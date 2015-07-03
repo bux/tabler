@@ -56,6 +56,8 @@ namespace tabler {
                 }
             }
 
+            newSettings.RemoveEmptyNodes = cbRemoveEmptyNodes.Checked;
+
             configHelper.SaveSettings(newSettings);
             Close();
         }

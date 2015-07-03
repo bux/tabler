@@ -13,6 +13,7 @@ namespace tabler {
         private const string LASTPATHTODATAFILES_NAME = "LastPathToDataFiles";
         private const string INDENTATION_NAME = "Indentation";
         private const string TABSIZE_NAME = "TabSize";
+        private const string EMPTYNODES_NAME = "RemoveEmptyNodes";
 
         private readonly FileInfo _fiConfig = new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"config\config.xml"));
         private XDocument _xDocConfig;
@@ -36,8 +37,9 @@ namespace tabler {
                 var path = new XElement(LASTPATHTODATAFILES_NAME);
                 var indent = new XElement(INDENTATION_NAME, 0);
                 var tabsize = new XElement(TABSIZE_NAME, 4);
+                var removeEmptyNodes = new XElement(EMPTYNODES_NAME, true);
 
-                var lstElements = new List<XElement> { path, indent, tabsize };
+                var lstElements = new List<XElement> { path, indent, tabsize, removeEmptyNodes };
 
                 _xDocConfig = new XDocument(
                     new XDeclaration("1.0", "utf-8", "yes"),
@@ -135,6 +137,11 @@ namespace tabler {
                 loadedSettings.TabSize = int.Parse(tabSizeElement.Value);
             }
 
+            var removeEmptyNodes = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == EMPTYNODES_NAME);
+            if (removeEmptyNodes != null) {
+                loadedSettings.RemoveEmptyNodes = bool.Parse(removeEmptyNodes.Value);
+            }
+
             return loadedSettings;
         }
 
@@ -164,6 +171,13 @@ namespace tabler {
                 var tabSizeElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == TABSIZE_NAME);
                 if (tabSizeElement != null) {
                     tabSizeElement.Value = settingsToSave.TabSize.ToString();
+                } else {
+                    CreateOrLoadConfig(true);
+                }
+
+                var removeEmptyNodes = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == EMPTYNODES_NAME);
+                if (removeEmptyNodes != null) {
+                    removeEmptyNodes.Value = settingsToSave.RemoveEmptyNodes.ToString();
                 } else {
                     CreateOrLoadConfig(true);
                 }
