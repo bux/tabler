@@ -127,12 +127,6 @@
   <data name="btnSaveSettings.Text" xml:space="preserve">
     <value>Сохранить</value>
   </data>
-  <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 72</value>
-  </data>
-  <data name="grpBIndentation.Text" xml:space="preserve">
-    <value>Отступ</value>
-  </data>
   <data name="rbIndentSpaces.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 17</value>
   </data>
@@ -151,11 +145,23 @@
   <data name="rbIndentTabs.Text" xml:space="preserve">
     <value>Табуляция</value>
   </data>
+  <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 72</value>
+  </data>
+  <data name="grpBIndentation.Text" xml:space="preserve">
+    <value>Отступ</value>
+  </data>
+  <data name="cbRemoveEmptyNodes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 17</value>
+  </data>
+  <data name="cbRemoveEmptyNodes.Text" xml:space="preserve">
+    <value>T: Remove Empty Nodes</value>
+  </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
     <value>177, 46</value>
   </data>
   <data name="groupBox1.Text" xml:space="preserve">
-    <value>Empty Nodes</value>
+    <value>T: Empty Nodes</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>201, 177</value>
