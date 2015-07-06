@@ -36,7 +36,7 @@ Parse all the <code>stringtable.xml</code> files in every subfolder, edit them a
   <li>Open all <code>stringtable.xml</code> files in one UI.</li>
   <li>Add keys, languages and edit translations in an Excel-like grid view.</li>
   <li>Save all changes back to the localization files.</li>
-  <li>Keep an eye on the translation progress with statistics – right-clicking the chart let's you copy them to clipboard.</li>
+  <li>Keep an eye on the translation progress with statistics – right-clicking the chart lets you copy them to clipboard.</li>
 </ul>
 <!--
 <hr>
