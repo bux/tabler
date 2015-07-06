@@ -134,6 +134,17 @@ namespace tabler {
             }
         }
 
+        /// <summary>
+        /// Handles the about menu item click
+        /// Shows the About form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            var frmAbout = new About();
+            frmAbout.ShowDialog(this);
+        }
+
         #endregion
 
         public void HandleAddLanguage(string newLanguage) {

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("tabler")]
-[assembly: AssemblyCopyright("© Copyright MaMilaCan, bux578 - 2015")]
+[assembly: AssemblyCopyright("MaMilaCan, bux578")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

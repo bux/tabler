@@ -72,6 +72,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddLanguage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,15 @@
     <Compile Include="Forms\TranslationProgress.Designer.cs">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\About.de.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\About.ru.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddLanguage.de.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,6 +192,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Icon-256.png" />
+    <Content Include="Content\Icon-48.png" />
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
