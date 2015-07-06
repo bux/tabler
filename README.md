@@ -13,7 +13,7 @@
          alt="Version" />
   </a>
   <a href="https://github.com/bux578/tabler/releases/download/v0.4.2/tabler-v0.4.2.zip">
-    <img src="http://img.shields.io/badge/Download-426_KB-blue.svg?style=flat"
+    <img src="http://img.shields.io/badge/Download-757_KB-blue.svg?style=flat"
          alt="Download" />
   </a>
   <a href="https://github.com/bux578/tabler/issues">
