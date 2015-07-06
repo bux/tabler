@@ -162,6 +162,7 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "GridUI";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GridUI_FormClosing);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

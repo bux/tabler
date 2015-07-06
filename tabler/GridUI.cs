@@ -93,12 +93,6 @@ namespace tabler {
             frmSettings.ShowDialog(this);
         }
 
-        #endregion
-
-        public void HandleAddLanguage(string newLanguage) {
-            _gridUiHelper.AddLanguage(newLanguage);
-        }
-
 
         private void statisticsToolStripMenuItem_Click(object sender, EventArgs e) {
             var frmStatistics = new TranslationProgress(this);
@@ -120,5 +114,32 @@ namespace tabler {
                 }
             }
         }
+
+        /// <summary>
+        /// Handles the FormClosing event
+        /// Used to show a message if the user has unsaved changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GridUI_FormClosing(object sender, FormClosingEventArgs e) {
+            if (_gridUiHelper == null) {
+                return;
+            }
+
+            bool canClose = _gridUiHelper.CanClose();
+            if (!canClose) {
+                if (MessageBox.Show(Resources.GridUI_Discard_all_changes, Resources.GridUI_Exit, MessageBoxButtons.YesNo) == DialogResult.No) {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        #endregion
+
+        public void HandleAddLanguage(string newLanguage) {
+            _gridUiHelper.AddLanguage(newLanguage);
+        }
+
+
     }
 }
