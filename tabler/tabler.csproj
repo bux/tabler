@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -72,10 +72,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddLanguage.cs">
+    <Compile Include="Forms\AddLanguage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddLanguage.Designer.cs">
+    <Compile Include="Forms\AddLanguage.Designer.cs">
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\CellEditHistory.cs" />
@@ -89,10 +89,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper\ConfigHelper.cs" />
-    <Compile Include="GridUI.cs">
+    <Compile Include="Forms\GridUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GridUI.Designer.cs">
+    <Compile Include="Forms\GridUI.Designer.cs">
       <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\DuplicateKeyException.cs" />
@@ -102,34 +102,34 @@
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
+    <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TranslationProgress.cs">
+    <Compile Include="Forms\TranslationProgress.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TranslationProgress.Designer.cs">
+    <Compile Include="Forms\TranslationProgress.Designer.cs">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddLanguage.de.resx">
+    <EmbeddedResource Include="Forms\AddLanguage.de.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddLanguage.ru.resx">
+    <EmbeddedResource Include="Forms\AddLanguage.ru.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddLanguage.resx">
+    <EmbeddedResource Include="Forms\AddLanguage.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GridUI.de.resx">
+    <EmbeddedResource Include="Forms\GridUI.de.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GridUI.ru.resx">
+    <EmbeddedResource Include="Forms\GridUI.ru.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GridUI.resx">
+    <EmbeddedResource Include="Forms\GridUI.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -144,22 +144,22 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.de.resx" />
     <EmbeddedResource Include="Properties\Resources.ru.resx" />
-    <EmbeddedResource Include="SettingsForm.de.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.de.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.ru.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.ru.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SettingsForm.resx">
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TranslationProgress.de.resx">
+    <EmbeddedResource Include="Forms\TranslationProgress.de.resx">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TranslationProgress.ru.resx">
+    <EmbeddedResource Include="Forms\TranslationProgress.ru.resx">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TranslationProgress.resx">
+    <EmbeddedResource Include="Forms\TranslationProgress.resx">
       <DependentUpon>TranslationProgress.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

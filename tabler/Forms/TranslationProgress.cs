@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -24,29 +25,66 @@ namespace tabler {
         private void PopulateChart() {
             int inc = 0;
 
-            var series = new Series("Missing Translations");
-            series.IsVisibleInLegend = false;
-            series.XValueType = ChartValueType.String;
+            var series = new Series("Missing Translations") {
+                IsVisibleInLegend = false,
+                XValueType = ChartValueType.String
+            };
 
             int highestCount = 0;
 
-            foreach (LanguageStatistics modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics) {
-                int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
+            foreach (var header in _myParent.TranslationManager.TranslationComponents.Headers) {
 
-                if (missingTranslationCount > highestCount) {
-                    highestCount = missingTranslationCount;
+                if (header == "ID") {
+                    continue;
                 }
 
+                DataPoint dataPoint;
 
-                var dataPoint = new DataPoint(inc, missingTranslationCount);
-                dataPoint.AxisLabel = modInfoStatistics.LanguageName;
-                dataPoint.Label = missingTranslationCount.ToString();
-                dataPoint.ToolTip = AggregateMods(modInfoStatistics, "\n");
+                LanguageStatistics modInfoStat = _myParent.TranslationManager.TranslationComponents.Statistics.FirstOrDefault(s => s.LanguageName.ToLower().Equals(header.ToLower()));
+
+                if (modInfoStat == null) {
+                    dataPoint = new DataPoint(inc, 0) {
+                        AxisLabel = header,
+                        Label = "0"
+                    };
+                } else {
+                    int missingTranslationCount = GetMissingTranslationCount(modInfoStat);
+
+                    if (missingTranslationCount > highestCount) {
+                        highestCount = missingTranslationCount;
+                    }
+
+
+                    dataPoint = new DataPoint(inc, missingTranslationCount) {
+                        AxisLabel = modInfoStat.LanguageName,
+                        Label = missingTranslationCount.ToString(CultureInfo.CurrentCulture),
+                        ToolTip = AggregateMods(modInfoStat, "\n")
+                    };
+                }
+
 
                 series.Points.Add(dataPoint);
 
                 inc += 1;
             }
+
+            //foreach (LanguageStatistics modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics) {
+            //    int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
+
+            //    if (missingTranslationCount > highestCount) {
+            //        highestCount = missingTranslationCount;
+            //    }
+
+
+            //    var dataPoint = new DataPoint(inc, missingTranslationCount);
+            //    dataPoint.AxisLabel = modInfoStatistics.LanguageName;
+            //    dataPoint.Label = missingTranslationCount.ToString();
+            //    dataPoint.ToolTip = AggregateMods(modInfoStatistics, "\n");
+
+            //    series.Points.Add(dataPoint);
+
+            //    inc += 1;
+            //}
 
 
             chart.Series.Add(series);
@@ -97,7 +135,6 @@ namespace tabler {
         }
 
         private void copyDataasMdTableToolStripMenuItem_Click(object sender, EventArgs e) {
-
             var outerSb = new StringBuilder();
             var innerSb = new StringBuilder();
 
@@ -108,7 +145,7 @@ namespace tabler {
                 int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
                 string mods = AggregateMods(modInfoStatistics, ", ");
 
-                double percentage = ((double)totalKeys - (double)missingTranslationCount)/(double)totalKeys*100;
+                double percentage = ((double) totalKeys - (double) missingTranslationCount)/(double) totalKeys*100;
 
                 innerSb.AppendLine(String.Format("| {0} | {1} | {2} | {3} |", modInfoStatistics.LanguageName, missingTranslationCount, mods, Math.Round(percentage, 1)));
             }
@@ -122,7 +159,6 @@ namespace tabler {
             outerSb.Append(innerSb);
 
             Clipboard.SetText(outerSb.ToString());
-
         }
     }
 }
