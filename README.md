@@ -9,11 +9,11 @@
          alt="BIF Thread" />
   </a>
   <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Version-0..0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Version-0.6.0-green.svg?style=flat"
          alt="Version" />
   </a>
   <a href="https://github.com/bux578/tabler/releases/download/v0.6.0/tabler-v0.6.0.zip">
-    <img src="http://img.shields.io/badge/Download-757_KB-blue.svg?style=flat"
+    <img src="http://img.shields.io/badge/Download-973_KB-blue.svg?style=flat"
          alt="Download" />
   </a>
   <a href="https://github.com/bux578/tabler/issues">
