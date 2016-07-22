@@ -4,15 +4,15 @@
 </p>
 <h1 align="center">Arma 3 Translation Helper</h1>
 <p align="center">
-  <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-Helper&p=2736174&viewfull=1#post2736174">
+  <a href="http://forums.bistudio.com/showthread.php?180825-tabler-Arma-3-Translation-6Helper&p=2736174&viewfull=1#post2736174">
     <img src="https://img.shields.io/badge/BIF-Thread-lightgrey.svg?style=flat"
          alt="BIF Thread" />
   </a>
   <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Version-0.5.0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Version-0..0-green.svg?style=flat"
          alt="Version" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.5.0/tabler-v0.5.0.zip">
+  <a href="https://github.com/bux578/tabler/releases/download/v0.6.0/tabler-v0.6.0.zip">
     <img src="http://img.shields.io/badge/Download-757_KB-blue.svg?style=flat"
          alt="Download" />
   </a>
