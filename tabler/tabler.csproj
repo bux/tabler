@@ -243,6 +243,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Icon-32.png" />
+    <Content Include="Content\Icon-256.png" />
     <Content Include="Content\Icon-48.png" />
     <Content Include="icon.ico" />
   </ItemGroup>

@@ -153,4 +153,7 @@ Eintrag: '{2}'</value>
   <data name="GridUI_No_stringtable_xml_files_found" xml:space="preserve">
     <value>Keine 'stringtable.xml'-Dateien gefunden.</value>
   </data>
+  <data name="GridUI_saveToolStripMenuItem_Click_Successfully_saved" xml:space="preserve">
+    <value>Erfolgreich gespeichert</value>
+  </data>
 </root>

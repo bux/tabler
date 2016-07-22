@@ -155,5 +155,14 @@ namespace tabler.Properties {
                 return ResourceManager.GetString("GridUI_No_stringtable_xml_files_found", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully saved..
+        /// </summary>
+        internal static string GridUI_saveToolStripMenuItem_Click_Successfully_saved {
+            get {
+                return ResourceManager.GetString("GridUI_saveToolStripMenuItem_Click_Successfully_saved", resourceCulture);
+            }
+        }
     }
 }

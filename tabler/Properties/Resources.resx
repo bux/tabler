@@ -154,4 +154,7 @@ Entry: '{2}'</value>
   <data name="GridUI_CheckForNewVersion_Download_the_new_version_at" xml:space="preserve">
     <value>Download the new version at</value>
   </data>
+  <data name="GridUI_saveToolStripMenuItem_Click_Successfully_saved" xml:space="preserve">
+    <value>Successfully saved.</value>
+  </data>
 </root>

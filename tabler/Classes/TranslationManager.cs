@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using OfficeOpenXml;
+using tabler.Classes;
+
 
 namespace tabler {
     public class TranslationManager {
@@ -81,14 +84,21 @@ namespace tabler {
             SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
         }
 
-        private static void SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
-            //if going through mods instead of files, 
-            // we could create files
-            // too tired :D ->  TODO
-            List<FileInfo> filesByNameInDirectory = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories);
+        private static bool SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
+            try {
+                //if going through mods instead of files, 
+                // we could create files
+                // too tired :D ->  TODO
+                List<FileInfo> filesByNameInDirectory = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories);
 
-            var xh = new XmlHelper();
-            xh.UpdateXmlFiles(filesByNameInDirectory, lstModInfos);
+                var xh = new XmlHelper();
+                xh.UpdateXmlFiles(filesByNameInDirectory, lstModInfos);
+            } catch (Exception e) {
+                Logger.Log(e.Message);
+                return false;
+            }
+
+            return true;
         }
 
 
@@ -96,8 +106,8 @@ namespace tabler {
             return GetTranslationComponents(lastPathToDataFiles, false);
         }
 
-        public void SaveGridData(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
-            SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
+        public bool SaveGridData(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
+            return SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
         }
     }
 }

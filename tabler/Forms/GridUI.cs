@@ -90,7 +90,11 @@ namespace tabler {
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
             var lstModInfos = _gridUiHelper.ParseAllTables();
 
-            TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+            var success = TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+
+            if (success) {
+                Logger.Log(Resources.GridUI_saveToolStripMenuItem_Click_Successfully_saved);
+            }
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e) {
