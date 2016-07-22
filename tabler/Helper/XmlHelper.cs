@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using tabler.Classes;
 
 namespace tabler {
     public class XmlHelper {

@@ -145,4 +145,13 @@ Entry: '{2}'</value>
   <data name="GridUI_No_stringtable_xml_files_found" xml:space="preserve">
     <value>No 'stringtable.xml' files found.</value>
   </data>
+  <data name="GridUI_CheckForNewVersion_New_version_available" xml:space="preserve">
+    <value>New version available</value>
+  </data>
+  <data name="GridUI_CheckForNewVersion_Current_version_is_up_to_date" xml:space="preserve">
+    <value>Current version is up to date</value>
+  </data>
+  <data name="GridUI_CheckForNewVersion_Download_the_new_version_at" xml:space="preserve">
+    <value>Download the new version at</value>
+  </data>
 </root>

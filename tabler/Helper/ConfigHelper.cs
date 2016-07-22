@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.Serialization;
 using tabler.Classes;
 
 namespace tabler {
@@ -85,8 +83,8 @@ namespace tabler {
                 XElement pathElement = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == LASTPATHTODATAFILES_NAME);
 
                 if (pathElement != null) {
-                    string value = XmlConvert.DecodeName(pathElement.Value);
-                    if (String.IsNullOrEmpty(value) == false) {
+                    var value = XmlConvert.DecodeName(pathElement.Value);
+                    if (string.IsNullOrEmpty(value) == false) {
                         return new DirectoryInfo(value);
                     }
                 } else {

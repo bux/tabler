@@ -152,7 +152,7 @@
     <value>Отступ</value>
   </data>
   <data name="cbRemoveEmptyNodes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 17</value>
+    <value>141, 17</value>
   </data>
   <data name="cbRemoveEmptyNodes.Text" xml:space="preserve">
     <value>Удалить Пустые Узлы</value>

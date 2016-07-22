@@ -1,28 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Octokit;
+using tabler.Classes;
 using tabler.Properties;
 
+
 namespace tabler {
+
     public partial class GridUI : Form {
         public readonly ConfigHelper ConfigHelper;
         public readonly TranslationManager TranslationManager;
         private GridUiHelper _gridUiHelper;
+        private Release _newerRelease;
 
         public GridUI() {
             InitializeComponent();
             ConfigHelper = new ConfigHelper();
             TranslationManager = new TranslationManager();
+            Logger.TextBoxToLogIn = _tbLog;
         }
 
-        #region " Events "
+        #region Events
+
+        private void checkForNewVersionToolStripMenuItem_Click(object sender, EventArgs e) {
+            CheckForNewVersion();
+        }
+
+        private void getNewVersionToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (_newerRelease != null) {
+                Process.Start(_newerRelease.HtmlUrl);
+            }
+        }
+
+        private void GridUI_Load(object sender, EventArgs e) {
+            CheckForNewVersion();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) {
+            new AboutBox().ShowDialog();
+        }
 
         private void openModFolderToolStripMenuItem_Click(object sender, EventArgs e) {
-            string curPath = "";
+            var curPath = "";
 
-            DirectoryInfo lastPath = ConfigHelper.GetLastPathOfDataFiles();
+            var lastPath = ConfigHelper.GetLastPathOfDataFiles();
 
             if (lastPath != null) {
                 curPath = lastPath.FullName;
@@ -38,7 +62,7 @@ namespace tabler {
                 m_tbModFolder.Text = folderBrowserDialog1.SelectedPath;
                 try {
                     // start the process
-                    TranslationComponents tc = TranslationManager.GetGridData(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
+                    var tc = TranslationManager.GetGridData(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
 
                     if (tc == null) {
                         MessageBox.Show(Resources.GridUI_No_stringtable_xml_files_found);
@@ -56,27 +80,25 @@ namespace tabler {
 
                     ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderBrowserDialog1.SelectedPath));
                 } catch (DuplicateKeyException duplicateKeyException) {
-                    MessageBox.Show(String.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
+                    MessageBox.Show(string.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
                 } catch (GenericXmlException xmlException) {
-                    MessageBox.Show(String.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
+                    MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
                 }
             }
         }
 
-
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
-            List<ModInfoContainer> lstModInfos = _gridUiHelper.ParseAllTables();
+            var lstModInfos = _gridUiHelper.ParseAllTables();
 
             TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
         }
 
-
         private void tabControl1_Selected(object sender, TabControlEventArgs e) {
             var tabControl = (TabControl) sender;
 
-            TabPage tabPage = tabControl.SelectedTab;
+            var tabPage = tabControl.SelectedTab;
 
-            foreach (DataGridView pb in tabPage.Controls.OfType<DataGridView>()) {
+            foreach (var pb in tabPage.Controls.OfType<DataGridView>()) {
                 pb.Focus();
                 pb.Select();
             }
@@ -87,12 +109,10 @@ namespace tabler {
             frmAddLanguage.ShowDialog(this);
         }
 
-
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) {
             var frmSettings = new SettingsForm(this);
             frmSettings.ShowDialog(this);
         }
-
 
         private void statisticsToolStripMenuItem_Click(object sender, EventArgs e) {
             var frmStatistics = new TranslationProgress(this);
@@ -105,7 +125,7 @@ namespace tabler {
                 return;
             }
 
-            bool canClose = _gridUiHelper.CanClose();
+            var canClose = _gridUiHelper.CanClose();
             if (canClose) {
                 Close();
             } else {
@@ -116,8 +136,8 @@ namespace tabler {
         }
 
         /// <summary>
-        /// Handles the FormClosing event
-        /// Used to show a message if the user has unsaved changes
+        ///   Handles the FormClosing event
+        ///   Used to show a message if the user has unsaved changes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -126,7 +146,7 @@ namespace tabler {
                 return;
             }
 
-            bool canClose = _gridUiHelper.CanClose();
+            var canClose = _gridUiHelper.CanClose();
             if (!canClose) {
                 if (MessageBox.Show(Resources.GridUI_Discard_all_changes, Resources.GridUI_Exit, MessageBoxButtons.YesNo) == DialogResult.No) {
                     e.Cancel = true;
@@ -136,10 +156,35 @@ namespace tabler {
 
         #endregion
 
+        #region Functions
+
+        private void CheckForNewVersion() {
+            try {
+                var github = new GitHubClient(new ProductHeaderValue("tabler"));
+                var releases = github.Repository.Release.GetAll("bux578", "tabler").Result;
+
+                _newerRelease = releases.Where(x => x.PublishedAt.HasValue && new Version(x.TagName.Replace("v", "")) > new Version(ProductVersion)).OrderByDescending(x => x.PublishedAt).FirstOrDefault();
+
+                if (_newerRelease != null) {
+                    getNewVersionToolStripMenuItem.Enabled = true;
+                    Logger.Log(string.Format("{0} -> {1}", Resources.GridUI_CheckForNewVersion_New_version_available, _newerRelease.Name));
+                    Logger.Log(string.Format("{0}: {1}", Resources.GridUI_CheckForNewVersion_Download_the_new_version_at, _newerRelease.HtmlUrl));
+                } else {
+                    getNewVersionToolStripMenuItem.Enabled = false;
+                    Logger.Log(string.Format("{0} {1}", Resources.GridUI_CheckForNewVersion_Current_version_is_up_to_date, ProductVersion));
+                }
+
+
+            } catch (Exception) {
+
+            }
+        }
+
         public void HandleAddLanguage(string newLanguage) {
             _gridUiHelper.AddLanguage(newLanguage);
         }
 
-
+        #endregion
     }
+
 }
