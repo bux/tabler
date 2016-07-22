@@ -9,10 +9,10 @@
          alt="BIF Тема" />
   </a>
   <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Версия-0.5.0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Версия-0.6.0-green.svg?style=flat"
          alt="Версия" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.5.0/tabler-v0.5.0.zip">
+  <a href="https://github.com/bux578/tabler/releases/download/v0.6.0/tabler-v0.6.0.zip">
     <img src="http://img.shields.io/badge/Скачать-757_КБ-blue.svg?style=flat"
          alt="Скачать" />
   </a>
