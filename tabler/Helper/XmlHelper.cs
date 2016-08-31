@@ -167,6 +167,7 @@ namespace tabler {
                     using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings)) {
                         xdoc.Save(writer);
                     }
+                    File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
                 }
             }
         }
