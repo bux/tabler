@@ -382,5 +382,16 @@ namespace tabler {
             }
 
         }
+
+        public void Cleanup() {
+            foreach (TabPage tabPage in _gridUi.tabControl1.TabPages) {
+
+                foreach (DataGridView dataGridView in tabPage.Controls.OfType<DataGridView>()) {
+                    tabPage.Controls.Remove(dataGridView);
+                }
+
+                _gridUi.tabControl1.TabPages.Remove(tabPage);
+            }
+        }
     }
 }

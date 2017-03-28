@@ -69,11 +69,10 @@ namespace tabler {
                         return;
                     }
 
-
                     _gridUiHelper = new GridUiHelper(this);
+                    _gridUiHelper.Cleanup();
                     _gridUiHelper.ShowData(tc);
 
-                    openModFolderToolStripMenuItem.Enabled = false;
                     saveToolStripMenuItem.Enabled = true;
                     addLanguageToolStripMenuItem.Enabled = true;
                     statisticsToolStripMenuItem.Enabled = true;
@@ -101,6 +100,10 @@ namespace tabler {
             var tabControl = (TabControl) sender;
 
             var tabPage = tabControl.SelectedTab;
+
+            if (tabPage == null) {
+                return;
+            }
 
             foreach (var pb in tabPage.Controls.OfType<DataGridView>()) {
                 pb.Focus();
