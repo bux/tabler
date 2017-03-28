@@ -104,12 +104,11 @@ namespace tabler {
 
 
         private DataGridView CreateGridViewAndFillWithData(TranslationComponents tc, string currentModule) {
-            var gridView = new DataGridView();
-            gridView.Dock = DockStyle.Fill;
-
-            gridView.EditMode = DataGridViewEditMode.EditOnKeystroke;
-
-
+            var gridView = new DataGridView {
+                Dock = DockStyle.Fill,
+                EditMode = DataGridViewEditMode.EditOnKeystroke
+            };
+            
             gridView.CellValueChanged += gridView_CellValueChanged;
             gridView.CellBeginEdit += gridView_CellBeginEdit;
             gridView.KeyUp += gridView_KeyUp;
@@ -117,15 +116,16 @@ namespace tabler {
             gridView.UserDeletedRow += gridView_UserDeletedRow;
             gridView.ColumnHeaderMouseClick += gridView_ColumnHeaderMouseClick;
 
-            foreach (string header in tc.Headers) {
-                var dgvc = new DataGridViewTextBoxColumn();
-                dgvc.HeaderText = header;
-                dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
-                dgvc.Resizable = DataGridViewTriState.True;
+            foreach (var header in tc.Headers) {
+                var dgvc = new DataGridViewTextBoxColumn {
+                    HeaderText = header,
+                    SortMode = DataGridViewColumnSortMode.NotSortable,
+                    Resizable = DataGridViewTriState.True
+                };
                 gridView.Columns.Add(dgvc);
             }
 
-            ModInfoContainer modInfoContainer = tc.AllModInfo.FirstOrDefault(mi => mi.Name == currentModule);
+            var modInfoContainer = tc.AllModInfo.FirstOrDefault(mi => mi.Name == currentModule);
 
             if (modInfoContainer != null) {
 
@@ -133,12 +133,12 @@ namespace tabler {
                     var row = new DataGridViewRow();
                     row.CreateCells(gridView);
 
-                    int index = 1;
+                    var index = 1;
 
                     row.Cells[0].Value = translationsWithKey.Key;
 
 
-                    foreach (string header in tc.Headers) {
+                    foreach (var header in tc.Headers) {
                         if (header == TranslationManager.COLUMN_IDNAME || header == TranslationManager.COLUMN_MODNAME) {
                             continue;
                         }
@@ -147,11 +147,11 @@ namespace tabler {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_BASELANGUAGE);
                         }
 
-                        if (!translationsWithKey.Value.ContainsKey(header) || String.IsNullOrWhiteSpace(translationsWithKey.Value[header])) {
+                        if (!translationsWithKey.Value.ContainsKey(header) || string.IsNullOrWhiteSpace(translationsWithKey.Value[header])) {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
                             AddMissingTranslationToStatistics(tc.Statistics, header, currentModule);
                         } else {
-                            string trans = translationsWithKey.Value[header];
+                            var trans = translationsWithKey.Value[header];
                             row.Cells[index].Value = trans;
                             row.Cells[index].Style.WrapMode = DataGridViewTriState.True;
                         }
@@ -190,7 +190,7 @@ namespace tabler {
         }
 
 
-        public void Undo() {
+        private void Undo() {
             if (EditHistory.Any() == false) {
                 return;
             }
@@ -199,7 +199,7 @@ namespace tabler {
 
             CellEditHistory lastEdit = EditHistory.Last();
 
-            TabPage tabPage = _gridUi.tabControl1.TabPages[lastEdit.Mod];
+            var tabPage = _gridUi.tabControl1.TabPages[lastEdit.Mod];
             _gridUi.tabControl1.SelectTab(tabPage);
 
             // it has to be there
@@ -214,7 +214,8 @@ namespace tabler {
                 cell.Style.BackColor = lastEdit.OldBackColor;
             }
 
-            //TODO
+            // TODO
+            // bux: yeah, but what?
 
 
             EditHistory.Remove(lastEdit);
