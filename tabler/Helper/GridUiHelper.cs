@@ -304,22 +304,21 @@ namespace tabler {
 
             if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back) {
                 foreach (DataGridViewCell activeCell in activeCells) {
-                    //_editedCellValue = activeCell.Value.ToString();
 
-                    if (activeCell == null) {
-                        return;
+                    if (activeCell == null || activeCell.Value == null) {
+                        continue;
                     }
 
-                    string oldValue = activeCell.Value.ToString();
-                    Color oldColor = activeCell.Style.BackColor;
+                    var oldValue = activeCell.Value.ToString();
+                    var oldColor = activeCell.Style.BackColor;
 
                     _ignoreForHistory = true;
 
                     activeCell.Value = "";
-                    // gridView_CellValueChanged(sender, new DataGridViewCellEventArgs(activeCell.ColumnIndex, activeCell.RowIndex));
 
                     AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, activeCell, oldValue, activeCell.Value.ToString(), oldColor);
                 }
+
                 ((DataGridView)sender).BeginEdit(false);
             }
         }
