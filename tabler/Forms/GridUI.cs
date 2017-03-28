@@ -168,7 +168,7 @@ namespace tabler {
         private void CheckForNewVersion() {
             try {
                 var github = new GitHubClient(new ProductHeaderValue("tabler"));
-                var releases = github.Repository.Release.GetAll("bux578", "tabler").Result;
+                var releases = github.Repository.Release.GetAll("bux", "tabler").Result;
 
                 _newerRelease = releases.Where(x => x.PublishedAt.HasValue && new Version(x.TagName.Replace("v", "")) > new Version(ProductVersion)).OrderByDescending(x => x.PublishedAt).FirstOrDefault();
 
@@ -182,8 +182,8 @@ namespace tabler {
                 }
 
 
-            } catch (Exception) {
-
+            } catch (Exception ex) {
+                Logger.Log("Error: " + ex.Message);
             }
         }
 
