@@ -12,10 +12,6 @@
     <img src="http://img.shields.io/badge/Version-0.7.0-green.svg?style=flat"
          alt="Version" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.7.0/tabler-v0.7.0.zip">
-    <img src="http://img.shields.io/badge/Download-962_KB-blue.svg?style=flat"
-         alt="Download" />
-  </a>
   <a href="https://github.com/bux578/tabler/issues">
     <img src="http://img.shields.io/github/issues-raw/bux578/tabler.svg?style=flat&label=Issues"
          alt="Issues" />
