@@ -9,11 +9,11 @@
          alt="BIF Thread" />
   </a>
   <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Version-0.6.0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Version-0.7.0-green.svg?style=flat"
          alt="Version" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.6.0/tabler-v0.6.0.zip">
-    <img src="http://img.shields.io/badge/Download-973_KB-blue.svg?style=flat"
+  <a href="https://github.com/bux578/tabler/releases/download/v0.7.0/tabler-v0.7.0.zip">
+    <img src="http://img.shields.io/badge/Download-962_KB-blue.svg?style=flat"
          alt="Download" />
   </a>
   <a href="https://github.com/bux578/tabler/issues">
@@ -38,7 +38,19 @@ Parse all the <code>stringtable.xml</code> files in every subfolder, edit them a
   <li>Save all changes back to the localization files.</li>
   <li>Keep an eye on the translation progress with statistics – right-clicking the chart let's you copy them to clipboard.</li>
 </ul>
-<!--
-<hr>
-<sub><strong>tabler</strong> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/bux578" property="cc:attributionName" rel="cc:attributionURL">bux578</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a></sub><br /><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
--->
+
+### Open a mod project
+
+![Opening a mod project](https://cloud.githubusercontent.com/assets/1235520/24458018/0d9a825e-1498-11e7-980d-6e895d3cacd9.gif)
+
+### Perform changes
+
+![Perform changes](https://cloud.githubusercontent.com/assets/1235520/24458101/3eed2596-1498-11e7-9959-162da6d0c15e.gif)
+
+### Track progress
+
+![Track progress](https://cloud.githubusercontent.com/assets/1235520/24458135/5685f494-1498-11e7-8ce9-413c4a7a7569.gif)
+
+### Settings
+
+![Settings](https://cloud.githubusercontent.com/assets/1235520/24458174/7659991a-1498-11e7-8df1-4c8e3707311f.gif)
