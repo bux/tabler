@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -12,20 +13,18 @@ namespace tabler {
         private const string PACKAGE_NAME = "Package";
 
         public TranslationComponents ParseXmlFiles(List<FileInfo> allStringTablePaths) {
+            
+            var lstHeader = new System.Collections.Concurrent.ConcurrentBag<string>();
 
-
-            var lstXDocuments = new List<XDocument>();
-
-            var lstHeader = new List<string>();
-
-            var allModInfos = new List<ModInfoContainer>();
+            var allModInfos = new System.Collections.Concurrent.ConcurrentBag<ModInfoContainer>();
 
             var transComp = new TranslationComponents();
 
-            foreach (FileInfo currentFile in allStringTablePaths) {
-                var modInfo = new ModInfoContainer();
-                modInfo.FileInfoStringTable = currentFile;
-                modInfo.Name = currentFile.Directory.Name;
+            Parallel.ForEach(allStringTablePaths, (currentFile) => {
+                var modInfo = new ModInfoContainer {
+                    FileInfoStringTable = currentFile,
+                    Name = currentFile.Directory.Name
+                };
 
                 XDocument xdoc;
 
@@ -34,8 +33,6 @@ namespace tabler {
                 } catch (XmlException xmlException) {
                     throw new GenericXmlException("", currentFile.FullName, xmlException.Message);
                 }
-
-                lstXDocuments.Add(xdoc);
 
                 IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
 
@@ -72,25 +69,26 @@ namespace tabler {
 
                 modInfo.Values = dicKeyWithTranslations;
                 allModInfos.Add(modInfo);
-            }
+            });
 
-            transComp.AllModInfo = allModInfos;
-            transComp.Headers = lstHeader;
+            transComp.AllModInfo = allModInfos.OrderBy(mic => mic.Name).ToList();
+            transComp.Headers = lstHeader.OrderBy(h => h).ToList();
 
             return transComp;
         }
 
 
         public void UpdateXmlFiles(List<FileInfo> filesByNameInDirectory, List<ModInfoContainer> lstModInfos) {
-            foreach (FileInfo currentFileInfo in filesByNameInDirectory) {
+
+            Parallel.ForEach(filesByNameInDirectory, (currentFileInfo) => {
                 ModInfoContainer foundModInfo = lstModInfos.FirstOrDefault(x => x.Name.ToLowerInvariant() == currentFileInfo.Directory.Name.ToLowerInvariant());
 
                 if (foundModInfo == null) {
-                    continue;
+                    return;
                 }
 
                 //get file
-                XDocument xdoc = XDocument.Load(currentFileInfo.FullName);
+                var xdoc = XDocument.Load(currentFileInfo.FullName);
 
                 bool changed = false;
                 //for each id in excel
@@ -119,21 +117,8 @@ namespace tabler {
                 }
 
                 if (changed) {
-
-                    // remove comment due to public request
-
-                    //XComment comment = (from node in xdoc.Nodes() where node.NodeType == XmlNodeType.Comment select node as XComment).FirstOrDefault();
-
-                    //string commentText = String.Format(" Edited with tabler. ");
-
-                    //if (comment == null) {
-                    //    xdoc.AddFirst(new XComment(commentText));
-                    //} else {
-                    //    comment.Value = commentText;
-                    //}
-
                     var xmlSettings = new XmlWriterSettings {
-                        Indent = true, 
+                        Indent = true,
                         IndentChars = "    "
                     };
 
@@ -169,20 +154,12 @@ namespace tabler {
                     }
                     File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
                 }
-            }
+            });
         }
 
 
         private bool UpdateOrInsertValue(XDocument xdoc, string id, string language, string value) {
-            //var ii = xdoc.Descendants().Where(x => x.Name.ToString().ToLowerInvariant() == "key" && (string)x.Attribute("ID") == id);
-
-
-            //var ii = from xel in  xdoc.Descendants()
-            //         where xel.Name.ToString().ToLowerInvariant() == "key" && (string)xel.Attribute("ID") == id
-            //         select xel.Descendants(language).ToList();
-
-            bool changed = false;
-
+            var changed = false;
             //get keys
             List<XElement> keys = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == KEY_NAME.ToLowerInvariant() select xel).ToList();
 
