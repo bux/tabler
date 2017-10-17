@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/bux578/tabler/blob/master/tabler/Content/Icon-256.png"
+  <img src="https://github.com/bux/tabler/blob/master/tabler/Content/Icon-256.png"
        width="192" />
 </p>
 <h1 align="center">Arma 3 Translation Helper</h1>
@@ -8,12 +8,12 @@
     <img src="https://img.shields.io/badge/BIF-Thread-lightgrey.svg?style=flat"
          alt="BIF Thread" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases">
+  <a href="https://github.com/bux/tabler/releases">
     <img src="http://img.shields.io/badge/Version-0.7.0-green.svg?style=flat"
          alt="Version" />
   </a>
-  <a href="https://github.com/bux578/tabler/issues">
-    <img src="http://img.shields.io/github/issues-raw/bux578/tabler.svg?style=flat&label=Issues"
+  <a href="https://github.com/bux/tabler/issues">
+    <img src="http://img.shields.io/github/issues-raw/bux/tabler.svg?style=flat&label=Issues"
          alt="Issues" />
   </a>
   <a href="http://creativecommons.org/licenses/by-sa/4.0">
