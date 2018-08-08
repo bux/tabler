@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using tabler.Classes;
 
 namespace tabler {
     public class GridUiHelper {
@@ -41,12 +42,12 @@ namespace tabler {
 
                 var modInfo = new ModInfoContainer();
 
-                var translationsWithKeys = new Dictionary<string, Dictionary<string, string>>();
+                var translationsWithKeys = new Dictionary<string, List<XmlKeyTranslation>>();
 
                 // iterating through the keys
                 foreach (DataGridViewRow row in gridView.Rows) {
                     string keyName = string.Empty;
-                    var dicTranslations = new Dictionary<string, string>();
+                    var lstTranslations = new List<XmlKeyTranslation>();
 
                     // iterating through the languages
                     foreach (DataGridViewTextBoxColumn dgvc in gridView.Columns) {
@@ -65,14 +66,18 @@ namespace tabler {
                             value = row.Cells[dgvc.Index].Value.ToString();
                         }
 
-                        dicTranslations.Add(dgvc.HeaderText, value);
+                        lstTranslations.Add(new XmlKeyTranslation {
+                            Language = dgvc.HeaderText,
+                            Value = value,
+                            Position = dgvc.DisplayIndex
+                        });
                     }
 
                     if (string.IsNullOrEmpty(keyName)) {
                         continue;
                     }
 
-                    translationsWithKeys.Add(keyName, dicTranslations);
+                    translationsWithKeys.Add(keyName, lstTranslations);
                 }
 
                 modInfo.Values = translationsWithKeys;
@@ -136,6 +141,7 @@ namespace tabler {
                     var index = 1;
 
                     row.Cells[0].Value = translationsWithKey.Key;
+                    var lstTranslations = translationsWithKey.Value;
 
 
                     foreach (var header in tc.Headers) {
@@ -147,12 +153,13 @@ namespace tabler {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_BASELANGUAGE);
                         }
 
-                        if (!translationsWithKey.Value.ContainsKey(header) || string.IsNullOrWhiteSpace(translationsWithKey.Value[header])) {
+                        var translation = lstTranslations.FirstOrDefault(xkt => xkt.Language.Equals(header));
+
+                        if (string.IsNullOrWhiteSpace(translation?.Value)) {
                             row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
                             AddMissingTranslationToStatistics(tc.Statistics, header, currentModule);
                         } else {
-                            var trans = translationsWithKey.Value[header];
-                            row.Cells[index].Value = trans;
+                            row.Cells[index].Value = translation.Value;
                             row.Cells[index].Style.WrapMode = DataGridViewTriState.True;
                         }
 
@@ -163,9 +170,7 @@ namespace tabler {
                 }
             }
 
-
             gridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            //gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
             return gridView;
         }

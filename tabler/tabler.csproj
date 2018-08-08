@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="Classes\Extensions.cs" />
     <Compile Include="Classes\Logger.cs" />
+    <Compile Include="Classes\XmlKeyTranslation.cs" />
     <Compile Include="Forms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,7 +134,6 @@
     </Compile>
     <Compile Include="Classes\DuplicateKeyException.cs" />
     <Compile Include="Helper\GridUiHelper.cs" />
-    <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Program.cs" />

@@ -44,18 +44,18 @@ namespace tabler {
         }
 
 
-        public void ConvertXmlToExcel(DirectoryInfo lastPathToDataFiles, bool insertMod) {
-            TranslationComponents transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
+        //public void ConvertXmlToExcel(DirectoryInfo lastPathToDataFiles, bool insertMod) {
+        //    TranslationComponents transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
 
-            var eh = new ExcelHelper();
-            ExcelPackage pck = eh.CreateExcelDoc(_fiExcelFile);
+        //    var eh = new ExcelHelper();
+        //    ExcelPackage pck = eh.CreateExcelDoc(_fiExcelFile);
 
-            // structure of headers (columns) -> MOD | ID | English | lang1 | lang2, ...
-            eh.CreateHeaderRow(pck, transComp.Headers);
+        //    // structure of headers (columns) -> MOD | ID | English | lang1 | lang2, ...
+        //    eh.CreateHeaderRow(pck, transComp.Headers);
 
-            eh.WriteEntries(pck, transComp.AllModInfo);
-            eh.SaveExcelDoc(pck);
-        }
+        //    eh.WriteEntries(pck, transComp.AllModInfo);
+        //    eh.SaveExcelDoc(pck);
+        //}
 
         private TranslationComponents GetTranslationComponents(DirectoryInfo lastPathToDataFiles, bool insertMod) {
             List<FileInfo> allStringtableFiles = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories).ToList();
@@ -74,15 +74,15 @@ namespace tabler {
         }
 
 
-        public void ConvertExcelToXml(DirectoryInfo lastPathToDataFiles) {
-            var eh = new ExcelHelper();
-            ExcelWorksheet ws = eh.LoadExcelDoc(_fiExcelFile);
+        //public void ConvertExcelToXml(DirectoryInfo lastPathToDataFiles) {
+        //    var eh = new ExcelHelper();
+        //    ExcelWorksheet ws = eh.LoadExcelDoc(_fiExcelFile);
 
-            //load all mod infos
-            List<ModInfoContainer> lstModInfos = eh.LoadModInfos(ws);
+        //    //load all mod infos
+        //    List<ModInfoContainer> lstModInfos = eh.LoadModInfos(ws);
 
-            SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
-        }
+        //    SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
+        //}
 
         private static bool SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
             try {
