@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/bux578/tabler/blob/master/tabler/Content/Icon-256.png"
+  <img src="https://github.com/bux/tabler/blob/master/tabler/Content/Icon-256.png"
        width="192" />
 </p>
 <h1 align="center">Arma 3 Помошник Перевода</h1>
@@ -8,16 +8,12 @@
     <img src="https://img.shields.io/badge/BIF-Тема-lightgrey.svg?style=flat"
          alt="BIF Тема" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases">
-    <img src="http://img.shields.io/badge/Версия-0.6.0-green.svg?style=flat"
+  <a href="https://github.com/bux/tabler/releases">
+    <img src="http://img.shields.io/badge/Версия-0.8.0-green.svg?style=flat"
          alt="Версия" />
   </a>
-  <a href="https://github.com/bux578/tabler/releases/download/v0.6.0/tabler-v0.6.0.zip">
-    <img src="http://img.shields.io/badge/Скачать-973_КБ-blue.svg?style=flat"
-         alt="Скачать" />
-  </a>
-  <a href="https://github.com/bux578/tabler/issues">
-    <img src="http://img.shields.io/github/issues-raw/bux578/tabler.svg?style=flat&label=Задачи"
+  <a href="https://github.com/bux/tabler/issues">
+    <img src="http://img.shields.io/github/issues-raw/bux/tabler.svg?style=flat&label=Задачи"
          alt="Задачи" />
   </a>
     <a href="http://creativecommons.org/licenses/by-sa/4.0/deed.ru">
@@ -40,5 +36,5 @@
 </ul>
 <!--
 <hr>
-<sub><strong>tabler</strong> за авторством от <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/bux578" property="cc:attributionName" rel="cc:attributionURL">bux578</a> носит лицензию <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons «Атрибуция — На тех же условиях» 4.0 Всемирная</a></sub><br /><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Лицензия Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
+<sub><strong>tabler</strong> за авторством от <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/bux" property="cc:attributionName" rel="cc:attributionURL">bux</a> носит лицензию <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons «Атрибуция — На тех же условиях» 4.0 Всемирная</a></sub><br /><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Лицензия Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>
 -->
