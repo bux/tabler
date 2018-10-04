@@ -132,6 +132,7 @@
       <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\DuplicateKeyException.cs" />
+    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\GridUiHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
@@ -231,7 +232,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="tabler_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
