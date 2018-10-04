@@ -6,69 +6,88 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace tabler {
-    public class XmlHelper {
+namespace tabler
+{
+    public class XmlHelper
+    {
         private const string KEY_NAME = "Key";
         private const string ID_NAME = "ID";
         private const string PACKAGE_NAME = "Package";
 
-        public TranslationComponents ParseXmlFiles(List<FileInfo> allStringTablePaths) {
-            
+        public TranslationComponents ParseXmlFiles(List<FileInfo> allStringTablePaths)
+        {
             var lstHeader = new System.Collections.Concurrent.ConcurrentBag<string>();
 
             var allModInfos = new System.Collections.Concurrent.ConcurrentBag<ModInfoContainer>();
 
             var transComp = new TranslationComponents();
 
-            Parallel.ForEach(allStringTablePaths, (currentFile) => {
-                var modInfo = new ModInfoContainer {
+            Parallel.ForEach(allStringTablePaths, (currentFile) =>
+            {
+                var modInfo = new ModInfoContainer
+                {
                     FileInfoStringTable = currentFile,
                     Name = currentFile.Directory.Name
                 };
 
-                XDocument xdoc;
+                using (var sr = new StreamReader(currentFile.FullName))
+                {
 
-                try {
-                    xdoc = XDocument.Load(currentFile.FullName);
-                } catch (XmlException xmlException) {
-                    throw new GenericXmlException("", currentFile.FullName, xmlException.Message);
-                }
+                    modInfo.FileHasBom = FileHelper.FileHasBom(sr.BaseStream);
 
-                IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
+                    XDocument xdoc;
 
-                var dicKeyWithTranslations = new Dictionary<string, Dictionary<string, string>>();
-
-                // all keys
-                foreach (XElement key in keys) {
-                    string currentKeyId = key.Attribute(ID_NAME).Value;
-
-                    var dicTranslations = new Dictionary<string, string>();
-
-                    // all languages of a key
-                    foreach (XElement language in key.Descendants()) {
-                        string languageName = language.Name.ToString();
-
-                        if (dicTranslations.ContainsKey(languageName)) {
-                            throw new DuplicateKeyException(languageName, currentFile.FullName, currentKeyId);
-                        }
-
-                        dicTranslations.Add(languageName, language.Value);
-
-                        // save all the languages
-                        if (lstHeader.Contains(languageName) == false) {
-                            lstHeader.Add(languageName);
-                        }
+                    try
+                    {
+                        xdoc = LoadFromStream(sr.BaseStream);
+                    }
+                    catch (XmlException xmlException)
+                    {
+                        throw new GenericXmlException("", currentFile.FullName, xmlException.Message);
                     }
 
-                    if (dicKeyWithTranslations.ContainsKey(currentKeyId)) {
-                        throw new DuplicateKeyException(currentKeyId, currentFile.FullName, currentKeyId);
+                    IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
+
+                    var dicKeyWithTranslations = new Dictionary<string, Dictionary<string, string>>();
+
+                    // all keys
+                    foreach (XElement key in keys)
+                    {
+                        string currentKeyId = key.Attribute(ID_NAME).Value;
+
+                        var dicTranslations = new Dictionary<string, string>();
+
+                        // all languages of a key
+                        foreach (XElement language in key.Descendants())
+                        {
+                            string languageName = language.Name.ToString();
+
+                            if (dicTranslations.ContainsKey(languageName))
+                            {
+                                throw new DuplicateKeyException(languageName, currentFile.FullName, currentKeyId);
+                            }
+
+                            dicTranslations.Add(languageName, language.Value);
+
+                            // save all the languages
+                            if (lstHeader.Contains(languageName) == false)
+                            {
+                                lstHeader.Add(languageName);
+                            }
+                        }
+
+                        if (dicKeyWithTranslations.ContainsKey(currentKeyId))
+                        {
+                            throw new DuplicateKeyException(currentKeyId, currentFile.FullName, currentKeyId);
+                        }
+                        dicKeyWithTranslations.Add(currentKeyId, dicTranslations);
                     }
-                    dicKeyWithTranslations.Add(currentKeyId, dicTranslations);
+
+
+                    modInfo.Values = dicKeyWithTranslations;
+                    allModInfos.Add(modInfo);
+
                 }
-
-
-                modInfo.Values = dicKeyWithTranslations;
-                allModInfos.Add(modInfo);
             });
 
             transComp.AllModInfo = allModInfos.OrderBy(mic => mic.Name).ToList();
@@ -78,12 +97,15 @@ namespace tabler {
         }
 
 
-        public void UpdateXmlFiles(List<FileInfo> filesByNameInDirectory, List<ModInfoContainer> lstModInfos) {
+        public void UpdateXmlFiles(List<FileInfo> filesByNameInDirectory, List<ModInfoContainer> lstModInfos)
+        {
 
-            Parallel.ForEach(filesByNameInDirectory, (currentFileInfo) => {
+            Parallel.ForEach(filesByNameInDirectory, (currentFileInfo) =>
+            {
                 ModInfoContainer foundModInfo = lstModInfos.FirstOrDefault(x => x.Name.ToLowerInvariant() == currentFileInfo.Directory.Name.ToLowerInvariant());
 
-                if (foundModInfo == null) {
+                if (foundModInfo == null)
+                {
                     return;
                 }
 
@@ -93,10 +115,13 @@ namespace tabler {
                 bool changed = false;
                 //for each id in excel
                 //Values(ID)(LANGUAGE)
-                foreach (var currentID in foundModInfo.Values) {
+                foreach (var currentID in foundModInfo.Values)
+                {
                     //for each language
-                    foreach (var currentLanguage in currentID.Value) {
-                        if (UpdateOrInsertValue(xdoc, currentID.Key, currentLanguage.Key, currentLanguage.Value)) {
+                    foreach (var currentLanguage in currentID.Value)
+                    {
+                        if (UpdateOrInsertValue(xdoc, currentID.Key, currentLanguage.Key, currentLanguage.Value))
+                        {
                             changed = true;
                         }
                     }
@@ -105,51 +130,64 @@ namespace tabler {
 
                 // Now check if someone deleted a row
                 IEnumerable<XElement> keysInXml = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
-                foreach (XElement currentKeyElement in keysInXml.ToList()) {
+                foreach (XElement currentKeyElement in keysInXml.ToList())
+                {
                     string currentKeyId = currentKeyElement.Attribute(ID_NAME).Value;
-                    if (foundModInfo.Values.Keys.Contains(currentKeyId)) {
+                    if (foundModInfo.Values.Keys.Contains(currentKeyId))
+                    {
                         // hmm, forgot what this was for
                         var a = true;
-                    } else {
+                    }
+                    else
+                    {
                         currentKeyElement.Remove();
                         changed = true;
                     }
                 }
 
-                if (changed) {
-                    var xmlSettings = new XmlWriterSettings {
+                if (changed)
+                {
+                    var xmlSettings = new XmlWriterSettings
+                    {
                         Indent = true,
-                        IndentChars = "    "
+                        IndentChars = "    ",
+                        Encoding = new System.Text.UTF8Encoding(foundModInfo.FileHasBom)
                     };
 
                     var configHelper = new ConfigHelper();
                     var settings = configHelper.GetSettings();
 
-                    if (settings != null) {
+                    if (settings != null)
+                    {
 
-                        if (settings.IndentationSettings == IndentationSettings.Spaces) {
+                        if (settings.IndentationSettings == IndentationSettings.Spaces)
+                        {
 
                             var indentChars = "";
 
-                            for (int i = 0; i < settings.TabSize; i++) {
+                            for (int i = 0; i < settings.TabSize; i++)
+                            {
                                 indentChars += " ";
                             }
 
                             xmlSettings.IndentChars = indentChars;
                         }
-                        if (settings.IndentationSettings == IndentationSettings.Tabs) {
+                        if (settings.IndentationSettings == IndentationSettings.Tabs)
+                        {
                             xmlSettings.IndentChars = "\t";
                         }
 
 
-                        if (settings.RemoveEmptyNodes) {
+                        if (settings.RemoveEmptyNodes)
+                        {
                             xdoc.Descendants().Where(d => d.IsEmpty || String.IsNullOrWhiteSpace(d.Value)).Remove();
                         }
 
                     }
 
 
-                    using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings)) {
+                    using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings))
+                    {
                         xdoc.Save(writer);
                     }
                     File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
@@ -158,16 +196,20 @@ namespace tabler {
         }
 
 
-        private bool UpdateOrInsertValue(XDocument xdoc, string id, string language, string value) {
+        private bool UpdateOrInsertValue(XDocument xdoc, string id, string language, string value)
+        {
             var changed = false;
             //get keys
             List<XElement> keys = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == KEY_NAME.ToLowerInvariant() select xel).ToList();
 
             XElement parent;
 
-            if (keys.Any()) {
+            if (keys.Any())
+            {
                 parent = keys.FirstOrDefault().Parent;
-            } else {
+            }
+            else
+            {
                 parent = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == PACKAGE_NAME.ToLowerInvariant() select xel).FirstOrDefault();
             }
 
@@ -177,7 +219,8 @@ namespace tabler {
             //get language
 
 
-            if (xID == null) {
+            if (xID == null)
+            {
                 //new create
                 //Too tired to make that in 1 single block :D
                 var xelKeyNew = new XElement(KEY_NAME);
@@ -191,20 +234,28 @@ namespace tabler {
             XElement xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language.ToLowerInvariant() select xel).FirstOrDefault();
 
 
-            if (xLanguage != null) {
+            if (xLanguage != null)
+            {
                 //exist -> update (or delete)
-                if (xLanguage.Value != value) {
-                    if (string.IsNullOrEmpty(value)) {
+                if (xLanguage.Value != value)
+                {
+                    if (string.IsNullOrEmpty(value))
+                    {
                         xLanguage.Remove();
-                    } else {
+                    }
+                    else
+                    {
                         xLanguage.Value = value;
                     }
 
                     changed = true;
                 }
-            } else {
+            }
+            else
+            {
                 // don't add a new language if the value is empty
-                if (!string.IsNullOrEmpty(value)) {
+                if (!string.IsNullOrEmpty(value))
+                {
                     xID.Add(new XElement(language, value));
 
                     changed = true;
@@ -212,6 +263,14 @@ namespace tabler {
             }
 
             return changed;
+        }
+
+        private XDocument LoadFromStream(Stream stream)
+        {
+            using (var xmlReader = XmlReader.Create(stream))
+            {
+                return XDocument.Load(xmlReader);
+            }
         }
     }
 }
