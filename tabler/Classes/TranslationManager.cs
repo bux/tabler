@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,20 +48,6 @@ namespace tabler
             return headers;
         }
 
-
-        public void ConvertXmlToExcel(DirectoryInfo lastPathToDataFiles, bool insertMod)
-        {
-            var transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
-
-            var eh = new ExcelHelper();
-            var pck = eh.CreateExcelDoc(_fiExcelFile);
-
-            // structure of headers (columns) -> MOD | ID | English | lang1 | lang2, ...
-            eh.CreateHeaderRow(pck, transComp.Headers);
-
-            eh.WriteEntries(pck, transComp.AllModInfo);
-            eh.SaveExcelDoc(pck);
-        }
 
         private TranslationComponents GetTranslationComponents(DirectoryInfo lastPathToDataFiles, bool insertMod)
         {
