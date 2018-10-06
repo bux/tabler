@@ -121,6 +121,9 @@
     <value>grpBIndentation</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>179, 179</value>
+  </data>
   <data name="cbRemoveEmptyNodes.Size" type="System.Drawing.Size, System.Drawing">
     <value>132, 17</value>
   </data>
@@ -170,9 +173,6 @@
   <data name="rbIndentSpaces.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="rbIndentTabs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 19</value>
-  </data>
   <data name="&gt;&gt;cbRemoveEmptyNodes.Parent" xml:space="preserve">
     <value>groupBox1</value>
   </data>
@@ -181,9 +181,6 @@
   </data>
   <data name="grpBIndentation.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 12</value>
-  </data>
-  <data name="rbIndentSpaces.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="&gt;&gt;cbRemoveEmptyNodes.Name" xml:space="preserve">
     <value>cbRemoveEmptyNodes</value>
@@ -218,9 +215,6 @@
   <data name="&gt;&gt;tbIndentation.Parent" xml:space="preserve">
     <value>grpBIndentation</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
-  </data>
   <data name="tbIndentation.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
   </data>
@@ -236,17 +230,20 @@
   <data name="&gt;&gt;grpBIndentation.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="cbRemoveEmptyNodes.Text" xml:space="preserve">
     <value>Remove Empty Nodes</value>
   </data>
   <data name="&gt;&gt;rbIndentSpaces.Name" xml:space="preserve">
     <value>rbIndentSpaces</value>
   </data>
+  <data name="&gt;&gt;tbIndentation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="rbIndentTabs.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
-    <value>$this</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>12, 90</value>
@@ -269,8 +266,8 @@
   <data name="grpBIndentation.Text" xml:space="preserve">
     <value>Indentation</value>
   </data>
-  <data name="rbIndentSpaces.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 42</value>
+  <data name="rbIndentSpaces.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -5046,6 +5043,9 @@
   <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 72</value>
   </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;grpBIndentation.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
@@ -5060,6 +5060,9 @@
   </data>
   <data name="rbIndentSpaces.Size" type="System.Drawing.Size, System.Drawing">
     <value>61, 17</value>
+  </data>
+  <data name="rbIndentSpaces.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
   </data>
   <data name="&gt;&gt;grpBIndentation.Name" xml:space="preserve">
     <value>grpBIndentation</value>
@@ -5076,20 +5079,17 @@
   <data name="&gt;&gt;btnSaveSettings.Name" xml:space="preserve">
     <value>btnSaveSettings</value>
   </data>
+  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="&gt;&gt;tbIndentation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="rbIndentTabs.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>179, 179</value>
-  </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;rbIndentTabs.Parent" xml:space="preserve">
     <value>grpBIndentation</value>
@@ -5101,7 +5101,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ru</value>
+    <value>en</value>
   </metadata>
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
