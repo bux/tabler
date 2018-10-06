@@ -52,7 +52,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this._tbLog = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
             this.toolStripContainer1.SuspendLayout();
@@ -69,30 +68,17 @@
             // 
             // toolStripContainer1
             // 
-            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
-            // 
-            // toolStripContainer1.BottomToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.BottomToolStripPanel, "toolStripContainer1.BottomToolStripPanel");
             // 
             // toolStripContainer1.ContentPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
             this.toolStripContainer1.ContentPanel.Controls.Add(this.m_tbModFolder);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
-            // 
-            // toolStripContainer1.LeftToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.LeftToolStripPanel, "toolStripContainer1.LeftToolStripPanel");
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
             this.toolStripContainer1.Name = "toolStripContainer1";
-            // 
-            // toolStripContainer1.RightToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.RightToolStripPanel, "toolStripContainer1.RightToolStripPanel");
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.TopToolStripPanel, "toolStripContainer1.TopToolStripPanel");
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
             // m_tbModFolder
@@ -118,18 +104,18 @@
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openModFolderToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // openModFolderToolStripMenuItem
             // 
-            resources.ApplyResources(this.openModFolderToolStripMenuItem, "openModFolderToolStripMenuItem");
             this.openModFolderToolStripMenuItem.Name = "openModFolderToolStripMenuItem";
+            resources.ApplyResources(this.openModFolderToolStripMenuItem, "openModFolderToolStripMenuItem");
             this.openModFolderToolStripMenuItem.Click += new System.EventHandler(this.openModFolderToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
@@ -140,22 +126,22 @@
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // exitToolStripMenuItem
             // 
-            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // languagesToolStripMenuItem
             // 
-            resources.ApplyResources(this.languagesToolStripMenuItem, "languagesToolStripMenuItem");
             this.languagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addLanguageToolStripMenuItem,
             this.statisticsToolStripMenuItem});
             this.languagesToolStripMenuItem.Name = "languagesToolStripMenuItem";
+            resources.ApplyResources(this.languagesToolStripMenuItem, "languagesToolStripMenuItem");
             // 
             // addLanguageToolStripMenuItem
             // 
@@ -171,35 +157,35 @@
             // 
             // settingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // versionToolStripMenuItem
             // 
-            resources.ApplyResources(this.versionToolStripMenuItem, "versionToolStripMenuItem");
             this.versionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkForNewVersionToolStripMenuItem,
             this.getNewVersionToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            resources.ApplyResources(this.versionToolStripMenuItem, "versionToolStripMenuItem");
             // 
             // checkForNewVersionToolStripMenuItem
             // 
-            resources.ApplyResources(this.checkForNewVersionToolStripMenuItem, "checkForNewVersionToolStripMenuItem");
             this.checkForNewVersionToolStripMenuItem.Name = "checkForNewVersionToolStripMenuItem";
+            resources.ApplyResources(this.checkForNewVersionToolStripMenuItem, "checkForNewVersionToolStripMenuItem");
             this.checkForNewVersionToolStripMenuItem.Click += new System.EventHandler(this.checkForNewVersionToolStripMenuItem_Click);
             // 
             // getNewVersionToolStripMenuItem
             // 
-            resources.ApplyResources(this.getNewVersionToolStripMenuItem, "getNewVersionToolStripMenuItem");
             this.getNewVersionToolStripMenuItem.Name = "getNewVersionToolStripMenuItem";
+            resources.ApplyResources(this.getNewVersionToolStripMenuItem, "getNewVersionToolStripMenuItem");
             this.getNewVersionToolStripMenuItem.Click += new System.EventHandler(this.getNewVersionToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
-            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // splitContainer1
@@ -209,13 +195,11 @@
             // 
             // splitContainer1.Panel1
             // 
-            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             this.splitContainer1.Panel1.Controls.Add(this.toolStripContainer1);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainer1.Panel2
             // 
-            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             // 
             // panel1
@@ -230,12 +214,10 @@
             // 
             // splitContainer2.Panel1
             // 
-            resources.ApplyResources(this.splitContainer2.Panel1, "splitContainer2.Panel1");
             this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
             // 
             // splitContainer2.Panel2
             // 
-            resources.ApplyResources(this.splitContainer2.Panel2, "splitContainer2.Panel2");
             this.splitContainer2.Panel2.Controls.Add(this._tbLog);
             // 
             // tabControl1
@@ -255,10 +237,6 @@
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // folderBrowserDialog1
-            // 
-            resources.ApplyResources(this.folderBrowserDialog1, "folderBrowserDialog1");
             // 
             // GridUI
             // 
@@ -296,7 +274,6 @@
         private System.Windows.Forms.TextBox m_tbModFolder;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
