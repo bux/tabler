@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using tabler.Helper;
+using tabler.Logic.Helper;
 
-namespace tabler.Classes
+namespace tabler.Logic.Classes
 {
     public class TranslationManager
     {
@@ -70,21 +70,13 @@ namespace tabler.Classes
 
         private static bool SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos)
         {
-            try
-            {
-                //if going through mods instead of files, 
-                // we could create files
-                // too tired :D ->  TODO
-                var filesByNameInDirectory = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories);
+            //if going through mods instead of files, 
+            // we could create files
+            // too tired :D ->  TODO
+            var filesByNameInDirectory = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories);
 
-                var xh = new XmlHelper();
-                xh.UpdateXmlFiles(filesByNameInDirectory, lstModInfos);
-            }
-            catch (Exception e)
-            {
-                Logger.Log(e.Message);
-                return false;
-            }
+            var xh = new XmlHelper();
+            xh.UpdateXmlFiles(filesByNameInDirectory, lstModInfos);
 
             return true;
         }

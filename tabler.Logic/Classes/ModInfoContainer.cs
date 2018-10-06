@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace tabler.Classes
+namespace tabler.Logic.Classes
 {
     public class ModInfoContainer
     {

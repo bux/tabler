@@ -7,6 +7,9 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using Octokit;
 using tabler.Classes;
 using tabler.Helper;
+using tabler.Logic.Classes;
+using tabler.Logic.Exceptions;
+using tabler.Logic.Helper;
 using tabler.Properties;
 
 namespace tabler
@@ -108,7 +111,17 @@ namespace tabler
         {
             var lstModInfos = _gridUiHelper.ParseAllTables();
 
-            var success = TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+            bool success;
+
+            try
+            {
+                success = TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+            }
+            catch (Exception exception)
+            {
+                Logger.Log(exception.Message);
+                throw;
+            }
 
             if (success)
             {

@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using tabler.Classes;
+using tabler.Logic.Classes;
 
 namespace tabler
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace tabler.Classes
+namespace tabler.Logic.Classes
 {
     public class LanguageStatistics
     {

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>tabler</RootNamespace>
     <AssemblyName>tabler</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -118,24 +118,13 @@
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\CellEditHistory.cs" />
-    <Compile Include="Classes\GenericXmlException.cs" />
-    <Compile Include="Classes\LanguageStatistics.cs" />
-    <Compile Include="Classes\ModInfoContainer.cs" />
-    <Compile Include="Classes\Settings.cs" />
-    <Compile Include="Classes\TranslationComponents.cs" />
-    <Compile Include="Classes\TranslationManager.cs" />
-    <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Forms\GridUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\GridUI.Designer.cs">
       <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\DuplicateKeyException.cs" />
-    <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\GridUiHelper.cs" />
-    <Compile Include="Helper\FileSystemHelper.cs" />
-    <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\SettingsForm.cs">
@@ -267,6 +256,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tabler.Logic\tabler.Logic.csproj">
+      <Project>{070d7ab3-fdcf-479b-8600-8bc9bb24f1a7}</Project>
+      <Name>tabler.Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

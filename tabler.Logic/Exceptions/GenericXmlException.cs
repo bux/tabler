@@ -1,6 +1,6 @@
 using System;
 
-namespace tabler.Classes
+namespace tabler.Logic.Exceptions
 {
     public class GenericXmlException : Exception
     {

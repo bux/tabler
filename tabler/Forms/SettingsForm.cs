@@ -2,6 +2,8 @@ using System;
 using System.Windows.Forms;
 using tabler.Classes;
 using tabler.Helper;
+using tabler.Logic.Classes;
+using tabler.Logic.Helper;
 
 namespace tabler
 {

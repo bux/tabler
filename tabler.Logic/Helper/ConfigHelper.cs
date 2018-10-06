@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
-using tabler.Classes;
+using tabler.Logic.Classes;
 
-namespace tabler.Helper
+namespace tabler.Logic.Helper
 {
     public class ConfigHelper
     {

@@ -2,7 +2,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace tabler.Helper
+namespace tabler.Logic.Helper
 {
     public static class FileHelper
     {

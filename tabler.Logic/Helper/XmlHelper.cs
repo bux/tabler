@@ -7,9 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using tabler.Classes;
+using tabler.Logic.Classes;
+using tabler.Logic.Exceptions;
 
-namespace tabler.Helper
+namespace tabler.Logic.Helper
 {
     public class XmlHelper
     {
