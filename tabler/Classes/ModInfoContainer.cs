@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace tabler {
-    public class ModInfoContainer {
+namespace tabler
+{
+    public class ModInfoContainer
+    {
         //Values(ID)(LANGUAGE)
         public Dictionary<string, Dictionary<string, string>> Values = new Dictionary<string, Dictionary<string, string>>();
 

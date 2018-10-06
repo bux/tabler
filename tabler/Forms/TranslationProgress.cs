@@ -5,16 +5,20 @@ using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace tabler {
-    public partial class TranslationProgress : Form {
+namespace tabler
+{
+    public partial class TranslationProgress : Form
+    {
         private readonly GridUI _myParent;
 
-        public TranslationProgress(GridUI parent) {
+        public TranslationProgress(GridUI parent)
+        {
             _myParent = parent;
             InitializeComponent();
         }
 
-        private void TranslationStatistics_Load(object sender, EventArgs e) {
+        private void TranslationStatistics_Load(object sender, EventArgs e)
+        {
             chart.ContextMenuStrip = contextMenu;
 
             _myParent.TranslationManager.TranslationComponents.Statistics = _myParent.TranslationManager.TranslationComponents.Statistics.OrderBy(x => x.LanguageName).ToList();
@@ -22,40 +26,49 @@ namespace tabler {
             PopulateChart();
         }
 
-        private void PopulateChart() {
-            int inc = 0;
+        private void PopulateChart()
+        {
+            var inc = 0;
 
-            var series = new Series("Missing Translations") {
+            var series = new Series("Missing Translations")
+            {
                 IsVisibleInLegend = false,
                 XValueType = ChartValueType.String
             };
 
-            int highestCount = 0;
+            var highestCount = 0;
 
-            foreach (var header in _myParent.TranslationManager.TranslationComponents.Headers) {
-
-                if (header == "ID") {
+            foreach (var header in _myParent.TranslationManager.TranslationComponents.Headers)
+            {
+                if (header == "ID")
+                {
                     continue;
                 }
 
                 DataPoint dataPoint;
 
-                LanguageStatistics modInfoStat = _myParent.TranslationManager.TranslationComponents.Statistics.FirstOrDefault(s => s.LanguageName.ToLower().Equals(header.ToLower()));
+                var modInfoStat = _myParent.TranslationManager.TranslationComponents.Statistics.FirstOrDefault(s => s.LanguageName.ToLower().Equals(header.ToLower()));
 
-                if (modInfoStat == null) {
-                    dataPoint = new DataPoint(inc, 0) {
+                if (modInfoStat == null)
+                {
+                    dataPoint = new DataPoint(inc, 0)
+                    {
                         AxisLabel = header,
                         Label = "0"
                     };
-                } else {
-                    int missingTranslationCount = GetMissingTranslationCount(modInfoStat);
+                }
+                else
+                {
+                    var missingTranslationCount = GetMissingTranslationCount(modInfoStat);
 
-                    if (missingTranslationCount > highestCount) {
+                    if (missingTranslationCount > highestCount)
+                    {
                         highestCount = missingTranslationCount;
                     }
 
 
-                    dataPoint = new DataPoint(inc, missingTranslationCount) {
+                    dataPoint = new DataPoint(inc, missingTranslationCount)
+                    {
                         AxisLabel = modInfoStat.LanguageName,
                         Label = missingTranslationCount.ToString(CultureInfo.CurrentCulture),
                         ToolTip = AggregateMods(modInfoStat, "\n")
@@ -89,69 +102,77 @@ namespace tabler {
 
             chart.Series.Add(series);
 
-            ChartArea chartArea = chart.ChartAreas.FirstOrDefault();
-            if (chartArea != null) {
+            var chartArea = chart.ChartAreas.FirstOrDefault();
+            if (chartArea != null)
+            {
                 chartArea.AxisX.MajorGrid.Enabled = false;
 
                 chartArea.AxisY.Interval = 10.0;
 
-                if (highestCount > 100) {
+                if (highestCount > 100)
+                {
                     chartArea.AxisY.Interval = 25.0;
                 }
             }
         }
 
-        private static int GetMissingTranslationCount(LanguageStatistics modInfoStatistics) {
+        private static int GetMissingTranslationCount(LanguageStatistics modInfoStatistics)
+        {
             return modInfoStatistics.MissingModStrings.Sum(ms => ms.Value);
         }
 
-        private static string AggregateMods(LanguageStatistics modInfoStatistics, string seperator) {
+        private static string AggregateMods(LanguageStatistics modInfoStatistics, string seperator)
+        {
             return modInfoStatistics.MissingModStrings.Select(ms => ms.Key).ToList().Aggregate((cur, next) => cur + seperator + next);
         }
 
-        private void copyDataToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void copyDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             var outerSb = new StringBuilder();
             var innterSb = new StringBuilder();
 
-            int total = 0;
+            var total = 0;
 
-            foreach (LanguageStatistics modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics) {
-                int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
-                string mods = AggregateMods(modInfoStatistics, ", ");
+            foreach (var modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics)
+            {
+                var missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
+                var mods = AggregateMods(modInfoStatistics, ", ");
 
                 total += missingTranslationCount;
 
-                string spacer = "".PadRight(15 - modInfoStatistics.LanguageName.Length);
+                var spacer = "".PadRight(15 - modInfoStatistics.LanguageName.Length);
 
-                innterSb.AppendLine(String.Format("{0}{1}{2} missing stringtable entry/entries. ({3})", modInfoStatistics.LanguageName, spacer, missingTranslationCount.ToString().PadLeft(3), mods));
+                innterSb.AppendLine(string.Format("{0}{1}{2} missing stringtable entry/entries. ({3})", modInfoStatistics.LanguageName, spacer, missingTranslationCount.ToString().PadLeft(3), mods));
             }
 
-            outerSb.AppendLine(String.Format("Total number of keys: {0}", _myParent.TranslationManager.TranslationComponents.KeyCount));
-            outerSb.AppendLine(String.Format("Total number of missing translations: {0}", total));
+            outerSb.AppendLine(string.Format("Total number of keys: {0}", _myParent.TranslationManager.TranslationComponents.KeyCount));
+            outerSb.AppendLine(string.Format("Total number of missing translations: {0}", total));
             outerSb.AppendLine("");
             outerSb.Append(innterSb);
 
             Clipboard.SetText(outerSb.ToString());
         }
 
-        private void copyDataasMdTableToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void copyDataasMdTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             var outerSb = new StringBuilder();
             var innerSb = new StringBuilder();
 
             var totalKeys = _myParent.TranslationManager.TranslationComponents.KeyCount;
 
 
-            foreach (LanguageStatistics modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics) {
-                int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
-                string mods = AggregateMods(modInfoStatistics, ", ");
+            foreach (var modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics)
+            {
+                var missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
+                var mods = AggregateMods(modInfoStatistics, ", ");
 
-                double percentage = ((double) totalKeys - (double) missingTranslationCount)/(double) totalKeys*100;
+                var percentage = (totalKeys - (double) missingTranslationCount) / totalKeys * 100;
 
-                innerSb.AppendLine(String.Format("| {0} | {1} | {2} | {3} |", modInfoStatistics.LanguageName, missingTranslationCount, mods, Math.Round(percentage, 1)));
+                innerSb.AppendLine(string.Format("| {0} | {1} | {2} | {3} |", modInfoStatistics.LanguageName, missingTranslationCount, mods, Math.Round(percentage, 1)));
             }
 
             outerSb.AppendLine(DateTime.Now.ToString("yyMMdd HH:mm"));
-            outerSb.AppendLine(String.Format("Total number of keys: {0}", totalKeys));
+            outerSb.AppendLine(string.Format("Total number of keys: {0}", totalKeys));
             outerSb.AppendLine("");
             outerSb.AppendLine("| Language | Missing Entries | Relevant Modules | % done |");
             outerSb.AppendLine("|----------|----------------:|------------------|--------|");

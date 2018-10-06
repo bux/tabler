@@ -8,10 +8,8 @@ using Octokit;
 using tabler.Classes;
 using tabler.Properties;
 
-
 namespace tabler
 {
-
     public partial class GridUI : Form
     {
         public readonly ConfigHelper ConfigHelper;
@@ -63,7 +61,7 @@ namespace tabler
                 curPath = lastPath.FullName;
             }
 
-            var folderDialog = new CommonOpenFileDialog { IsFolderPicker = true };
+            var folderDialog = new CommonOpenFileDialog {IsFolderPicker = true};
             if (string.IsNullOrEmpty(curPath) == false)
             {
                 folderDialog.DefaultDirectory = curPath;
@@ -119,7 +117,7 @@ namespace tabler
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
         {
-            var tabControl = (TabControl)sender;
+            var tabControl = (TabControl) sender;
 
             var tabPage = tabControl.SelectedTab;
 
@@ -176,8 +174,8 @@ namespace tabler
         }
 
         /// <summary>
-        ///   Handles the FormClosing event
-        ///   Used to show a message if the user has unsaved changes
+        ///     Handles the FormClosing event
+        ///     Used to show a message if the user has unsaved changes
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -222,8 +220,6 @@ namespace tabler
                     getNewVersionToolStripMenuItem.Enabled = false;
                     Logger.Log($"{Resources.GridUI_CheckForNewVersion_Current_version_is_up_to_date} {ProductVersion}");
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -238,5 +234,4 @@ namespace tabler
 
         #endregion
     }
-
 }

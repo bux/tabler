@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using OfficeOpenXml;
 using tabler.Classes;
 
-
-namespace tabler {
-    public class TranslationManager {
+namespace tabler
+{
+    public class TranslationManager
+    {
         public const string COLUMN_MODNAME = "Mod";
         public const string COLUMN_IDNAME = "ID";
         public const string STRINGTABLE_NAME = "stringtable.xml";
@@ -15,24 +15,29 @@ namespace tabler {
         private readonly FileInfo _fiExcelFile;
         public TranslationComponents TranslationComponents;
 
-        public TranslationManager() {
+        public TranslationManager()
+        {
         }
 
-        public TranslationManager(FileInfo fiExcelFile) {
+        public TranslationManager(FileInfo fiExcelFile)
+        {
             _fiExcelFile = fiExcelFile;
         }
 
 
-        private List<string> PrepareHeaders(List<string> headers, bool insertMod) {
+        private List<string> PrepareHeaders(List<string> headers, bool insertMod)
+        {
             headers = headers.OrderBy(l => l).ToList();
 
-            if (headers.Any(x => x.ToLowerInvariant() == "english")) {
+            if (headers.Any(x => x.ToLowerInvariant() == "english"))
+            {
                 headers.Remove("English");
                 headers.Insert(0, "English");
             }
 
             headers.Insert(0, COLUMN_IDNAME);
-            if (insertMod) {
+            if (insertMod)
+            {
                 headers.Insert(0, COLUMN_MODNAME);
             }
 
@@ -44,11 +49,12 @@ namespace tabler {
         }
 
 
-        public void ConvertXmlToExcel(DirectoryInfo lastPathToDataFiles, bool insertMod) {
-            TranslationComponents transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
+        public void ConvertXmlToExcel(DirectoryInfo lastPathToDataFiles, bool insertMod)
+        {
+            var transComp = GetTranslationComponents(lastPathToDataFiles, insertMod);
 
             var eh = new ExcelHelper();
-            ExcelPackage pck = eh.CreateExcelDoc(_fiExcelFile);
+            var pck = eh.CreateExcelDoc(_fiExcelFile);
 
             // structure of headers (columns) -> MOD | ID | English | lang1 | lang2, ...
             eh.CreateHeaderRow(pck, transComp.Headers);
@@ -57,15 +63,17 @@ namespace tabler {
             eh.SaveExcelDoc(pck);
         }
 
-        private TranslationComponents GetTranslationComponents(DirectoryInfo lastPathToDataFiles, bool insertMod) {
-            List<FileInfo> allStringtableFiles = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories).ToList();
+        private TranslationComponents GetTranslationComponents(DirectoryInfo lastPathToDataFiles, bool insertMod)
+        {
+            var allStringtableFiles = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories).ToList();
 
-            if (allStringtableFiles.Any() == false) {
+            if (allStringtableFiles.Any() == false)
+            {
                 return null;
             }
 
             var xh = new XmlHelper();
-            TranslationComponents transComp = xh.ParseXmlFiles(allStringtableFiles);
+            var transComp = xh.ParseXmlFiles(allStringtableFiles);
 
             transComp.Headers = PrepareHeaders(transComp.Headers, insertMod);
 
@@ -74,26 +82,31 @@ namespace tabler {
         }
 
 
-        public void ConvertExcelToXml(DirectoryInfo lastPathToDataFiles) {
+        public void ConvertExcelToXml(DirectoryInfo lastPathToDataFiles)
+        {
             var eh = new ExcelHelper();
-            ExcelWorksheet ws = eh.LoadExcelDoc(_fiExcelFile);
+            var ws = eh.LoadExcelDoc(_fiExcelFile);
 
             //load all mod infos
-            List<ModInfoContainer> lstModInfos = eh.LoadModInfos(ws);
+            var lstModInfos = eh.LoadModInfos(ws);
 
             SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
         }
 
-        private static bool SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
-            try {
+        private static bool SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos)
+        {
+            try
+            {
                 //if going through mods instead of files, 
                 // we could create files
                 // too tired :D ->  TODO
-                List<FileInfo> filesByNameInDirectory = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories);
+                var filesByNameInDirectory = FileSystemHelper.GetFilesByNameInDirectory(lastPathToDataFiles, STRINGTABLE_NAME, SearchOption.AllDirectories);
 
                 var xh = new XmlHelper();
                 xh.UpdateXmlFiles(filesByNameInDirectory, lstModInfos);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 Logger.Log(e.Message);
                 return false;
             }
@@ -102,11 +115,13 @@ namespace tabler {
         }
 
 
-        public TranslationComponents GetGridData(DirectoryInfo lastPathToDataFiles) {
+        public TranslationComponents GetGridData(DirectoryInfo lastPathToDataFiles)
+        {
             return GetTranslationComponents(lastPathToDataFiles, false);
         }
 
-        public bool SaveGridData(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos) {
+        public bool SaveGridData(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos)
+        {
             return SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
         }
     }
