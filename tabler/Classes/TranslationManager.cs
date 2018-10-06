@@ -68,17 +68,6 @@ namespace tabler
         }
 
 
-        public void ConvertExcelToXml(DirectoryInfo lastPathToDataFiles)
-        {
-            var eh = new ExcelHelper();
-            var ws = eh.LoadExcelDoc(_fiExcelFile);
-
-            //load all mod infos
-            var lstModInfos = eh.LoadModInfos(ws);
-
-            SaveModInfosToXml(lastPathToDataFiles, lstModInfos);
-        }
-
         private static bool SaveModInfosToXml(DirectoryInfo lastPathToDataFiles, List<ModInfoContainer> lstModInfos)
         {
             try
