@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("tabler")]
 [assembly: AssemblyDescription("Arma 3 Translation Helper")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("https://github.com/bux/tabler/")]
 [assembly: AssemblyProduct("tabler")]
 [assembly: AssemblyCopyright("© Copyright MaMilaCan, bux")]
 [assembly: AssemblyTrademark("")]
