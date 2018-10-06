@@ -173,9 +173,6 @@
     <EmbeddedResource Include="Forms\GridUI.resx">
       <DependentUpon>GridUI.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SettingsForm.de-DE.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.en.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
