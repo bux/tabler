@@ -124,9 +124,6 @@
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
     <Compile Include="Classes\TranslationManager.cs" />
-    <Compile Include="Extensions\Extensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Forms\GridUI.cs">
       <SubType>Form</SubType>

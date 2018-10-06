@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using tabler.Classes;
 
 namespace tabler
 {

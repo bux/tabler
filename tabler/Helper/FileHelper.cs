@@ -1,8 +1,8 @@
-﻿using System.IO;
+using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace tabler
+namespace tabler.Helper
 {
     public static class FileHelper
     {

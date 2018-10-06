@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using tabler.Classes;
+using tabler.Helper;
 
-namespace tabler
+namespace tabler.Classes
 {
     public class TranslationManager
     {

@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace tabler
+namespace tabler.Classes
 {
     public class DuplicateKeyException : Exception
     {

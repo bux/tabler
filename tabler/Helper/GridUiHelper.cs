@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using tabler.Classes;
 
-namespace tabler
+namespace tabler.Helper
 {
     public class GridUiHelper
     {

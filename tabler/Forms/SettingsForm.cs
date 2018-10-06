@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
+using tabler.Classes;
+using tabler.Helper;
 
 namespace tabler
 {

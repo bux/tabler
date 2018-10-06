@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using Octokit;
 using tabler.Classes;
+using tabler.Helper;
 using tabler.Properties;
 
 namespace tabler

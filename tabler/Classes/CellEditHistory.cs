@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Drawing;
 
-namespace tabler
+namespace tabler.Classes
 {
     public class CellEditHistory
     {

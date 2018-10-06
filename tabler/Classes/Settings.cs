@@ -1,4 +1,4 @@
-﻿namespace tabler
+namespace tabler.Classes
 {
     public class Settings
     {

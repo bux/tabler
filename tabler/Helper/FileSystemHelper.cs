@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace tabler
+namespace tabler.Helper
 {
     public class FileSystemHelper
     {

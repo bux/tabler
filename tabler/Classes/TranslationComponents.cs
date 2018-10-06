@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace tabler
+namespace tabler.Classes
 {
     public class TranslationComponents
     {
