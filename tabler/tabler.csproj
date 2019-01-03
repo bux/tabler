@@ -81,13 +81,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.WindowsAPICodePack-Shell.1.1.0.0\lib\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Octokit, Version=0.31.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Octokit.0.31.0\lib\net45\Octokit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -256,7 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tabler.Logic\tabler.Logic.csproj">
-      <Project>{070d7ab3-fdcf-479b-8600-8bc9bb24f1a7}</Project>
+      <Project>{651801fa-f7ae-4f9b-9a7c-2ddea5965440}</Project>
       <Name>tabler.Logic</Name>
     </ProjectReference>
   </ItemGroup>

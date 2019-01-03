@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
-using Octokit;
 using tabler.Classes;
 using tabler.Helper;
 using tabler.Logic.Classes;
@@ -19,7 +18,7 @@ namespace tabler
         public readonly ConfigHelper ConfigHelper;
         public readonly TranslationManager TranslationManager;
         private GridUiHelper _gridUiHelper;
-        private Release _newerRelease;
+        private ReleaseVersion _newerRelease;
 
         public GridUI()
         {
@@ -218,15 +217,13 @@ namespace tabler
         {
             try
             {
-                var github = new GitHubClient(new ProductHeaderValue("tabler"));
-                var releases = github.Repository.Release.GetAll("bux", "tabler").Result;
-
-                _newerRelease = releases.Where(x => x.PublishedAt.HasValue && new Version(x.TagName.Replace("v", "")) > new Version(ProductVersion)).OrderByDescending(x => x.PublishedAt).FirstOrDefault();
+                var gh = new GitHubVersionHelper();
+                _newerRelease = gh.CheckForNewVersion(ProductVersion);
 
                 if (_newerRelease != null)
                 {
                     getNewVersionToolStripMenuItem.Enabled = true;
-                    Logger.Log($"{Resources.GridUI_CheckForNewVersion_New_version_available} -> {_newerRelease.Name}");
+                    Logger.Log($"{Resources.GridUI_CheckForNewVersion_New_version_available} -> {_newerRelease.Version}");
                     Logger.Log($"{Resources.GridUI_CheckForNewVersion_Download_the_new_version_at}: {_newerRelease.HtmlUrl}");
                 }
                 else
