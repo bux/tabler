@@ -357,6 +357,13 @@ namespace tabler.Helper
             }
         }
 
+        public void SelectTabByName(string tabName)
+        {
+            if (_gridUi.tabControl1.TabPages.ContainsKey(tabName))
+            {
+                _gridUi.tabControl1.SelectTab(tabName);
+            }
+        }
 
         #region " Events "
 
@@ -479,5 +486,6 @@ namespace tabler.Helper
         }
 
         #endregion
+
     }
 }

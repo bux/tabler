@@ -1,10 +1,12 @@
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using tabler.Classes;
+using tabler.Forms;
 using tabler.Helper;
 using tabler.Logic.Classes;
 using tabler.Logic.Exceptions;
@@ -19,6 +21,7 @@ namespace tabler
         public readonly TranslationManager TranslationManager;
         private GridUiHelper _gridUiHelper;
         private ReleaseVersion _newerRelease;
+        private bool _stringtablesLoaded;
 
         public GridUI()
         {
@@ -94,6 +97,8 @@ namespace tabler
                     statisticsToolStripMenuItem.Enabled = true;
 
                     ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderDialog.FileName));
+
+                    _stringtablesLoaded = true;
                 }
                 catch (DuplicateKeyException duplicateKeyException)
                 {
@@ -209,9 +214,48 @@ namespace tabler
             }
         }
 
+        private void GridUI_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Modifiers == Keys.Control)
+            {
+                if (e.KeyCode == Keys.T)
+                {
+                    // Ctrl + T
+                    OpenTabSelector();
+                }
+            }
+        }
+
         #endregion
 
         #region Functions
+
+        private void OpenTabSelector()
+        {
+            if (!_stringtablesLoaded)
+            {
+                return;
+            }
+
+            var tabSelector = new TabSelector (this);
+            var tabSelectorSize = tabSelector.Size;
+            if (this.ClientRectangle.Width <= tabSelectorSize.Width)
+            {
+                tabSelectorSize.Width = this.ClientRectangle.Width - 40;
+            }
+
+            tabSelector.Size = tabSelectorSize;
+            tabSelector.StartPosition = FormStartPosition.Manual;
+
+            var newX = this.Left + (this.ClientRectangle.Width - tabSelectorSize.Width) / 2;
+            var newY = (int) Math.Floor(this.Location.Y + (this.ClientRectangle.Height) * 0.3);
+
+            // +5 because of padding
+            tabSelector.Location = new Point(newX + 5, newY);
+
+            OverlayForm.ShowOverlay(this, tabSelector);
+            tabSelector.ShowDialog(this);
+        }
 
         private void CheckForNewVersion()
         {
@@ -243,6 +287,13 @@ namespace tabler
             _gridUiHelper.AddLanguage(newLanguage);
         }
 
+        public void SelectTabByName(string tabName)
+        {
+            _gridUiHelper.SelectTabByName(tabName);
+        }
+
         #endregion
+
+       
     }
 }
