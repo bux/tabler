@@ -237,11 +237,23 @@ namespace tabler
                 return;
             }
 
-            var tabSelector = new TabSelector (this)
+            var tabSelector = new TabSelector (this);
+            var tabSelectorSize = tabSelector.Size;
+            if (this.ClientRectangle.Width <= tabSelectorSize.Width)
             {
-                StartPosition = FormStartPosition.CenterParent,
-                Location = new Point(0, 0)
-            };
+                tabSelectorSize.Width = this.ClientRectangle.Width - 40;
+            }
+
+            tabSelector.Size = tabSelectorSize;
+            tabSelector.StartPosition = FormStartPosition.Manual;
+
+            var newX = this.Left + (this.ClientRectangle.Width - tabSelectorSize.Width) / 2;
+            var newY = (int) Math.Floor(this.Location.Y + (this.ClientRectangle.Height) * 0.3);
+
+            // +5 because of padding
+            tabSelector.Location = new Point(newX + 5, newY);
+
+            OverlayForm.ShowOverlay(this, tabSelector);
             tabSelector.ShowDialog(this);
         }
 

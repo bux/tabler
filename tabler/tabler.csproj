@@ -117,6 +117,9 @@
     <Compile Include="Forms\GridUI.Designer.cs">
       <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OverlayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\TabSelector.cs">
       <SubType>Form</SubType>
     </Compile>

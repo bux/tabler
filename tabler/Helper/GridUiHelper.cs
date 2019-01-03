@@ -359,7 +359,10 @@ namespace tabler.Helper
 
         public void SelectTabByName(string tabName)
         {
-            _gridUi.tabControl1.SelectTab(tabName);
+            if (_gridUi.tabControl1.TabPages.ContainsKey(tabName))
+            {
+                _gridUi.tabControl1.SelectTab(tabName);
+            }
         }
 
         #region " Events "
