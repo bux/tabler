@@ -209,10 +209,8 @@ namespace tabler.Helper
 
             gridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
-            var watch = new Stopwatch();
-            watch.Start();
+
             gridView.Rows.AddRange(lstDataGridViewRows.ToArray());
-            watch.Stop();
             return gridView;
         }
 
