@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using tabler.Classes;
 using tabler.Logic.Classes;
@@ -21,7 +23,7 @@ namespace tabler.Helper
         private bool _rowDeleted;
         private TranslationComponents _tc;
 
-        public List<CellEditHistory> EditHistory = new List<CellEditHistory>();
+        private List<CellEditHistory> _editHistory = new List<CellEditHistory>();
 
         public GridUiHelper(GridUI gridUi)
         {
@@ -114,7 +116,6 @@ namespace tabler.Helper
             foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
             {
                 var gridView = CreateGridViewAndFillWithData(tc, tabPage.Text);
-
                 tabPage.Controls.Add(gridView);
             }
         }
@@ -128,6 +129,13 @@ namespace tabler.Helper
                 EditMode = DataGridViewEditMode.EditOnKeystroke
             };
 
+            if (!System.Windows.Forms.SystemInformation.TerminalServerSession)
+            {
+                Type dgvType = gridView.GetType();
+                PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+                pi.SetValue(gridView, true, null);
+            }
+
             gridView.CellValueChanged += gridView_CellValueChanged;
             gridView.CellBeginEdit += gridView_CellBeginEdit;
             gridView.KeyUp += gridView_KeyUp;
@@ -135,21 +143,29 @@ namespace tabler.Helper
             gridView.UserDeletedRow += gridView_UserDeletedRow;
             gridView.ColumnHeaderMouseClick += gridView_ColumnHeaderMouseClick;
 
+            var lstGridViewColumns = new List<DataGridViewTextBoxColumn>();
+
             foreach (var header in tc.Headers)
             {
                 var dgvc = new DataGridViewTextBoxColumn
                 {
                     HeaderText = header,
                     SortMode = DataGridViewColumnSortMode.NotSortable,
-                    Resizable = DataGridViewTriState.True
+                    Resizable = DataGridViewTriState.True,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.None
                 };
-                gridView.Columns.Add(dgvc);
+                lstGridViewColumns.Add(dgvc);
             }
+
+            gridView.Columns.AddRange(lstGridViewColumns.ToArray());
 
             var modInfoContainer = tc.AllModInfo.FirstOrDefault(mi => mi.Name == currentModule);
 
+            var lstDataGridViewRows = new List<DataGridViewRow>();
+
             if (modInfoContainer != null)
             {
+
                 foreach (var translationsWithKey in modInfoContainer.Values)
                 {
                     var row = new DataGridViewRow();
@@ -187,27 +203,29 @@ namespace tabler.Helper
                         index += 1;
                     }
 
-                    gridView.Rows.Add(row);
+                    lstDataGridViewRows.Add(row);
                 }
             }
 
-
             gridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            //gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
+            gridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            var watch = new Stopwatch();
+            watch.Start();
+            gridView.Rows.AddRange(lstDataGridViewRows.ToArray());
+            watch.Stop();
             return gridView;
         }
 
 
         private void AddNewEditHistory(string currentMod, DataGridViewCell cell, string oldValue, string newValue, Color oldBackColor)
         {
-            if (EditHistory.Count >= HISTORY_COUNT)
+            if (_editHistory.Count >= HISTORY_COUNT)
             {
-                EditHistory = EditHistory.OrderBy(ceh => ceh.ModifiedDate).ToList();
-                EditHistory.RemoveAt(0);
+                _editHistory = _editHistory.OrderBy(ceh => ceh.ModifiedDate).ToList();
+                _editHistory.RemoveAt(0);
             }
 
-            EditHistory.Add(new CellEditHistory
+            _editHistory.Add(new CellEditHistory
             {
                 Mod = currentMod,
                 CellColumnIndex = cell.ColumnIndex,
@@ -222,14 +240,14 @@ namespace tabler.Helper
 
         private void Undo()
         {
-            if (EditHistory.Any() == false)
+            if (_editHistory.Any() == false)
             {
                 return;
             }
 
             _ignoreForHistory = true;
 
-            var lastEdit = EditHistory.Last();
+            var lastEdit = _editHistory.Last();
 
             var tabPage = _gridUi.tabControl1.TabPages[lastEdit.Mod];
             _gridUi.tabControl1.SelectTab(tabPage);
@@ -253,7 +271,7 @@ namespace tabler.Helper
             // bux: yeah, but what?
 
 
-            EditHistory.Remove(lastEdit);
+            _editHistory.Remove(lastEdit);
         }
 
         public void AddLanguage(string newLanguage)
@@ -279,7 +297,7 @@ namespace tabler.Helper
 
         public bool CanClose()
         {
-            return !EditHistory.Any();
+            return !_editHistory.Any();
         }
 
         private void PasteEntriesToGrid(string[] arrEntries, DataGridView grid)
