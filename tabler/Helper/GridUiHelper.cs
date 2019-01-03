@@ -357,6 +357,10 @@ namespace tabler.Helper
             }
         }
 
+        public void SelectTabByName(string tabName)
+        {
+            _gridUi.tabControl1.SelectTab(tabName);
+        }
 
         #region " Events "
 
@@ -479,5 +483,6 @@ namespace tabler.Helper
         }
 
         #endregion
+
     }
 }

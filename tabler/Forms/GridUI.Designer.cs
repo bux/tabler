@@ -244,10 +244,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "GridUI";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GridUI_FormClosing);
             this.Load += new System.EventHandler(this.GridUI_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GridUI_KeyDown);
             this.toolStripContainer1.ContentPanel.ResumeLayout(false);
             this.toolStripContainer1.ContentPanel.PerformLayout();
             this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);

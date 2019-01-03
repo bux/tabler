@@ -117,6 +117,12 @@
     <Compile Include="Forms\GridUI.Designer.cs">
       <DependentUpon>GridUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\TabSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TabSelector.Designer.cs">
+      <DependentUpon>TabSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\GridUiHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -168,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.en.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TabSelector.resx">
+      <DependentUpon>TabSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
