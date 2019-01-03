@@ -12,6 +12,7 @@ namespace tabler.Forms
         private static readonly int WM_NCHITTEST = 0x0084;
         private static readonly int WS_EX_TOOLWINDOW = 0x00000080;
         private static readonly int SW_SHOWNOACTIVATE = 4;
+        private static readonly int SW_SHOWNORMAL = 1;
 
         private OverlayForm(Form parent)
         {
@@ -24,7 +25,7 @@ namespace tabler.Forms
 
             parent.LocationChanged += (o, e) => { ResetLocationAndSize(parent); };
             parent.SizeChanged += (o, e) => { ResetLocationAndSize(parent); };
-            parent.Activated += (o, e) => { Hide(); };
+            //parent.Activated += (o, e) => { Hide(); };
 
             ResetLocationAndSize(parent);
         }
@@ -42,16 +43,16 @@ namespace tabler.Forms
         [DllImport("user32.dll")]
         public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == WM_NCHITTEST)
-            {
-                m.Result = (IntPtr) HTTRANSPARENT;
-                return;
-            }
+        //protected override void WndProc(ref Message m)
+        //{
+        //    if (m.Msg == WM_NCHITTEST)
+        //    {
+        //        m.Result = (IntPtr) HTTRANSPARENT;
+        //        return;
+        //    }
 
-            base.WndProc(ref m);
-        }
+        //    base.WndProc(ref m);
+        //}
 
         private void ResetLocationAndSize(Form parent)
         {
@@ -65,7 +66,7 @@ namespace tabler.Forms
             var overlay = new OverlayForm(parent);
             overlay.Show(parent);
 
-            child.Activated += (o, e) => { ShowWindow(overlay.Handle, SW_SHOWNOACTIVATE); };
+            child.Activated += (o, e) => { ShowWindow(overlay.Handle, SW_SHOWNORMAL); };
             child.FormClosed += (o, e) => { overlay.Close(); };
         }
     }

@@ -67,6 +67,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "TabSelector";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.TabSelector_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TabSelector_KeyDown);
             this.panelContainer.ResumeLayout(false);

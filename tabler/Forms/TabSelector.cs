@@ -31,12 +31,23 @@ namespace tabler.Forms
 
             tbSelectTab.AutoCompleteCustomSource = autoCompleteSource;
             tbSelectTab.AutoCompleteMode = AutoCompleteMode.Suggest;
+
+            tbSelectTab.LostFocus += TabSelector_LostFocus;
+        }
+
+        public string SelectedTabName { get; set; }
+
+        private void TabSelector_LostFocus(object sender, EventArgs args)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         private void TabSelector_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
+                this.DialogResult = DialogResult.Cancel;
                 this.Close();
             }
         }
@@ -45,8 +56,11 @@ namespace tabler.Forms
         {
             if (e.KeyCode == Keys.Enter)
             {
-                this.Close();
+                SelectedTabName = tbSelectTab.Text;
                 _parent.SelectTabByName(tbSelectTab.Text);
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
         }
     }

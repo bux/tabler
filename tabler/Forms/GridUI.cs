@@ -254,7 +254,7 @@ namespace tabler
             tabSelector.Location = new Point(newX + 5, newY);
 
             OverlayForm.ShowOverlay(this, tabSelector);
-            tabSelector.ShowDialog(this);
+            tabSelector.Show(this);
         }
 
         private void CheckForNewVersion()
@@ -294,6 +294,5 @@ namespace tabler
 
         #endregion
 
-       
     }
 }
