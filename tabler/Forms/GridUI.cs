@@ -17,7 +17,7 @@ namespace tabler
 {
     public partial class GridUI : Form
     {
-        public readonly ConfigHelper ConfigHelper;
+        private readonly ConfigHelper _configHelper;
         public readonly TranslationManager TranslationManager;
         private GridUiHelper _gridUiHelper;
         private ReleaseVersion _newerRelease;
@@ -26,7 +26,7 @@ namespace tabler
         public GridUI()
         {
             InitializeComponent();
-            ConfigHelper = new ConfigHelper();
+            _configHelper = new ConfigHelper();
             TranslationManager = new TranslationManager();
             Logger.TextBoxToLogIn = _tbLog;
         }
@@ -60,7 +60,7 @@ namespace tabler
         {
             var curPath = "";
 
-            var lastPath = ConfigHelper.GetLastPathOfDataFiles();
+            var lastPath = _configHelper.GetLastPathOfDataFiles();
 
             if (lastPath != null)
             {
@@ -80,29 +80,33 @@ namespace tabler
                 try
                 {
                     // start the process
+                    WaitingForm.ShowForm(this);
+
                     var tc = TranslationManager.GetGridData(new DirectoryInfo(folderDialog.FileName));
 
                     if (tc == null)
                     {
+                        WaitingForm.CloseForm();
                         MessageBox.Show(Resources.GridUI_No_stringtable_xml_files_found);
                         return;
                     }
 
-                    this.SuspendLayout();
-                    this.tabControl1.Hide();
+                    SuspendLayout();
+                    tabControl1.Hide();
 
                     _gridUiHelper = new GridUiHelper(this);
                     _gridUiHelper.Cleanup();
                     _gridUiHelper.ShowData(tc);
 
-                    this.ResumeLayout();
-                    this.tabControl1.Show();
+                    ResumeLayout();
+                    tabControl1.Show();
+                    WaitingForm.CloseForm();
 
                     saveToolStripMenuItem.Enabled = true;
                     addLanguageToolStripMenuItem.Enabled = true;
                     statisticsToolStripMenuItem.Enabled = true;
 
-                    ConfigHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderDialog.FileName));
+                    _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderDialog.FileName));
 
                     _stringtablesLoaded = true;
                 }
@@ -125,7 +129,7 @@ namespace tabler
 
             try
             {
-                success = TranslationManager.SaveGridData(ConfigHelper.GetLastPathOfDataFiles(), lstModInfos);
+                success = TranslationManager.SaveGridData(_configHelper.GetLastPathOfDataFiles(), lstModInfos);
             }
             catch (Exception exception)
             {
@@ -243,18 +247,18 @@ namespace tabler
                 return;
             }
 
-            var tabSelector = new TabSelector (this);
+            var tabSelector = new TabSelector(this);
             var tabSelectorSize = tabSelector.Size;
-            if (this.ClientRectangle.Width <= tabSelectorSize.Width)
+            if (ClientRectangle.Width <= tabSelectorSize.Width)
             {
-                tabSelectorSize.Width = this.ClientRectangle.Width - 40;
+                tabSelectorSize.Width = ClientRectangle.Width - 40;
             }
 
             tabSelector.Size = tabSelectorSize;
             tabSelector.StartPosition = FormStartPosition.Manual;
 
-            var newX = this.Left + (this.ClientRectangle.Width - tabSelectorSize.Width) / 2;
-            var newY = (int) Math.Floor(this.Location.Y + (this.ClientRectangle.Height) * 0.3);
+            var newX = Left + (ClientRectangle.Width - tabSelectorSize.Width) / 2;
+            var newY = (int) Math.Floor(Location.Y + ClientRectangle.Height * 0.3);
 
             // +5 because of padding
             tabSelector.Location = new Point(newX + 5, newY);
@@ -299,6 +303,5 @@ namespace tabler
         }
 
         #endregion
-
     }
 }
