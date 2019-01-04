@@ -160,6 +160,6 @@ Eintrag: '{2}'</value>
     <value>Sprachen</value>
   </data>
   <data name="TranslationProgress_AxisY_Title" xml:space="preserve">
-    <value>Fehlende Übersetzungen</value>
+    <value>Anzahl fehlender Übersetzungen</value>
   </data>
 </root>

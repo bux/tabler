@@ -175,7 +175,7 @@ namespace tabler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Missing Translations.
+        ///   Looks up a localized string similar to Number of Missing Translations.
         /// </summary>
         internal static string TranslationProgress_AxisY_Title {
             get {
