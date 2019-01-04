@@ -34,6 +34,7 @@ namespace tabler.Forms
         {
             if (keyData == Keys.Escape)
             {
+                _gridUi.FindFormOpen = false;
                 Close();
                 return true;
             }

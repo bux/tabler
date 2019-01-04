@@ -28,5 +28,5 @@ using System.Runtime.InteropServices;
 //      Minor Version 
 //      Patch
 
-[assembly: AssemblyVersion("0.9.0")]
-[assembly: AssemblyFileVersion("0.9.0")]
+[assembly: AssemblyVersion("0.9.1")]
+[assembly: AssemblyFileVersion("0.9.1")]
