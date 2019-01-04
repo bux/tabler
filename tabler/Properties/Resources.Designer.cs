@@ -164,5 +164,23 @@ namespace tabler.Properties {
                 return ResourceManager.GetString("GridUI_saveToolStripMenuItem_Click_Successfully_saved", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        internal static string TranslationProgress_AxisX_Title {
+            get {
+                return ResourceManager.GetString("TranslationProgress_AxisX_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing Translations.
+        /// </summary>
+        internal static string TranslationProgress_AxisY_Title {
+            get {
+                return ResourceManager.GetString("TranslationProgress_AxisY_Title", resourceCulture);
+            }
+        }
     }
 }

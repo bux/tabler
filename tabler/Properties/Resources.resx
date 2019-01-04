@@ -157,4 +157,10 @@ Entry: '{2}'</value>
   <data name="GridUI_saveToolStripMenuItem_Click_Successfully_saved" xml:space="preserve">
     <value>Successfully saved.</value>
   </data>
+  <data name="TranslationProgress_AxisX_Title" xml:space="preserve">
+    <value>Languages</value>
+  </data>
+  <data name="TranslationProgress_AxisY_Title" xml:space="preserve">
+    <value>Missing Translations</value>
+  </data>
 </root>

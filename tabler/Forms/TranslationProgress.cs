@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using tabler.Classes;
 using tabler.Logic.Classes;
+using tabler.Properties;
 
 namespace tabler
 {
@@ -83,31 +83,14 @@ namespace tabler
                 inc += 1;
             }
 
-            //foreach (LanguageStatistics modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics) {
-            //    int missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
-
-            //    if (missingTranslationCount > highestCount) {
-            //        highestCount = missingTranslationCount;
-            //    }
-
-
-            //    var dataPoint = new DataPoint(inc, missingTranslationCount);
-            //    dataPoint.AxisLabel = modInfoStatistics.LanguageName;
-            //    dataPoint.Label = missingTranslationCount.ToString();
-            //    dataPoint.ToolTip = AggregateMods(modInfoStatistics, "\n");
-
-            //    series.Points.Add(dataPoint);
-
-            //    inc += 1;
-            //}
-
-
             chart.Series.Add(series);
 
             var chartArea = chart.ChartAreas.FirstOrDefault();
             if (chartArea != null)
             {
                 chartArea.AxisX.MajorGrid.Enabled = false;
+                chartArea.AxisX.Title = Resources.TranslationProgress_AxisX_Title;
+                chartArea.AxisY.Title = Resources.TranslationProgress_AxisY_Title;
 
                 chartArea.AxisY.Interval = 10.0;
 
