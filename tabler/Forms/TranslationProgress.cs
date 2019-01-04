@@ -98,6 +98,11 @@ namespace tabler
                 {
                     chartArea.AxisY.Interval = 25.0;
                 }
+
+                if (highestCount > 1000)
+                {
+                    chartArea.AxisY.Interval = 100.0;
+                }
             }
         }
 
