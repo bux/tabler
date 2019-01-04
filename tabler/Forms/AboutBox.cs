@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -21,6 +21,16 @@ namespace tabler
             labelCompanyName.Links.Add(link);
 
             textBoxDescription.Text = AssemblyDescription;
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void labelCompanyName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

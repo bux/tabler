@@ -23,7 +23,7 @@ namespace tabler.Forms
 
         private void TabSelector_Load(object sender, EventArgs e)
         {
-            tbSelectTab.Focus();
+            tbSelectTab.Select();
             tbSelectTab.AutoCompleteSource = AutoCompleteSource.CustomSource;
 
             var autoCompleteSource = new AutoCompleteStringCollection();
@@ -35,21 +35,29 @@ namespace tabler.Forms
             tbSelectTab.LostFocus += TabSelector_LostFocus;
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            tbSelectTab.Select();
+            tbSelectTab.Focus();
+            base.OnShown(e);
+        }
+
         public string SelectedTabName { get; set; }
 
         private void TabSelector_LostFocus(object sender, EventArgs args)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        private void TabSelector_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-            {
-                this.DialogResult = DialogResult.Cancel;
-                this.Close();
-            }
         }
 
         private void tbSelectTab_KeyDown(object sender, KeyEventArgs e)

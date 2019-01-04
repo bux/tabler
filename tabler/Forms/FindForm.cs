@@ -30,12 +30,14 @@ namespace tabler.Forms
             cbSearchTerm.Select();
         }
 
-        private void FindForm_KeyDown(object sender, KeyEventArgs e)
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (e.KeyCode == Keys.Escape)
+            if (keyData == Keys.Escape)
             {
-                CloseForm(DialogResult.None);
+                Close();
+                return true;
             }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
 

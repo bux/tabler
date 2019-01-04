@@ -73,7 +73,12 @@ namespace tabler
 
             try
             {
+                // start the process
+                WaitingForm.ShowForm(this);
+
                 success = TranslationManager.SaveGridData(_configHelper.GetLastPathOfDataFiles(), lstModInfos);
+
+                WaitingForm.CloseForm();
             }
             catch (Exception exception)
             {

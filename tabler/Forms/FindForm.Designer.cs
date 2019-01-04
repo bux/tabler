@@ -39,11 +39,11 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.cbSearchTerm);
             this.panel1.Controls.Add(this.btnFind);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.lblFindWhat);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // cbSearchTerm
@@ -86,7 +86,6 @@
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.Load += new System.EventHandler(this.FindForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FindForm_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
