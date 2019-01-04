@@ -115,13 +115,20 @@ namespace tabler
 
                     _stringtablesLoaded = true;
                 }
-                catch (DuplicateKeyException duplicateKeyException)
+                catch (AggregateException ae)
                 {
-                    MessageBox.Show(string.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
-                }
-                catch (GenericXmlException xmlException)
-                {
-                    MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
+                    foreach (var ex in ae.Flatten().InnerExceptions)
+                    {
+                        if (ex is DuplicateKeyException duplicateKeyException)
+                        {
+                            MessageBox.Show(string.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
+                        }
+
+                        if (ex is GenericXmlException xmlException)
+                        {
+                            MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
+                        }
+                    }
                 }
             }
         }
