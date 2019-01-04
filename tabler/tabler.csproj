@@ -111,6 +111,12 @@
       <DependentUpon>AddLanguage.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\CellEditHistory.cs" />
+    <Compile Include="Forms\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FindForm.Designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\GridUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +173,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddLanguage.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindForm.de.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GridUI.de.resx">
       <DependentUpon>GridUI.cs</DependentUpon>

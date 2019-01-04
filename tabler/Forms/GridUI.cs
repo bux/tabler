@@ -31,6 +31,10 @@ namespace tabler
             Logger.TextBoxToLogIn = _tbLog;
         }
 
+
+        public bool FindFormOpen { get; set; }
+
+
         #region Events
 
         private void checkForNewVersionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -103,6 +107,7 @@ namespace tabler
                     WaitingForm.CloseForm();
 
                     saveToolStripMenuItem.Enabled = true;
+                    findToolStripMenuItem.Enabled = true;
                     addLanguageToolStripMenuItem.Enabled = true;
                     statisticsToolStripMenuItem.Enabled = true;
 
@@ -159,6 +164,11 @@ namespace tabler
                 pb.Focus();
                 pb.Select();
             }
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFindForm();
         }
 
         private void addLanguageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -233,6 +243,11 @@ namespace tabler
                     // Ctrl + T
                     OpenTabSelector();
                 }
+                if (e.KeyCode == Keys.F)
+                {
+                    // Ctrl + F
+                    OpenFindForm();
+                }
             }
         }
 
@@ -266,6 +281,18 @@ namespace tabler
             OverlayForm.ShowOverlay(this, tabSelector);
             tabSelector.Show(this);
         }
+
+        private void OpenFindForm()
+        {
+            if (!_stringtablesLoaded || FindFormOpen)
+            {
+                return;
+            }
+
+            var findForm = new FindForm(this);
+            findForm.Show();
+        }
+
 
         private void CheckForNewVersion()
         {
@@ -302,6 +329,12 @@ namespace tabler
             _gridUiHelper.SelectTabByName(tabName);
         }
 
+        public void PerformFind(string findTerm)
+        {
+            _gridUiHelper.PerformFind(findTerm);
+        }
+
         #endregion
+
     }
 }

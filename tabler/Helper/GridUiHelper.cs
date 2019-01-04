@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -22,6 +21,12 @@ namespace tabler.Helper
         private bool _ignoreForHistory;
         private bool _rowDeleted;
         private TranslationComponents _tc;
+
+        private int _lastFindRowIndex = -1;
+        private int _lastFindColIndex = -1;
+        private string _lastFindTerm;
+        private bool _lastFindWasInLastRow;
+        private bool _lastFindWasInLastCol;
 
         private List<CellEditHistory> _editHistory = new List<CellEditHistory>();
 
@@ -362,6 +367,92 @@ namespace tabler.Helper
             if (_gridUi.tabControl1.TabPages.ContainsKey(tabName))
             {
                 _gridUi.tabControl1.SelectTab(tabName);
+            }
+        }
+
+        public void PerformFind(string findTerm)
+        {
+            if (_lastFindTerm != findTerm)
+            {
+                _lastFindRowIndex = -1;
+                _lastFindColIndex = -1;
+            }
+
+            _lastFindTerm = findTerm;
+
+            var currentTabPage = _gridUi.tabControl1.SelectedTab;
+            var dgv = currentTabPage.Controls.OfType<DataGridView>().FirstOrDefault();
+
+            if (dgv == null)
+            {
+                return;
+            }
+
+            var findRowStartIndex = 0;
+            if (_lastFindRowIndex > -1)
+            {
+                findRowStartIndex = _lastFindRowIndex;
+                // if last search was in the last cell we jump down one row
+                if (_lastFindWasInLastCol)
+                {
+                    findRowStartIndex++;
+                }
+            }
+
+            var findColStartIndex = 0;
+            if (_lastFindColIndex > -1)
+            {
+                findColStartIndex = _lastFindColIndex + 1;
+                // if last search was in the last cell we jump down one row
+                if (_lastFindWasInLastCol)
+                {
+                    findColStartIndex = 0;
+                }
+            }
+
+            // if we were in the last cell reset to 0
+            if (_lastFindWasInLastRow && _lastFindWasInLastCol)
+            {
+                findRowStartIndex = 0;
+                findColStartIndex = 0;
+            }
+
+            for (var rowIndex = findRowStartIndex; rowIndex < dgv.Rows.Count; rowIndex++)
+            {
+                DataGridViewRow dgvRow = dgv.Rows[rowIndex];
+                var found = false;
+
+                for (var colIndex = findColStartIndex; colIndex < dgvRow.Cells.Count; colIndex++)
+                {
+                    DataGridViewCell cell = dgvRow.Cells[colIndex];
+                    if (!string.IsNullOrEmpty(cell.Value?.ToString()) && cell.Value.ToString().ToLowerInvariant().Contains(findTerm.ToLowerInvariant()))
+                    {
+                        _lastFindColIndex = cell.ColumnIndex;
+                        _lastFindRowIndex = cell.RowIndex;
+
+                        // set if we were in the last row
+                        // substract an additional row because of the "new row" feature
+                        _lastFindWasInLastRow = rowIndex == dgv.Rows.Count - 2;
+                        // set if we were in the last column
+                        _lastFindWasInLastCol = colIndex == dgvRow.Cells.Count - 1;
+
+                        found = true;
+                        break;
+                    }
+                }
+
+                // reset for next row
+                findColStartIndex = 0;
+
+                if (found)
+                {
+                    break;
+                }
+            }
+
+            if (_lastFindRowIndex != -1 && _lastFindColIndex != -1)
+            {
+                dgv.CurrentCell = dgv.Rows[_lastFindRowIndex].Cells[_lastFindColIndex];
             }
         }
 
