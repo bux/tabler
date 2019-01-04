@@ -1,4 +1,4 @@
-﻿namespace tabler.Forms
+namespace tabler.Forms
 {
     partial class TabSelector
     {
@@ -41,7 +41,7 @@
             this.tbSelectTab.Location = new System.Drawing.Point(10, 10);
             this.tbSelectTab.Name = "tbSelectTab";
             this.tbSelectTab.Size = new System.Drawing.Size(754, 32);
-            this.tbSelectTab.TabIndex = 0;
+            this.tbSelectTab.TabIndex = 1;
             this.tbSelectTab.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSelectTab_KeyDown);
             // 
             // panelContainer
@@ -69,7 +69,6 @@
             this.Text = "TabSelector";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.TabSelector_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TabSelector_KeyDown);
             this.panelContainer.ResumeLayout(false);
             this.panelContainer.PerformLayout();
             this.ResumeLayout(false);

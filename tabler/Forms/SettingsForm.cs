@@ -1,7 +1,5 @@
 using System;
 using System.Windows.Forms;
-using tabler.Classes;
-using tabler.Helper;
 using tabler.Logic.Classes;
 using tabler.Logic.Helper;
 
@@ -15,6 +13,16 @@ namespace tabler
         {
             _myParent = myParent;
             InitializeComponent();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void Settings_Load(object sender, EventArgs e)

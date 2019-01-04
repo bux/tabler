@@ -28,6 +28,17 @@ namespace tabler
             PopulateChart();
         }
 
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+
         private void PopulateChart()
         {
             var inc = 0;
