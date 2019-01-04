@@ -130,26 +130,26 @@
     <value>4</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="m_tbModFolder.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="tbModFolder.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 25</value>
   </data>
-  <data name="m_tbModFolder.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="tbModFolder.Size" type="System.Drawing.Size, System.Drawing">
     <value>307, 20</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="m_tbModFolder.TabIndex" type="System.Int32, mscorlib">
+  <data name="tbModFolder.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;m_tbModFolder.Name" xml:space="preserve">
-    <value>m_tbModFolder</value>
+  <data name="&gt;&gt;tbModFolder.Name" xml:space="preserve">
+    <value>tbModFolder</value>
   </data>
-  <data name="&gt;&gt;m_tbModFolder.Type" xml:space="preserve">
+  <data name="&gt;&gt;tbModFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;m_tbModFolder.Parent" xml:space="preserve">
+  <data name="&gt;&gt;tbModFolder.Parent" xml:space="preserve">
     <value>toolStripContainer1.ContentPanel</value>
   </data>
-  <data name="&gt;&gt;m_tbModFolder.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tbModFolder.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
@@ -249,6 +249,9 @@
   <data name="findToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="findToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+F</value>
+  </data>
   <data name="findToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 22</value>
   </data>
@@ -339,8 +342,11 @@
   <data name="&gt;&gt;toolStripContainer1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="openModFolderToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+O</value>
+  </data>
   <data name="openModFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 22</value>
+    <value>230, 22</value>
   </data>
   <data name="openModFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Open language file(s)</value>
@@ -349,16 +355,16 @@
     <value>False</value>
   </data>
   <data name="saveToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 22</value>
+    <value>230, 22</value>
   </data>
   <data name="saveToolStripMenuItem.Text" xml:space="preserve">
     <value>Save language file(s)</value>
   </data>
   <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>184, 6</value>
+    <value>227, 6</value>
   </data>
   <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>187, 22</value>
+    <value>230, 22</value>
   </data>
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Exit</value>

@@ -62,75 +62,7 @@ namespace tabler
 
         private void openModFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var curPath = "";
-
-            var lastPath = _configHelper.GetLastPathOfDataFiles();
-
-            if (lastPath != null)
-            {
-                curPath = lastPath.FullName;
-            }
-
-            var folderDialog = new CommonOpenFileDialog {IsFolderPicker = true};
-            if (string.IsNullOrEmpty(curPath) == false)
-            {
-                folderDialog.DefaultDirectory = curPath;
-            }
-
-
-            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
-            {
-                m_tbModFolder.Text = folderDialog.FileName;
-                try
-                {
-                    // start the process
-                    WaitingForm.ShowForm(this);
-
-                    var tc = TranslationManager.GetGridData(new DirectoryInfo(folderDialog.FileName));
-
-                    if (tc == null)
-                    {
-                        WaitingForm.CloseForm();
-                        MessageBox.Show(Resources.GridUI_No_stringtable_xml_files_found);
-                        return;
-                    }
-
-                    SuspendLayout();
-                    tabControl1.Hide();
-
-                    _gridUiHelper = new GridUiHelper(this);
-                    _gridUiHelper.Cleanup();
-                    _gridUiHelper.ShowData(tc);
-
-                    ResumeLayout();
-                    tabControl1.Show();
-                    WaitingForm.CloseForm();
-
-                    saveToolStripMenuItem.Enabled = true;
-                    findToolStripMenuItem.Enabled = true;
-                    addLanguageToolStripMenuItem.Enabled = true;
-                    statisticsToolStripMenuItem.Enabled = true;
-
-                    _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderDialog.FileName));
-
-                    _stringtablesLoaded = true;
-                }
-                catch (AggregateException ae)
-                {
-                    foreach (var ex in ae.Flatten().InnerExceptions)
-                    {
-                        if (ex is DuplicateKeyException duplicateKeyException)
-                        {
-                            MessageBox.Show(string.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
-                        }
-
-                        if (ex is GenericXmlException xmlException)
-                        {
-                            MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
-                        }
-                    }
-                }
-            }
+            OpenOpenModFolderDialog();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -250,17 +182,92 @@ namespace tabler
                     // Ctrl + T
                     OpenTabSelector();
                 }
-                if (e.KeyCode == Keys.F)
-                {
-                    // Ctrl + F
-                    OpenFindForm();
-                }
             }
         }
 
         #endregion
 
         #region Functions
+
+
+        private void OpenOpenModFolderDialog()
+        {
+            var curPath = "";
+
+            var lastPath = _configHelper.GetLastPathOfDataFiles();
+
+            if (lastPath != null)
+            {
+                curPath = lastPath.FullName;
+            }
+
+            var folderDialog = new CommonOpenFileDialog { IsFolderPicker = true };
+            if (string.IsNullOrEmpty(curPath) == false)
+            {
+                folderDialog.DefaultDirectory = curPath;
+            }
+
+
+            if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                tbModFolder.Text = folderDialog.FileName;
+                StartParsingProcess(folderDialog.FileName);
+            }
+        }
+
+        private void StartParsingProcess(string folderName)
+        {
+            try
+            {
+                // start the process
+                WaitingForm.ShowForm(this);
+
+                var tc = TranslationManager.GetGridData(new DirectoryInfo(folderName));
+
+                if (tc == null)
+                {
+                    WaitingForm.CloseForm();
+                    MessageBox.Show(Resources.GridUI_No_stringtable_xml_files_found);
+                    return;
+                }
+
+                SuspendLayout();
+                tabControl1.Hide();
+
+                _gridUiHelper = new GridUiHelper(this);
+                _gridUiHelper.Cleanup();
+                _gridUiHelper.ShowData(tc);
+
+                ResumeLayout();
+                tabControl1.Show();
+                WaitingForm.CloseForm();
+
+                saveToolStripMenuItem.Enabled = true;
+                findToolStripMenuItem.Enabled = true;
+                addLanguageToolStripMenuItem.Enabled = true;
+                statisticsToolStripMenuItem.Enabled = true;
+
+                _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderName));
+
+                _stringtablesLoaded = true;
+            }
+            catch (AggregateException ae)
+            {
+                foreach (var ex in ae.Flatten().InnerExceptions)
+                {
+                    if (ex is DuplicateKeyException duplicateKeyException)
+                    {
+                        MessageBox.Show(string.Format(Resources.GridUI_Duplicate_key_found, duplicateKeyException.KeyName, duplicateKeyException.FileName, duplicateKeyException.EntryName), Resources.GridUI_Duplicate_key_found_title);
+                    }
+
+                    if (ex is GenericXmlException xmlException)
+                    {
+                        MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
+                    }
+                }
+            }
+        }
+
 
         private void OpenTabSelector()
         {

@@ -1,4 +1,4 @@
-﻿namespace tabler
+namespace tabler
 {
     partial class GridUI
     {
@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GridUI));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
-            this.m_tbModFolder = new System.Windows.Forms.TextBox();
+            this.tbModFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -72,7 +72,7 @@
             // 
             // toolStripContainer1.ContentPanel
             // 
-            this.toolStripContainer1.ContentPanel.Controls.Add(this.m_tbModFolder);
+            this.toolStripContainer1.ContentPanel.Controls.Add(this.tbModFolder);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
             resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
             resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
@@ -82,11 +82,11 @@
             // 
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
-            // m_tbModFolder
+            // tbModFolder
             // 
-            resources.ApplyResources(this.m_tbModFolder, "m_tbModFolder");
-            this.m_tbModFolder.Name = "m_tbModFolder";
-            this.m_tbModFolder.ReadOnly = true;
+            resources.ApplyResources(this.tbModFolder, "tbModFolder");
+            this.tbModFolder.Name = "tbModFolder";
+            this.tbModFolder.ReadOnly = true;
             // 
             // label1
             // 
@@ -281,7 +281,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox m_tbModFolder;
+        private System.Windows.Forms.TextBox tbModFolder;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.TabControl tabControl1;
