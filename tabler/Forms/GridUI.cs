@@ -88,9 +88,15 @@ namespace tabler
                         return;
                     }
 
+                    this.SuspendLayout();
+                    this.tabControl1.Hide();
+
                     _gridUiHelper = new GridUiHelper(this);
                     _gridUiHelper.Cleanup();
                     _gridUiHelper.ShowData(tc);
+
+                    this.ResumeLayout();
+                    this.tabControl1.Show();
 
                     saveToolStripMenuItem.Enabled = true;
                     addLanguageToolStripMenuItem.Enabled = true;
