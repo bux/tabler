@@ -1,8 +1,10 @@
-﻿using System;
+using System;
 using System.Drawing;
 
-namespace tabler {
-    public class CellEditHistory {
+namespace tabler.Classes
+{
+    public class CellEditHistory
+    {
         public int CellColumnIndex { get; set; }
 
         public int CellRowIndex { get; set; }

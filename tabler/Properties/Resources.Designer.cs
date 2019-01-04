@@ -19,7 +19,7 @@ namespace tabler.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -162,6 +162,24 @@ namespace tabler.Properties {
         internal static string GridUI_saveToolStripMenuItem_Click_Successfully_saved {
             get {
                 return ResourceManager.GetString("GridUI_saveToolStripMenuItem_Click_Successfully_saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Languages.
+        /// </summary>
+        internal static string TranslationProgress_AxisX_Title {
+            get {
+                return ResourceManager.GetString("TranslationProgress_AxisX_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of Missing Translations.
+        /// </summary>
+        internal static string TranslationProgress_AxisY_Title {
+            get {
+                return ResourceManager.GetString("TranslationProgress_AxisY_Title", resourceCulture);
             }
         }
     }

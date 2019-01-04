@@ -117,50 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="GridUI_Discard_all_changes" xml:space="preserve">
-    <value>Discard all changes?</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cbSearchTerm.Location" type="System.Drawing.Point, System.Drawing">
+    <value>89, 10</value>
   </data>
-  <data name="GridUI_Duplicate_key_found" xml:space="preserve">
-    <value>Duplicate Key found.
-Name: '{0}'
-File: '{1}'
-Entry: '{2}'</value>
+  <data name="cbSearchTerm.Size" type="System.Drawing.Size, System.Drawing">
+    <value>379, 21</value>
   </data>
-  <data name="GridUI_Duplicate_key_found_title" xml:space="preserve">
-    <value>Duplicate Key Error</value>
+  <data name="btnFind.Text" xml:space="preserve">
+    <value>Suchen</value>
   </data>
-  <data name="GridUI_Exit" xml:space="preserve">
-    <value>Exit?</value>
-    <comment>That's a question</comment>
+  <data name="btnClose.Text" xml:space="preserve">
+    <value>Schließen</value>
   </data>
-  <data name="GridUI_Generic_xml_exception" xml:space="preserve">
-    <value>Generic XML Exception.
-Name: '{0}'
-File: '{1}'
-Entry: '{2}'</value>
+  <data name="lblFindWhat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 13</value>
   </data>
-  <data name="GridUI_Generic_xml_exception_title" xml:space="preserve">
-    <value>XML Exception</value>
+  <data name="lblFindWhat.Text" xml:space="preserve">
+    <value>Was suchen:</value>
   </data>
-  <data name="GridUI_No_stringtable_xml_files_found" xml:space="preserve">
-    <value>No 'stringtable.xml' files found.</value>
-  </data>
-  <data name="GridUI_CheckForNewVersion_New_version_available" xml:space="preserve">
-    <value>New version available</value>
-  </data>
-  <data name="GridUI_CheckForNewVersion_Current_version_is_up_to_date" xml:space="preserve">
-    <value>Current version is up to date</value>
-  </data>
-  <data name="GridUI_CheckForNewVersion_Download_the_new_version_at" xml:space="preserve">
-    <value>Download the new version at</value>
-  </data>
-  <data name="GridUI_saveToolStripMenuItem_Click_Successfully_saved" xml:space="preserve">
-    <value>Successfully saved.</value>
-  </data>
-  <data name="TranslationProgress_AxisX_Title" xml:space="preserve">
-    <value>Languages</value>
-  </data>
-  <data name="TranslationProgress_AxisY_Title" xml:space="preserve">
-    <value>Number of Missing Translations</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Im aktiven Tab suchen</value>
   </data>
 </root>

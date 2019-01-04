@@ -52,10 +52,10 @@
             // 
             // grpBIndentation
             // 
-            resources.ApplyResources(this.grpBIndentation, "grpBIndentation");
             this.grpBIndentation.Controls.Add(this.rbIndentSpaces);
             this.grpBIndentation.Controls.Add(this.tbIndentation);
             this.grpBIndentation.Controls.Add(this.rbIndentTabs);
+            resources.ApplyResources(this.grpBIndentation, "grpBIndentation");
             this.grpBIndentation.Name = "grpBIndentation";
             this.grpBIndentation.TabStop = false;
             // 
@@ -81,8 +81,8 @@
             // 
             // groupBox1
             // 
-            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Controls.Add(this.cbRemoveEmptyNodes);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
@@ -102,7 +102,10 @@
             this.Controls.Add(this.grpBIndentation);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveSettings);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsForm";
+            this.ShowIcon = false;
             this.Load += new System.EventHandler(this.Settings_Load);
             this.grpBIndentation.ResumeLayout(false);
             this.grpBIndentation.PerformLayout();

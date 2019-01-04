@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Text;
 using System.Timers;
+using System.Windows.Forms;
+using Timer = System.Timers.Timer;
 
-namespace tabler.Classes {
-    public static class Logger {
-
+namespace tabler.Classes
+{
+    public static class Logger
+    {
         private static readonly StringBuilder StringBuilderForLogging = new StringBuilder();
-        public static System.Windows.Forms.TextBox TextBoxToLogIn;
+        public static TextBox TextBoxToLogIn;
 
         private static Timer _timer;
 
-        public static void ClearLog() {
+        public static void ClearLog()
+        {
             StringBuilderForLogging.Clear();
         }
 
-        public static void Log(string message) {
-            if (TextBoxToLogIn == null) {
+        public static void Log(string message)
+        {
+            if (TextBoxToLogIn == null)
+            {
                 return;
             }
 
-            if (_timer == null) {
+            if (_timer == null)
+            {
                 _timer = new Timer {Interval = 500};
                 _timer.Elapsed += timer_Elapsed;
             }
@@ -28,21 +35,19 @@ namespace tabler.Classes {
             _timer.Start();
         }
 
-        private static void timer_Elapsed(object sender, ElapsedEventArgs e) {
+        private static void timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
             _timer.Stop();
 
-            if (TextBoxToLogIn == null) {
+            if (TextBoxToLogIn == null)
+            {
                 _timer.Start();
             }
 
-            TextBoxToLogIn.UiThread(delegate {
-                TextBoxToLogIn.Text = StringBuilderForLogging.ToString();
-            });
+            TextBoxToLogIn.UiThread(delegate { TextBoxToLogIn.Text = StringBuilderForLogging.ToString(); });
 
 
             _timer.Start();
         }
-
-
     }
 }

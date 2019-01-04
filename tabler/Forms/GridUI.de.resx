@@ -121,6 +121,12 @@
     <value>Mod/Mission Pfad</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Datei</value>
+  </data>
   <data name="openModFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>211, 22</value>
   </data>
@@ -142,11 +148,17 @@
   <data name="exitToolStripMenuItem.Text" xml:space="preserve">
     <value>Beenden</value>
   </data>
-  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 20</value>
+  <data name="languagesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>77, 20</value>
   </data>
-  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
-    <value>Datei</value>
+  <data name="languagesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Werkzeuge</value>
+  </data>
+  <data name="findToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>197, 22</value>
+  </data>
+  <data name="findToolStripMenuItem.Text" xml:space="preserve">
+    <value>Suchen</value>
   </data>
   <data name="addLanguageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>197, 22</value>
@@ -160,40 +172,34 @@
   <data name="statisticsToolStripMenuItem.Text" xml:space="preserve">
     <value>Übersetzungsfortschritt</value>
   </data>
-  <data name="languagesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>77, 20</value>
-  </data>
-  <data name="languagesToolStripMenuItem.Text" xml:space="preserve">
-    <value>Werkzeuge</value>
-  </data>
   <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>90, 20</value>
   </data>
   <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
     <value>Einstellungen</value>
   </data>
+  <data name="versionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="versionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Über</value>
+  </data>
   <data name="checkForNewVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+    <value>201, 22</value>
   </data>
   <data name="checkForNewVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Auf neue Version prüfen</value>
   </data>
   <data name="getNewVersionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+    <value>201, 22</value>
   </data>
   <data name="getNewVersionToolStripMenuItem.Text" xml:space="preserve">
     <value>Neue Version laden</value>
   </data>
   <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>202, 22</value>
+    <value>201, 22</value>
   </data>
   <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
-    <value>Über</value>
-  </data>
-  <data name="versionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="versionToolStripMenuItem.Text" xml:space="preserve">
     <value>Über</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

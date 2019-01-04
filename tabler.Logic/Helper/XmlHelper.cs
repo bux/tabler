@@ -1,12 +1,16 @@
-﻿using System;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using tabler.Logic.Classes;
+using tabler.Logic.Exceptions;
 
-namespace tabler
+namespace tabler.Logic.Helper
 {
     public class XmlHelper
     {
@@ -16,13 +20,13 @@ namespace tabler
 
         public TranslationComponents ParseXmlFiles(List<FileInfo> allStringTablePaths)
         {
-            var lstHeader = new System.Collections.Concurrent.ConcurrentBag<string>();
+            var lstHeader = new ConcurrentBag<string>();
 
-            var allModInfos = new System.Collections.Concurrent.ConcurrentBag<ModInfoContainer>();
+            var allModInfos = new ConcurrentBag<ModInfoContainer>();
 
             var transComp = new TranslationComponents();
 
-            Parallel.ForEach(allStringTablePaths, (currentFile) =>
+            Parallel.ForEach(allStringTablePaths, currentFile =>
             {
                 var modInfo = new ModInfoContainer
                 {
@@ -32,7 +36,6 @@ namespace tabler
 
                 using (var sr = new StreamReader(currentFile.FullName))
                 {
-
                     modInfo.FileHasBom = FileHelper.FileHasBom(sr.BaseStream);
 
                     XDocument xdoc;
@@ -46,21 +49,21 @@ namespace tabler
                         throw new GenericXmlException("", currentFile.FullName, xmlException.Message);
                     }
 
-                    IEnumerable<XElement> keys = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
+                    var keys = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
 
                     var dicKeyWithTranslations = new Dictionary<string, Dictionary<string, string>>();
 
                     // all keys
-                    foreach (XElement key in keys)
+                    foreach (var key in keys)
                     {
-                        string currentKeyId = key.Attribute(ID_NAME).Value;
+                        var currentKeyId = key.Attribute(ID_NAME).Value;
 
                         var dicTranslations = new Dictionary<string, string>();
 
                         // all languages of a key
-                        foreach (XElement language in key.Descendants())
+                        foreach (var language in key.Descendants())
                         {
-                            string languageName = language.Name.ToString();
+                            var languageName = language.Name.ToString();
 
                             if (dicTranslations.ContainsKey(languageName))
                             {
@@ -80,13 +83,13 @@ namespace tabler
                         {
                             throw new DuplicateKeyException(currentKeyId, currentFile.FullName, currentKeyId);
                         }
+
                         dicKeyWithTranslations.Add(currentKeyId, dicTranslations);
                     }
 
 
                     modInfo.Values = dicKeyWithTranslations;
                     allModInfos.Add(modInfo);
-
                 }
             });
 
@@ -99,10 +102,9 @@ namespace tabler
 
         public void UpdateXmlFiles(List<FileInfo> filesByNameInDirectory, List<ModInfoContainer> lstModInfos)
         {
-
-            Parallel.ForEach(filesByNameInDirectory, (currentFileInfo) =>
+            Parallel.ForEach(filesByNameInDirectory, currentFileInfo =>
             {
-                ModInfoContainer foundModInfo = lstModInfos.FirstOrDefault(x => x.Name.ToLowerInvariant() == currentFileInfo.Directory.Name.ToLowerInvariant());
+                var foundModInfo = lstModInfos.FirstOrDefault(x => x.Name.ToLowerInvariant() == currentFileInfo.Directory.Name.ToLowerInvariant());
 
                 if (foundModInfo == null)
                 {
@@ -112,7 +114,7 @@ namespace tabler
                 //get file
                 var xdoc = XDocument.Load(currentFileInfo.FullName);
 
-                bool changed = false;
+                var changed = false;
                 //for each id in excel
                 //Values(ID)(LANGUAGE)
                 foreach (var currentID in foundModInfo.Values)
@@ -129,10 +131,10 @@ namespace tabler
 
 
                 // Now check if someone deleted a row
-                IEnumerable<XElement> keysInXml = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
-                foreach (XElement currentKeyElement in keysInXml.ToList())
+                var keysInXml = xdoc.Descendants().Where(x => x.Name == KEY_NAME);
+                foreach (var currentKeyElement in keysInXml.ToList())
                 {
-                    string currentKeyId = currentKeyElement.Attribute(ID_NAME).Value;
+                    var currentKeyId = currentKeyElement.Attribute(ID_NAME).Value;
                     if (foundModInfo.Values.Keys.Contains(currentKeyId))
                     {
                         // hmm, forgot what this was for
@@ -151,7 +153,7 @@ namespace tabler
                     {
                         Indent = true,
                         IndentChars = "    ",
-                        Encoding = new System.Text.UTF8Encoding(foundModInfo.FileHasBom)
+                        Encoding = new UTF8Encoding(foundModInfo.FileHasBom)
                     };
 
                     var configHelper = new ConfigHelper();
@@ -159,19 +161,18 @@ namespace tabler
 
                     if (settings != null)
                     {
-
                         if (settings.IndentationSettings == IndentationSettings.Spaces)
                         {
-
                             var indentChars = "";
 
-                            for (int i = 0; i < settings.TabSize; i++)
+                            for (var i = 0; i < settings.TabSize; i++)
                             {
                                 indentChars += " ";
                             }
 
                             xmlSettings.IndentChars = indentChars;
                         }
+
                         if (settings.IndentationSettings == IndentationSettings.Tabs)
                         {
                             xmlSettings.IndentChars = "\t";
@@ -180,9 +181,8 @@ namespace tabler
 
                         if (settings.RemoveEmptyNodes)
                         {
-                            xdoc.Descendants().Where(d => d.IsEmpty || String.IsNullOrWhiteSpace(d.Value)).Remove();
+                            xdoc.Descendants().Where(d => d.IsEmpty || string.IsNullOrWhiteSpace(d.Value)).Remove();
                         }
-
                     }
 
 
@@ -190,6 +190,7 @@ namespace tabler
                     {
                         xdoc.Save(writer);
                     }
+
                     File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
                 }
             });
@@ -200,7 +201,7 @@ namespace tabler
         {
             var changed = false;
             //get keys
-            List<XElement> keys = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == KEY_NAME.ToLowerInvariant() select xel).ToList();
+            var keys = (from xel in xdoc.Descendants() where xel.Name.ToString().ToLowerInvariant() == KEY_NAME.ToLowerInvariant() select xel).ToList();
 
             XElement parent;
 
@@ -214,7 +215,7 @@ namespace tabler
             }
 
             //get ids
-            XElement xID = (from xel in keys where xel.Attributes().Any(x => x.Value.ToString().ToLowerInvariant() == id.ToLowerInvariant()) select xel).FirstOrDefault();
+            var xID = (from xel in keys where xel.Attributes().Any(x => x.Value.ToString().ToLowerInvariant() == id.ToLowerInvariant()) select xel).FirstOrDefault();
 
             //get language
 
@@ -231,7 +232,7 @@ namespace tabler
             }
 
 
-            XElement xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language.ToLowerInvariant() select xel).FirstOrDefault();
+            var xLanguage = (from xel in xID.Descendants() where xel.Name.ToString().ToLowerInvariant() == language.ToLowerInvariant() select xel).FirstOrDefault();
 
 
             if (xLanguage != null)

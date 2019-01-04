@@ -1,56 +1,80 @@
-﻿using System.Collections.Generic;
+using System;
 using System.Windows.Forms;
-using tabler.Classes;
+using tabler.Logic.Classes;
+using tabler.Logic.Helper;
 
-namespace tabler {
-    public partial class SettingsForm : Form {
+namespace tabler
+{
+    public partial class SettingsForm : Form
+    {
         private readonly GridUI _myParent;
 
-        public SettingsForm(GridUI myParent) {
+        public SettingsForm(GridUI myParent)
+        {
             _myParent = myParent;
             InitializeComponent();
-
-
         }
 
-        private void Settings_Load(object sender, System.EventArgs e) {
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Escape)
+            {
+                Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
             var configHelper = new ConfigHelper();
 
-            Settings settings = configHelper.GetSettings();
+            var settings = configHelper.GetSettings();
 
-            if (settings != null) {
-                if (settings.IndentationSettings == IndentationSettings.Tabs) {
+            if (settings != null)
+            {
+                if (settings.IndentationSettings == IndentationSettings.Tabs)
+                {
                     rbIndentTabs.Checked = true;
                 }
+
                 tbIndentation.Text = settings.TabSize.ToString();
             }
         }
 
 
-
-        private void btnCancel_Click(object sender, System.EventArgs e) {
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
             Close();
         }
 
-        private void rbIndentTabs_CheckedChanged(object sender, System.EventArgs e) {
+        private void rbIndentTabs_CheckedChanged(object sender, EventArgs e)
+        {
             var me = (RadioButton) sender;
             tbIndentation.Enabled = !me.Checked;
         }
 
-        private void btnSaveSettings_Click(object sender, System.EventArgs e) {
+        private void btnSaveSettings_Click(object sender, EventArgs e)
+        {
             var configHelper = new ConfigHelper();
             var newSettings = new Settings();
 
-            if (rbIndentTabs.Checked) {
+            if (rbIndentTabs.Checked)
+            {
                 newSettings.IndentationSettings = IndentationSettings.Tabs;
             }
-            if (rbIndentSpaces.Checked) {
+
+            if (rbIndentSpaces.Checked)
+            {
                 newSettings.IndentationSettings = IndentationSettings.Spaces;
                 //newSettings.TabSize = 
                 int tabSizeValue;
-                if (int.TryParse(tbIndentation.Text, out tabSizeValue)) {
+                if (int.TryParse(tbIndentation.Text, out tabSizeValue))
+                {
                     newSettings.TabSize = tabSizeValue;
-                } else {
+                }
+                else
+                {
                     tbIndentation.Text = "4";
                     return;
                 }
@@ -61,7 +85,5 @@ namespace tabler {
             configHelper.SaveSettings(newSettings);
             Close();
         }
-
-
     }
 }

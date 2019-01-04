@@ -1,10 +1,10 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
+// General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("tabler")]
+[assembly: AssemblyTitle("tabler logic")]
 [assembly: AssemblyDescription("Arma 3 Translation Helper")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("https://github.com/bux/tabler/")]
@@ -13,20 +13,23 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
+// Setting ComVisible to false makes the types in this assembly not visible
+// to COM components.  If you need to access a type in this assembly from
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("570ff6fa-19a8-48c1-b9da-f47a8ac91233")]
+[assembly: Guid("651801fa-f7ae-4f9b-9a7c-2ddea5965440")]
 
-// http://semver.org/
-// Version information for an assembly consists of the following values:
+// Version information for an assembly consists of the following four values:
 //
 //      Major Version
-//      Minor Version 
-//      Patch
-
+//      Minor Version
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Build and Revision Numbers
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("0.9.0")]
 [assembly: AssemblyFileVersion("0.9.0")]
