@@ -9,7 +9,7 @@
          alt="BIF Thread" />
   </a>
   <a href="https://github.com/bux/tabler/releases">
-    <img src="http://img.shields.io/badge/Version-0.8.0-green.svg?style=flat"
+    <img src="http://img.shields.io/badge/Version-0.9.1-green.svg?style=flat"
          alt="Version" />
   </a>
   <a href="https://github.com/bux/tabler/issues">
