@@ -178,11 +178,6 @@ namespace tabler.Logic.Helper
                             xmlSettings.IndentChars = "\t";
                         }
 
-
-                        if (settings.RemoveEmptyNodes)
-                        {
-                            xdoc.Descendants().Where(d => d.IsEmpty || string.IsNullOrWhiteSpace(d.Value)).Remove();
-                        }
                     }
 
 

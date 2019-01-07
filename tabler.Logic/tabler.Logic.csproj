@@ -44,23 +44,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Container.cs" />
+    <Compile Include="Classes\IChangeable.cs" />
+    <Compile Include="Classes\Key.cs" />
     <Compile Include="Classes\LanguageStatistics.cs" />
     <Compile Include="Classes\ModInfoContainer.cs" />
+    <Compile Include="Classes\Package.cs" />
+    <Compile Include="Classes\Project.cs" />
     <Compile Include="Classes\ReleaseVersion.cs" />
     <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Classes\Stringtable.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
-    <Compile Include="Classes\TranslationManager.cs" />
+    <Compile Include="Helper\TranslationHelper.cs" />
+    <Compile Include="Enums\Languages.cs" />
     <Compile Include="Exceptions\DuplicateKeyException.cs" />
     <Compile Include="Exceptions\GenericXmlException.cs" />
+    <Compile Include="Extensions\EnumUtils.cs" />
     <Compile Include="Helper\ConfigHelper.cs" />
     <Compile Include="Helper\FileHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\GithubVersionHelper.cs" />
+    <Compile Include="Helper\StringtableHelper.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="xml\stringtable.xsd">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

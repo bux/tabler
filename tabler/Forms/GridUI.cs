@@ -18,7 +18,7 @@ namespace tabler
     public partial class GridUI : Form
     {
         private readonly ConfigHelper _configHelper;
-        public readonly TranslationManager TranslationManager;
+        public readonly TranslationHelper TranslationHelper;
         private GridUiHelper _gridUiHelper;
         private ReleaseVersion _newerRelease;
         private bool _stringtablesLoaded;
@@ -27,7 +27,7 @@ namespace tabler
         {
             InitializeComponent();
             _configHelper = new ConfigHelper();
-            TranslationManager = new TranslationManager();
+            TranslationHelper = new TranslationHelper();
             Logger.TextBoxToLogIn = _tbLog;
         }
 
@@ -67,7 +67,7 @@ namespace tabler
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var lstModInfos = _gridUiHelper.ParseAllTables();
+            var stringtables = _gridUiHelper.ParseAllTables();
 
             bool success;
 
@@ -76,7 +76,7 @@ namespace tabler
                 // start the process
                 WaitingForm.ShowForm(this);
 
-                success = TranslationManager.SaveGridData(_configHelper.GetLastPathOfDataFiles(), lstModInfos);
+                success = TranslationHelper.SaveGridData(_configHelper.GetLastPathOfDataFiles(), stringtables);
 
                 WaitingForm.CloseForm();
             }
@@ -227,7 +227,7 @@ namespace tabler
                 // start the process
                 WaitingForm.ShowForm(this);
 
-                var tc = TranslationManager.GetGridData(new DirectoryInfo(folderName));
+                var tc = TranslationHelper.GetGridData(new DirectoryInfo(folderName));
 
                 if (tc == null)
                 {
@@ -239,9 +239,9 @@ namespace tabler
                 SuspendLayout();
                 tabControl1.Hide();
 
-                _gridUiHelper = new GridUiHelper(this);
+                _gridUiHelper = new GridUiHelper(this, tc);
                 _gridUiHelper.Cleanup();
-                _gridUiHelper.ShowData(tc);
+                _gridUiHelper.ShowData();
 
                 ResumeLayout();
                 tabControl1.Show();
@@ -251,7 +251,7 @@ namespace tabler
                 findToolStripMenuItem.Enabled = true;
                 addLanguageToolStripMenuItem.Enabled = true;
                 statisticsToolStripMenuItem.Enabled = true;
-
+                
                 _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderName));
 
                 _stringtablesLoaded = true;
