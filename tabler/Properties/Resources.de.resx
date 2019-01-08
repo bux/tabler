@@ -150,6 +150,16 @@ Eintrag: '{2}'</value>
   <data name="GridUI_Generic_xml_exception_title" xml:space="preserve">
     <value>XML-Fehler</value>
   </data>
+  <data name="GridUI_Malformed_Stringtable_exception" xml:space="preserve">
+    <value>Fehlerhaftes Format einer Stringtable-Datei gefunden.
+Datei: '{0}'
+Nachricht: '{1}'
+
+Mehr Informationen unter: https://community.bistudio.com/wiki/Stringtable.xml</value>
+  </data>
+  <data name="GridUI_Malformed_Stringtable_exception_title" xml:space="preserve">
+    <value>Fehlerhaftes Stringtable Format</value>
+  </data>
   <data name="GridUI_No_stringtable_xml_files_found" xml:space="preserve">
     <value>Keine 'stringtable.xml'-Dateien gefunden.</value>
   </data>

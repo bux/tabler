@@ -73,9 +73,20 @@ namespace tabler.Logic.Helper
                     }
                 }
             }
-            catch (XmlException xmlException)
+            catch (XmlException ex)
             {
-                throw new GenericXmlException("", fileInfo.FullName, xmlException.Message);
+                throw new GenericXmlException("", fileInfo.FullName, ex.Message);
+            }
+            catch (InvalidOperationException ex)
+            {
+                var message = new StringBuilder();
+                message.Append(ex.Message);
+                if (ex.InnerException != null)
+                {
+                    message.AppendLine().Append(ex.InnerException.Message);
+                }
+
+                throw new MalformedStringtableException(fileInfo.FullName, message.ToString());
             }
 
             return stringtable;

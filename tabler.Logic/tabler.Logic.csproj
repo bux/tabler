@@ -55,6 +55,7 @@
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\Stringtable.cs" />
     <Compile Include="Classes\TranslationComponents.cs" />
+    <Compile Include="Exceptions\MalformedStringtableException.cs" />
     <Compile Include="Helper\TranslationHelper.cs" />
     <Compile Include="Enums\Languages.cs" />
     <Compile Include="Exceptions\DuplicateKeyException.cs" />

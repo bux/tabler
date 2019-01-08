@@ -258,6 +258,7 @@ namespace tabler
             }
             catch (AggregateException ae)
             {
+                WaitingForm.CloseForm();
                 foreach (var ex in ae.Flatten().InnerExceptions)
                 {
                     if (ex is DuplicateKeyException duplicateKeyException)
@@ -268,6 +269,11 @@ namespace tabler
                     if (ex is GenericXmlException xmlException)
                     {
                         MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
+                    }
+
+                    if (ex is MalformedStringtableException malformedStringtableException)
+                    {
+                        MessageBox.Show(string.Format(Resources.GridUI_Malformed_Stringtable_exception, malformedStringtableException.FileName, malformedStringtableException.Message), Resources.GridUI_Malformed_Stringtable_exception_title);
                     }
                 }
             }

@@ -148,6 +148,28 @@ namespace tabler.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Malformed Stringtable Encountered.
+        ///File: &apos;{0}&apos;
+        ///Message: &apos;{1}&apos;
+        ///
+        ///More information: https://community.bistudio.com/wiki/Stringtable.xml.
+        /// </summary>
+        internal static string GridUI_Malformed_Stringtable_exception {
+            get {
+                return ResourceManager.GetString("GridUI_Malformed_Stringtable_exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Malformed Stringtable.
+        /// </summary>
+        internal static string GridUI_Malformed_Stringtable_exception_title {
+            get {
+                return ResourceManager.GetString("GridUI_Malformed_Stringtable_exception_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No &apos;stringtable.xml&apos; files found..
         /// </summary>
         internal static string GridUI_No_stringtable_xml_files_found {

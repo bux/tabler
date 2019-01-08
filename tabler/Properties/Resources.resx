@@ -163,4 +163,14 @@ Entry: '{2}'</value>
   <data name="TranslationProgress_AxisY_Title" xml:space="preserve">
     <value>Number of Missing Translations</value>
   </data>
+  <data name="GridUI_Malformed_Stringtable_exception" xml:space="preserve">
+    <value>Malformed Stringtable Encountered.
+File: '{0}'
+Message: '{1}'
+
+More information: https://community.bistudio.com/wiki/Stringtable.xml</value>
+  </data>
+  <data name="GridUI_Malformed_Stringtable_exception_title" xml:space="preserve">
+    <value>Malformed Stringtable</value>
+  </data>
 </root>
