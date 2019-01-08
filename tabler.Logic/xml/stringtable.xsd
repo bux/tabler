@@ -1,70 +1,80 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="Project">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element name="Package" maxOccurs="unbounded">
-          <xs:complexType>
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="stringtable"
+           targetNamespace="http://tempuri.org/stringtable.xsd"
+           elementFormDefault="qualified"
+           xmlns="http://tempuri.org/stringtable.xsd"
+           xmlns:mstns="http://tempuri.org/stringtable.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+    <xs:element name="Project">
+        <xs:complexType>
             <xs:sequence>
-              <xs:element name="Container" minOccurs="0" maxOccurs="unbounded">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="Key" minOccurs="0" maxOccurs="unbounded">
-                      <xs:complexType>
-                        <xs:all>
-                          <xs:element name="Original" type="xs:string" minOccurs="0"/>
-                          <xs:element name="English" type="xs:string" minOccurs="0"/>
-                          <xs:element name="German" type="xs:string" minOccurs="0"/>
-                          <xs:element name="French" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Italian" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Spanish" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Portuguese" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Polish" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Czech" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Hungarian" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Russian" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Turkish" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Japanese" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Chinesesimp" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Chinese" type="xs:string" minOccurs="0"/>
-                          <xs:element name="Korean" type="xs:string" minOccurs="0"/>
-                        </xs:all>
-                        <xs:attribute name="ID" type="xs:string" use="required" />
-                      </xs:complexType>
-                    </xs:element>
-                  </xs:sequence>
-                  <xs:attribute name="name" type="xs:string" use="required" />
-                </xs:complexType>
-              </xs:element>
-              <xs:element name="Key" minOccurs="0" maxOccurs="unbounded">
-                <xs:complexType>
-                  <xs:all>
-                    <xs:element name="Original" type="xs:string" minOccurs="0"/>
-                    <xs:element name="English" type="xs:string" minOccurs="0"/>
-                    <xs:element name="German" type="xs:string" minOccurs="0"/>
-                    <xs:element name="French" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Italian" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Spanish" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Portuguese" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Polish" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Czech" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Hungarian" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Russian" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Turkish" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Japanese" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Chinesesimp" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Chinese" type="xs:string" minOccurs="0"/>
-                    <xs:element name="Korean" type="xs:string" minOccurs="0"/>
-                  </xs:all>
-                  <xs:attribute name="ID" type="xs:string" use="required" />
-                </xs:complexType>
-              </xs:element>
+                <xs:element name="Package" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Container" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Key" minOccurs="0" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:all>
+                                                    <xs:element name="Original" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="English" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="German" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="French" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Italian" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Spanish" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Portuguese" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Polish" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Czech" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Hungarian" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Russian" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Turkish" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Japanese" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Chinesesimp" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Chinese" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="Korean" type="xs:string" minOccurs="0"/>
+                                                </xs:all>
+                                                <xs:attribute name="ID" type="xs:ID" use="required" />
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="name" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="Key" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="Original" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="English" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="German" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="French" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Italian" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Spanish" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Portuguese" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Polish" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Czech" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Hungarian" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Russian" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Turkish" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Japanese" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Chinesesimp" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Chinese" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="Korean" type="xs:string" minOccurs="0"/>
+                                    </xs:all>
+                                    <xs:attribute name="ID" type="xs:ID" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" type="xs:string" use="required" />
+                    </xs:complexType>
+                    <xs:unique name="uniqueKey">
+                        <xs:selector xpath="Key"/>
+                        <xs:field xpath="@ID"/>
+                    </xs:unique>
+                </xs:element>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required" />
-          </xs:complexType>
-        </xs:element>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string" use="required" />
-    </xs:complexType>
-  </xs:element>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>

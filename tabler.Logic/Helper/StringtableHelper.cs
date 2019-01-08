@@ -40,7 +40,9 @@ namespace tabler.Logic.Helper
             var stringtables = new System.Collections.Concurrent.ConcurrentBag<Stringtable>();
             Parallel.ForEach(allStringtableFiles, currentFile =>
             {
-                stringtables.Add(ParseXmlFile(currentFile));
+                var stringtable = ParseXmlFile(currentFile);
+                ValidateStringtable(stringtable);
+                stringtables.Add(stringtable);
             });
 
             return stringtables.ToList();
@@ -90,6 +92,21 @@ namespace tabler.Logic.Helper
             }
 
             return stringtable;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stringtable"></param>
+        private void ValidateStringtable(Stringtable stringtable)
+        {
+            var duplicates = stringtable.AllKeys.GroupBy(k => k.Id).Where(g => g.Skip(1).Any()).ToList();
+            if (duplicates.Any())
+            {
+                var keys = duplicates.Select(g => g.Key).Distinct().ToList();
+                var keyNames = string.Join(", ", keys);
+                throw new DuplicateKeyException(keyNames, stringtable.File.FullName, keyNames);
+            }
         }
 
         /// <summary>

@@ -130,7 +130,7 @@
     <value>Änderungen verwerfen?</value>
   </data>
   <data name="GridUI_Duplicate_key_found" xml:space="preserve">
-    <value>Doppelten Key gefunden.
+    <value>Doppelte(n) Key(s) gefunden.
 Name: '{0}'
 Datei: '{1}'
 Eintrag: '{2}'</value>

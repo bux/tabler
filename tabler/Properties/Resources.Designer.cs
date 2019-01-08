@@ -97,7 +97,7 @@ namespace tabler.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Duplicate Key found.
+        ///   Looks up a localized string similar to Duplicate Key(s) found.
         ///Name: &apos;{0}&apos;
         ///File: &apos;{1}&apos;
         ///Entry: &apos;{2}&apos;.
