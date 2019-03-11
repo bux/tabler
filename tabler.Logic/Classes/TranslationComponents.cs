@@ -8,9 +8,6 @@ namespace tabler.Logic.Classes
     {
         private List<LanguageStatistics> _statistics;
 
-        [Obsolete]
-        public List<ModInfoContainer> AllModInfo { get; set; }
-
         public List<string> Headers { get; set; }
 
         public IEnumerable<Stringtable> Stringtables { get; set; }
@@ -33,13 +30,7 @@ namespace tabler.Logic.Classes
         {
             get
             {
-                var count = 0;
-                if (AllModInfo != null)
-                {
-                    count = AllModInfo.Sum(mi => mi.Values.Count);
-                }
-
-                return count;
+                return Stringtables.Sum(stringtable => stringtable.AllKeys.Count());
             }
         }
     }

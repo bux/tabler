@@ -25,6 +25,8 @@ namespace tabler
 
             _myParent.TranslationHelper.TranslationComponents.Statistics = _myParent.TranslationHelper.TranslationComponents.Statistics.OrderBy(x => x.LanguageName).ToList();
 
+            lblTranslationCount.Text = _myParent.TranslationHelper.TranslationComponents.KeyCount.ToString();
+
             PopulateChart();
         }
 

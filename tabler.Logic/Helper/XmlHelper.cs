@@ -93,7 +93,6 @@ namespace tabler.Logic.Helper
                 }
             });
 
-            transComp.AllModInfo = allModInfos.OrderBy(mic => mic.Name).ToList();
             transComp.Headers = lstHeader.OrderBy(h => h).ToList();
 
             return transComp;
