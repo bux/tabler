@@ -91,6 +91,7 @@ namespace tabler.Helper
                 var dgvc = new DataGridViewTextBoxColumn
                 {
                     HeaderText = header,
+                    Name = header,
                     SortMode = DataGridViewColumnSortMode.NotSortable,
                     Resizable = DataGridViewTriState.True,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.None
@@ -315,14 +316,63 @@ namespace tabler.Helper
             {
                 var grid = (DataGridView)tabPage.Controls[0];
 
-                var dgvc = new DataGridViewTextBoxColumn();
-                dgvc.HeaderText = newLanguage;
-                dgvc.SortMode = DataGridViewColumnSortMode.NotSortable;
+                var dgvc = new DataGridViewTextBoxColumn
+                {
+                    HeaderText = newLanguage,
+                    Name = newLanguage,
+                    SortMode = DataGridViewColumnSortMode.NotSortable,
+                    Resizable = DataGridViewTriState.True,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+                };
 
                 grid.Columns.Add(dgvc);
             }
 
             _tc.Headers.Add(newLanguage);
+        }
+
+        public void RemoveLanguage(string language)
+        {
+            if (string.IsNullOrEmpty(language))
+            {
+                return;
+            }
+
+            foreach (var stringtable in _tc.Stringtables)
+            {
+                var propertyInfo = typeof(Key).GetProperty(language);
+                if (propertyInfo == null) {
+                    throw new InvalidOperationException($"Language '{language}' does not exist for Arma 3.");
+                }
+
+                foreach (var currentKey in stringtable.AllKeys)
+                {
+                    propertyInfo?.SetValue(currentKey, null);
+                }
+
+                stringtable.HasChanges = true;
+            }
+
+            var columnIndexToDelete = -1;
+
+            foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
+            {
+                // it has to be there
+                var gridView = (DataGridView) tabPage.Controls[0];
+                
+                var columnToDelete = gridView.Columns[language];
+                if (columnToDelete == null)
+                {
+                    continue;
+                }
+                columnIndexToDelete = columnToDelete.Index;
+
+                gridView.Columns.Remove(language);
+            }
+
+            _editHistory.RemoveAll(eh => eh.CellColumnIndex == columnIndexToDelete);
+
+            _tc.Headers.Remove(language);
         }
 
         public bool CanClose()

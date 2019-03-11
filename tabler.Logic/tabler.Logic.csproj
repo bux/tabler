@@ -66,7 +66,6 @@
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\GithubVersionHelper.cs" />
     <Compile Include="Helper\StringtableHelper.cs" />
-    <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

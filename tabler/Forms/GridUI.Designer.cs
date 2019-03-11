@@ -43,6 +43,7 @@ namespace tabler
             this.hideTranslatedRowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForNewVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,30 +71,17 @@ namespace tabler
             // 
             // toolStripContainer1
             // 
-            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
-            // 
-            // toolStripContainer1.BottomToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.BottomToolStripPanel, "toolStripContainer1.BottomToolStripPanel");
             // 
             // toolStripContainer1.ContentPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
             this.toolStripContainer1.ContentPanel.Controls.Add(this.tbModFolder);
             this.toolStripContainer1.ContentPanel.Controls.Add(this.label1);
-            // 
-            // toolStripContainer1.LeftToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.LeftToolStripPanel, "toolStripContainer1.LeftToolStripPanel");
+            resources.ApplyResources(this.toolStripContainer1.ContentPanel, "toolStripContainer1.ContentPanel");
+            resources.ApplyResources(this.toolStripContainer1, "toolStripContainer1");
             this.toolStripContainer1.Name = "toolStripContainer1";
-            // 
-            // toolStripContainer1.RightToolStripPanel
-            // 
-            resources.ApplyResources(this.toolStripContainer1.RightToolStripPanel, "toolStripContainer1.RightToolStripPanel");
             // 
             // toolStripContainer1.TopToolStripPanel
             // 
-            resources.ApplyResources(this.toolStripContainer1.TopToolStripPanel, "toolStripContainer1.TopToolStripPanel");
             this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
             // 
             // tbModFolder
@@ -119,18 +107,18 @@ namespace tabler
             // 
             // fileToolStripMenuItem
             // 
-            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openModFolderToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
             // 
             // openModFolderToolStripMenuItem
             // 
-            resources.ApplyResources(this.openModFolderToolStripMenuItem, "openModFolderToolStripMenuItem");
             this.openModFolderToolStripMenuItem.Name = "openModFolderToolStripMenuItem";
+            resources.ApplyResources(this.openModFolderToolStripMenuItem, "openModFolderToolStripMenuItem");
             this.openModFolderToolStripMenuItem.Click += new System.EventHandler(this.openModFolderToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
@@ -141,24 +129,25 @@ namespace tabler
             // 
             // toolStripSeparator1
             // 
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
             // 
             // exitToolStripMenuItem
             // 
-            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            resources.ApplyResources(this.exitToolStripMenuItem, "exitToolStripMenuItem");
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // languagesToolStripMenuItem
             // 
-            resources.ApplyResources(this.languagesToolStripMenuItem, "languagesToolStripMenuItem");
             this.languagesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findToolStripMenuItem,
             this.hideTranslatedRowsToolStripMenuItem,
             this.addLanguageToolStripMenuItem,
+            this.removeLanguageToolStripMenuItem,
             this.statisticsToolStripMenuItem});
             this.languagesToolStripMenuItem.Name = "languagesToolStripMenuItem";
+            resources.ApplyResources(this.languagesToolStripMenuItem, "languagesToolStripMenuItem");
             // 
             // findToolStripMenuItem
             // 
@@ -184,37 +173,43 @@ namespace tabler
             this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
             this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
+            // removeLanguageToolStripMenuItem
+            // 
+            resources.ApplyResources(this.removeLanguageToolStripMenuItem, "removeLanguageToolStripMenuItem");
+            this.removeLanguageToolStripMenuItem.Name = "removeLanguageToolStripMenuItem";
+            this.removeLanguageToolStripMenuItem.Click += new System.EventHandler(this.removeLanguageToolStripMenuItem_Click);
+            // 
             // settingsToolStripMenuItem
             // 
-            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // versionToolStripMenuItem
             // 
-            resources.ApplyResources(this.versionToolStripMenuItem, "versionToolStripMenuItem");
             this.versionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.checkForNewVersionToolStripMenuItem,
             this.getNewVersionToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            resources.ApplyResources(this.versionToolStripMenuItem, "versionToolStripMenuItem");
             // 
             // checkForNewVersionToolStripMenuItem
             // 
-            resources.ApplyResources(this.checkForNewVersionToolStripMenuItem, "checkForNewVersionToolStripMenuItem");
             this.checkForNewVersionToolStripMenuItem.Name = "checkForNewVersionToolStripMenuItem";
+            resources.ApplyResources(this.checkForNewVersionToolStripMenuItem, "checkForNewVersionToolStripMenuItem");
             this.checkForNewVersionToolStripMenuItem.Click += new System.EventHandler(this.checkForNewVersionToolStripMenuItem_Click);
             // 
             // getNewVersionToolStripMenuItem
             // 
-            resources.ApplyResources(this.getNewVersionToolStripMenuItem, "getNewVersionToolStripMenuItem");
             this.getNewVersionToolStripMenuItem.Name = "getNewVersionToolStripMenuItem";
+            resources.ApplyResources(this.getNewVersionToolStripMenuItem, "getNewVersionToolStripMenuItem");
             this.getNewVersionToolStripMenuItem.Click += new System.EventHandler(this.getNewVersionToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
-            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            resources.ApplyResources(this.aboutToolStripMenuItem, "aboutToolStripMenuItem");
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // splitContainer1
@@ -224,13 +219,11 @@ namespace tabler
             // 
             // splitContainer1.Panel1
             // 
-            resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
             this.splitContainer1.Panel1.Controls.Add(this.toolStripContainer1);
             this.splitContainer1.Panel1.Controls.Add(this.panel1);
             // 
             // splitContainer1.Panel2
             // 
-            resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             // 
             // panel1
@@ -245,12 +238,10 @@ namespace tabler
             // 
             // splitContainer2.Panel1
             // 
-            resources.ApplyResources(this.splitContainer2.Panel1, "splitContainer2.Panel1");
             this.splitContainer2.Panel1.Controls.Add(this.tabControl1);
             // 
             // splitContainer2.Panel2
             // 
-            resources.ApplyResources(this.splitContainer2.Panel2, "splitContainer2.Panel2");
             this.splitContainer2.Panel2.Controls.Add(this._tbLog);
             // 
             // tabControl1
@@ -331,5 +322,6 @@ namespace tabler
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem findToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hideTranslatedRowsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeLanguageToolStripMenuItem;
     }
 }

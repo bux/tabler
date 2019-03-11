@@ -104,6 +104,12 @@
     <Compile Include="Forms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RemoveLanguage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RemoveLanguage.Designer.cs">
+      <DependentUpon>RemoveLanguage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AddLanguage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -161,6 +167,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AboutBox.ru.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemoveLanguage.de.resx">
+      <DependentUpon>RemoveLanguage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RemoveLanguage.resx">
+      <DependentUpon>RemoveLanguage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AddLanguage.de.resx">
       <DependentUpon>AddLanguage.cs</DependentUpon>

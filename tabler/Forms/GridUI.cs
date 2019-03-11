@@ -132,6 +132,19 @@ namespace tabler
             frmAddLanguage.ShowDialog(this);
         }
 
+        private void removeLanguageToolStripMenuItem_Click(object sender, EventArgs e) {
+            var frmRemoveLanguage = new RemoveLanguage(this);
+            frmRemoveLanguage.ShowDialog(this);
+            //if (frmRemoveLanguage.ShowDialog(this) == DialogResult.OK)
+            //{
+            //    // Update UI
+            //    WaitingForm.ShowForm(this);
+            //    _gridUiHelper.Cleanup();
+            //    _gridUiHelper.ShowData();
+            //    WaitingForm.CloseForm();
+            //}
+        }
+
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var frmSettings = new SettingsForm(this);
@@ -209,6 +222,7 @@ namespace tabler
             _completedRowsHidden = !_completedRowsHidden;
         }
 
+
         #endregion
 
         #region Functions
@@ -269,6 +283,7 @@ namespace tabler
                 findToolStripMenuItem.Enabled = true;
                 hideTranslatedRowsToolStripMenuItem.Enabled = true;
                 addLanguageToolStripMenuItem.Enabled = true;
+                removeLanguageToolStripMenuItem.Enabled = true;
                 statisticsToolStripMenuItem.Enabled = true;
 
                 _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderName));
@@ -368,6 +383,11 @@ namespace tabler
             _gridUiHelper.AddLanguage(newLanguage);
         }
 
+        public void HandleRemoveLanguage(string language)
+        {
+            _gridUiHelper.RemoveLanguage(language);
+        }
+
         public void SelectTabByName(string tabName)
         {
             _gridUiHelper.SelectTabByName(tabName);
@@ -379,6 +399,7 @@ namespace tabler
         }
 
         #endregion
+
 
     }
 }

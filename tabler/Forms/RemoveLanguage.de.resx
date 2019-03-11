@@ -124,8 +124,8 @@
   <data name="lblLanguage.Text" xml:space="preserve">
     <value>Sprache</value>
   </data>
-  <data name="btnAddThisLanguage.Text" xml:space="preserve">
-    <value>Hinzufügen</value>
+  <data name="btnRemoveThisLanguage.Text" xml:space="preserve">
+    <value>Entfernen</value>
   </data>
   <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 51</value>
@@ -4899,6 +4899,6 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Hinzufügen</value>
+    <value>Entfernen</value>
   </data>
 </root>
