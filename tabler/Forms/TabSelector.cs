@@ -30,7 +30,7 @@ namespace tabler.Forms
             autoCompleteSource.AddRange(_lstTabNames.ToArray());
 
             tbSelectTab.AutoCompleteCustomSource = autoCompleteSource;
-            tbSelectTab.AutoCompleteMode = AutoCompleteMode.Suggest;
+            tbSelectTab.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 
             tbSelectTab.LostFocus += TabSelector_LostFocus;
         }
