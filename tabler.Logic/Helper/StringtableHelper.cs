@@ -174,6 +174,8 @@ namespace tabler.Logic.Helper
                 }
 
                 File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
+
+                currentStringtable.HasChanges = false;
             });
         }
     }

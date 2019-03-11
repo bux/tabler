@@ -18,5 +18,7 @@ namespace tabler.Classes
         public string Mod { get; set; }
 
         public Color OldBackColor { get; set; }
+
+        public bool Saved { get; set; }
     }
 }

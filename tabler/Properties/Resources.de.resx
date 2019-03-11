@@ -163,6 +163,9 @@ Mehr Informationen unter: https://community.bistudio.com/wiki/Stringtable.xml</v
   <data name="GridUI_No_stringtable_xml_files_found" xml:space="preserve">
     <value>Keine 'stringtable.xml'-Dateien gefunden.</value>
   </data>
+  <data name="GridUI_Open" xml:space="preserve">
+    <value>Öffnen?</value>
+  </data>
   <data name="GridUI_saveToolStripMenuItem_Click_Successfully_saved" xml:space="preserve">
     <value>Erfolgreich gespeichert</value>
   </data>

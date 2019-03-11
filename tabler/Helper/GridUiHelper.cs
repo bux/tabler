@@ -262,7 +262,8 @@ namespace tabler.Helper
                 OldValue = oldValue,
                 NewValue = newValue,
                 ModifiedDate = DateTime.Now,
-                OldBackColor = oldBackColor
+                OldBackColor = oldBackColor,
+                Saved = false
             });
         }
 
@@ -326,7 +327,15 @@ namespace tabler.Helper
 
         public bool CanClose()
         {
-            return !_editHistory.Any();
+            return _editHistory.All(eh => eh.Saved);
+        }
+
+        public void SetHistoryAsSaved()
+        {
+            foreach (var cellEditHistory in _editHistory)
+            {
+                cellEditHistory.Saved = true;
+            }
         }
 
         private void PasteEntriesToGrid(string[] arrEntries, DataGridView grid)
@@ -346,7 +355,6 @@ namespace tabler.Helper
                 i += 1;
             }
         }
-
 
         private void AddMissingTranslationToStatistics(List<LanguageStatistics> statistics, string language, string modName)
         {
@@ -606,6 +614,5 @@ namespace tabler.Helper
         }
 
         #endregion
-
     }
 }

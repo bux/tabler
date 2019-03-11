@@ -62,7 +62,16 @@ namespace tabler
 
         private void openModFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenOpenModFolderDialog();
+            if (_gridUiHelper == null || _gridUiHelper.CanClose())
+            {
+                OpenOpenModFolderDialog();
+                return;
+            }
+
+            if (MessageBox.Show(Resources.GridUI_Discard_all_changes, Resources.GridUI_Open, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                OpenOpenModFolderDialog();
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -88,6 +97,7 @@ namespace tabler
 
             if (success)
             {
+                _gridUiHelper.SetHistoryAsSaved();
                 Logger.Log(Resources.GridUI_saveToolStripMenuItem_Click_Successfully_saved);
             }
         }
@@ -194,7 +204,6 @@ namespace tabler
 
         #region Functions
 
-
         private void OpenOpenModFolderDialog()
         {
             var curPath = "";
@@ -206,7 +215,7 @@ namespace tabler
                 curPath = lastPath.FullName;
             }
 
-            var folderDialog = new CommonOpenFileDialog { IsFolderPicker = true };
+            var folderDialog = new CommonOpenFileDialog {IsFolderPicker = true};
             if (string.IsNullOrEmpty(curPath) == false)
             {
                 folderDialog.DefaultDirectory = curPath;
@@ -251,7 +260,7 @@ namespace tabler
                 findToolStripMenuItem.Enabled = true;
                 addLanguageToolStripMenuItem.Enabled = true;
                 statisticsToolStripMenuItem.Enabled = true;
-                
+
                 _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderName));
 
                 _stringtablesLoaded = true;
@@ -360,6 +369,5 @@ namespace tabler
         }
 
         #endregion
-
     }
 }

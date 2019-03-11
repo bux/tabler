@@ -173,4 +173,7 @@ More information: https://community.bistudio.com/wiki/Stringtable.xml</value>
   <data name="GridUI_Malformed_Stringtable_exception_title" xml:space="preserve">
     <value>Malformed Stringtable</value>
   </data>
+  <data name="GridUI_Open" xml:space="preserve">
+    <value>Open?</value>
+  </data>
 </root>

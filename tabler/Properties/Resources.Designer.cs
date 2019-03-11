@@ -179,6 +179,15 @@ namespace tabler.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open?.
+        /// </summary>
+        internal static string GridUI_Open {
+            get {
+                return ResourceManager.GetString("GridUI_Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Successfully saved..
         /// </summary>
         internal static string GridUI_saveToolStripMenuItem_Click_Successfully_saved {
