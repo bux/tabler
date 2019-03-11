@@ -456,13 +456,16 @@ namespace tabler.Helper
                         _lastFindColIndex = cell.ColumnIndex;
                         _lastFindRowIndex = cell.RowIndex;
 
-                        // set if we were in the last row
-                        // substract an additional row because of the "new row" feature
-                        _lastFindWasInLastRow = rowIndex == dgv.Rows.Count - 2;
-                        // set if we were in the last column
-                        _lastFindWasInLastCol = colIndex == dgvRow.Cells.Count - 1;
-
                         found = true;
+                    }
+
+                    // set if we were in the last row
+                    _lastFindWasInLastRow = rowIndex == dgv.Rows.Count - 1;
+                    // set if we were in the last column
+                    _lastFindWasInLastCol = colIndex == dgvRow.Cells.Count - 1;
+
+                    if (found)
+                    {
                         break;
                     }
                 }
