@@ -22,6 +22,7 @@ namespace tabler
         private GridUiHelper _gridUiHelper;
         private ReleaseVersion _newerRelease;
         private bool _stringtablesLoaded;
+        private bool _completedRowsHidden;
 
         public GridUI()
         {
@@ -200,6 +201,14 @@ namespace tabler
             }
         }
 
+        private void hideTranslatedRowsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            hideTranslatedRowsToolStripMenuItem.CheckState = _completedRowsHidden ? CheckState.Unchecked : CheckState.Checked;
+            _gridUiHelper.ToggleTranslatedRows(_completedRowsHidden);
+
+            _completedRowsHidden = !_completedRowsHidden;
+        }
+
         #endregion
 
         #region Functions
@@ -258,6 +267,7 @@ namespace tabler
 
                 saveToolStripMenuItem.Enabled = true;
                 findToolStripMenuItem.Enabled = true;
+                hideTranslatedRowsToolStripMenuItem.Enabled = true;
                 addLanguageToolStripMenuItem.Enabled = true;
                 statisticsToolStripMenuItem.Enabled = true;
 
@@ -369,5 +379,6 @@ namespace tabler
         }
 
         #endregion
+
     }
 }

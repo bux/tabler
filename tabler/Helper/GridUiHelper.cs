@@ -493,6 +493,41 @@ namespace tabler.Helper
             }
         }
 
+        public void ToggleTranslatedRows(bool show)
+        {
+
+            foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
+            {
+                // it has to be there
+                var gridView = (DataGridView) tabPage.Controls[0];
+
+                foreach (DataGridViewRow row in gridView.Rows)
+                {
+                    if (show)
+                    {
+                        row.Visible = true;
+                        continue;
+                    }
+
+                    var rowComplete = true;
+
+                    foreach (DataGridViewTextBoxColumn dgvc in gridView.Columns)
+                    {
+                        if (row.Cells[dgvc.Index] == null || row.Cells[dgvc.Index].Value == null)
+                        {
+                            rowComplete = false;
+                            break;
+                        }
+                    }
+
+                    if (rowComplete)
+                    {
+                        row.Visible = false;
+                    }
+                }
+            }
+        }
+
         #region " Events "
 
         private void gridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -614,5 +649,7 @@ namespace tabler.Helper
         }
 
         #endregion
+
+
     }
 }
