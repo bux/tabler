@@ -121,7 +121,7 @@
     <value>Discard all changes?</value>
   </data>
   <data name="GridUI_Duplicate_key_found" xml:space="preserve">
-    <value>Duplicate Key found.
+    <value>Duplicate Key(s) found.
 Name: '{0}'
 File: '{1}'
 Entry: '{2}'</value>
@@ -162,5 +162,18 @@ Entry: '{2}'</value>
   </data>
   <data name="TranslationProgress_AxisY_Title" xml:space="preserve">
     <value>Number of Missing Translations</value>
+  </data>
+  <data name="GridUI_Malformed_Stringtable_exception" xml:space="preserve">
+    <value>Malformed Stringtable Encountered.
+File: '{0}'
+Message: '{1}'
+
+More information: https://community.bistudio.com/wiki/Stringtable.xml</value>
+  </data>
+  <data name="GridUI_Malformed_Stringtable_exception_title" xml:space="preserve">
+    <value>Malformed Stringtable</value>
+  </data>
+  <data name="GridUI_Open" xml:space="preserve">
+    <value>Open?</value>
   </data>
 </root>

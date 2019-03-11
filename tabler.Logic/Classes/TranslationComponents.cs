@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,9 +8,12 @@ namespace tabler.Logic.Classes
     {
         private List<LanguageStatistics> _statistics;
 
+        [Obsolete]
         public List<ModInfoContainer> AllModInfo { get; set; }
 
         public List<string> Headers { get; set; }
+
+        public IEnumerable<Stringtable> Stringtables { get; set; }
 
         public List<LanguageStatistics> Statistics
         {

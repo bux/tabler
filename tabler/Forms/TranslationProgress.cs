@@ -23,7 +23,7 @@ namespace tabler
         {
             chart.ContextMenuStrip = contextMenu;
 
-            _myParent.TranslationManager.TranslationComponents.Statistics = _myParent.TranslationManager.TranslationComponents.Statistics.OrderBy(x => x.LanguageName).ToList();
+            _myParent.TranslationHelper.TranslationComponents.Statistics = _myParent.TranslationHelper.TranslationComponents.Statistics.OrderBy(x => x.LanguageName).ToList();
 
             PopulateChart();
         }
@@ -51,7 +51,7 @@ namespace tabler
 
             var highestCount = 0;
 
-            foreach (var header in _myParent.TranslationManager.TranslationComponents.Headers)
+            foreach (var header in _myParent.TranslationHelper.TranslationComponents.Headers)
             {
                 if (header == "ID")
                 {
@@ -60,7 +60,7 @@ namespace tabler
 
                 DataPoint dataPoint;
 
-                var modInfoStat = _myParent.TranslationManager.TranslationComponents.Statistics.FirstOrDefault(s => s.LanguageName.ToLower().Equals(header.ToLower()));
+                var modInfoStat = _myParent.TranslationHelper.TranslationComponents.Statistics.FirstOrDefault(s => s.LanguageName.ToLower().Equals(header.ToLower()));
 
                 if (modInfoStat == null)
                 {
@@ -134,7 +134,7 @@ namespace tabler
 
             var total = 0;
 
-            foreach (var modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics)
+            foreach (var modInfoStatistics in _myParent.TranslationHelper.TranslationComponents.Statistics)
             {
                 var missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
                 var mods = AggregateMods(modInfoStatistics, ", ");
@@ -146,7 +146,7 @@ namespace tabler
                 innterSb.AppendLine(string.Format("{0}{1}{2} missing stringtable entry/entries. ({3})", modInfoStatistics.LanguageName, spacer, missingTranslationCount.ToString().PadLeft(3), mods));
             }
 
-            outerSb.AppendLine(string.Format("Total number of keys: {0}", _myParent.TranslationManager.TranslationComponents.KeyCount));
+            outerSb.AppendLine(string.Format("Total number of keys: {0}", _myParent.TranslationHelper.TranslationComponents.KeyCount));
             outerSb.AppendLine(string.Format("Total number of missing translations: {0}", total));
             outerSb.AppendLine("");
             outerSb.Append(innterSb);
@@ -159,10 +159,10 @@ namespace tabler
             var outerSb = new StringBuilder();
             var innerSb = new StringBuilder();
 
-            var totalKeys = _myParent.TranslationManager.TranslationComponents.KeyCount;
+            var totalKeys = _myParent.TranslationHelper.TranslationComponents.KeyCount;
 
 
-            foreach (var modInfoStatistics in _myParent.TranslationManager.TranslationComponents.Statistics)
+            foreach (var modInfoStatistics in _myParent.TranslationHelper.TranslationComponents.Statistics)
             {
                 var missingTranslationCount = GetMissingTranslationCount(modInfoStatistics);
                 var mods = AggregateMods(modInfoStatistics, ", ");

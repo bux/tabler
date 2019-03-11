@@ -1,5 +1,8 @@
 using System;
+using System.Linq;
 using System.Windows.Forms;
+using tabler.Logic.Enums;
+using tabler.Logic.Extensions;
 
 namespace tabler
 {
@@ -31,9 +34,19 @@ namespace tabler
 
         private void btnAddThisLanguage_Click(object sender, EventArgs e)
         {
-            _gridUi.HandleAddLanguage(textBox1.Text);
+            _gridUi.HandleAddLanguage(cmbLanguage.SelectedItem?.ToString());
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void AddLanguage_Load(object sender, EventArgs e)
+        {
+            var allPossibleLanguages = EnumUtils.GetValues<Languages>();
+            var usedLanguages = _gridUi.TranslationHelper.TranslationComponents.Headers;
+
+            var remainingLanguages = allPossibleLanguages.Select(l => l.ToString()).ToList().Except(usedLanguages).ToList();
+
+            cmbLanguage.DataSource = remainingLanguages;
         }
     }
 }

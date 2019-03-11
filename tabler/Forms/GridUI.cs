@@ -18,7 +18,7 @@ namespace tabler
     public partial class GridUI : Form
     {
         private readonly ConfigHelper _configHelper;
-        public readonly TranslationManager TranslationManager;
+        public readonly TranslationHelper TranslationHelper;
         private GridUiHelper _gridUiHelper;
         private ReleaseVersion _newerRelease;
         private bool _stringtablesLoaded;
@@ -27,7 +27,7 @@ namespace tabler
         {
             InitializeComponent();
             _configHelper = new ConfigHelper();
-            TranslationManager = new TranslationManager();
+            TranslationHelper = new TranslationHelper();
             Logger.TextBoxToLogIn = _tbLog;
         }
 
@@ -62,12 +62,21 @@ namespace tabler
 
         private void openModFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenOpenModFolderDialog();
+            if (_gridUiHelper == null || _gridUiHelper.CanClose())
+            {
+                OpenOpenModFolderDialog();
+                return;
+            }
+
+            if (MessageBox.Show(Resources.GridUI_Discard_all_changes, Resources.GridUI_Open, MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                OpenOpenModFolderDialog();
+            }
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var lstModInfos = _gridUiHelper.ParseAllTables();
+            var stringtables = _gridUiHelper.ParseAllTables();
 
             bool success;
 
@@ -76,7 +85,7 @@ namespace tabler
                 // start the process
                 WaitingForm.ShowForm(this);
 
-                success = TranslationManager.SaveGridData(_configHelper.GetLastPathOfDataFiles(), lstModInfos);
+                success = TranslationHelper.SaveGridData(_configHelper.GetLastPathOfDataFiles(), stringtables);
 
                 WaitingForm.CloseForm();
             }
@@ -88,6 +97,7 @@ namespace tabler
 
             if (success)
             {
+                _gridUiHelper.SetHistoryAsSaved();
                 Logger.Log(Resources.GridUI_saveToolStripMenuItem_Click_Successfully_saved);
             }
         }
@@ -194,7 +204,6 @@ namespace tabler
 
         #region Functions
 
-
         private void OpenOpenModFolderDialog()
         {
             var curPath = "";
@@ -206,7 +215,7 @@ namespace tabler
                 curPath = lastPath.FullName;
             }
 
-            var folderDialog = new CommonOpenFileDialog { IsFolderPicker = true };
+            var folderDialog = new CommonOpenFileDialog {IsFolderPicker = true};
             if (string.IsNullOrEmpty(curPath) == false)
             {
                 folderDialog.DefaultDirectory = curPath;
@@ -227,7 +236,7 @@ namespace tabler
                 // start the process
                 WaitingForm.ShowForm(this);
 
-                var tc = TranslationManager.GetGridData(new DirectoryInfo(folderName));
+                var tc = TranslationHelper.GetGridData(new DirectoryInfo(folderName));
 
                 if (tc == null)
                 {
@@ -239,9 +248,9 @@ namespace tabler
                 SuspendLayout();
                 tabControl1.Hide();
 
-                _gridUiHelper = new GridUiHelper(this);
+                _gridUiHelper = new GridUiHelper(this, tc);
                 _gridUiHelper.Cleanup();
-                _gridUiHelper.ShowData(tc);
+                _gridUiHelper.ShowData();
 
                 ResumeLayout();
                 tabControl1.Show();
@@ -258,6 +267,7 @@ namespace tabler
             }
             catch (AggregateException ae)
             {
+                WaitingForm.CloseForm();
                 foreach (var ex in ae.Flatten().InnerExceptions)
                 {
                     if (ex is DuplicateKeyException duplicateKeyException)
@@ -268,6 +278,11 @@ namespace tabler
                     if (ex is GenericXmlException xmlException)
                     {
                         MessageBox.Show(string.Format(Resources.GridUI_Generic_xml_exception, xmlException.KeyName, xmlException.FileName, xmlException.EntryName), Resources.GridUI_Generic_xml_exception_title);
+                    }
+
+                    if (ex is MalformedStringtableException malformedStringtableException)
+                    {
+                        MessageBox.Show(string.Format(Resources.GridUI_Malformed_Stringtable_exception, malformedStringtableException.FileName, malformedStringtableException.Message), Resources.GridUI_Malformed_Stringtable_exception_title);
                     }
                 }
             }
@@ -354,6 +369,5 @@ namespace tabler
         }
 
         #endregion
-
     }
 }

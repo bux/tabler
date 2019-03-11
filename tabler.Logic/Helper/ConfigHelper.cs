@@ -165,12 +165,6 @@ namespace tabler.Logic.Helper
                 loadedSettings.TabSize = int.Parse(tabSizeElement.Value);
             }
 
-            var removeEmptyNodes = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == EMPTYNODES_NAME);
-            if (removeEmptyNodes != null)
-            {
-                loadedSettings.RemoveEmptyNodes = bool.Parse(removeEmptyNodes.Value);
-            }
-
             return loadedSettings;
         }
 
@@ -206,16 +200,6 @@ namespace tabler.Logic.Helper
                 if (tabSizeElement != null)
                 {
                     tabSizeElement.Value = settingsToSave.TabSize.ToString();
-                }
-                else
-                {
-                    CreateOrLoadConfig(true);
-                }
-
-                var removeEmptyNodes = _xDocConfig.Descendants().FirstOrDefault(d => d.Name == EMPTYNODES_NAME);
-                if (removeEmptyNodes != null)
-                {
-                    removeEmptyNodes.Value = settingsToSave.RemoveEmptyNodes.ToString();
                 }
                 else
                 {
