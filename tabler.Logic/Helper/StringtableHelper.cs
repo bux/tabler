@@ -22,7 +22,8 @@ namespace tabler.Logic.Helper
                 {
                     var settings = new XmlReaderSettings
                     {
-                        ValidationType = ValidationType.Schema
+                        ValidationType = ValidationType.Schema,
+                        DtdProcessing = DtdProcessing.Parse //it did not allow to parse on my machine, so i had to enable this
                     };
                     settings.Schemas.Add(null, "xml\\stringtable.xsd");
                     _xmlReaderSettings = settings;
