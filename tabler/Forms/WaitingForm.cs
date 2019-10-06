@@ -27,15 +27,9 @@ namespace tabler.Forms
 
         public static void ShowForm(Form parentForm)
         {
-            if (_waitingThread != null )
-            {
-                CloseForm();
-            }
-           
             _parentForm = parentForm;
             _waitingThread = new Thread(ThreadTask) {IsBackground = false};
             _waitingThread.Start();
-            
         }
 
         private static void ThreadTask(object owner)
