@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace tabler.Logic.Classes {
@@ -12,5 +15,10 @@ namespace tabler.Logic.Classes {
 
         [XmlElement("Key")]
         public List<Key> Keys { get; set; }
+
+        internal XElement AsXElement(bool ignoreEmptyValues, List<string> languagesToWrite)
+        {
+            return new XElement("Package", new XAttribute("name", Name), Keys.Select(x => x.AsXElement( ignoreEmptyValues, languagesToWrite)).ToList());
+        }
     }
 }

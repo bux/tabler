@@ -1,0 +1,39 @@
+<UserControl x:Class="tabler.wpf.Controls.Helper_LogMessages"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:tabler.wpf.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" MaxWidth="1920" MaxHeight="600"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <CheckBox Name="CbPauseScrolling"  Margin="3" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" Checked="CbPauseScrollingGeneral_OnChecked">Pause autoscrolling</CheckBox>
+        <CheckBox Name="CbShowDatetime"  Margin="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" IsChecked="True" Checked="CbShowDatetime_OnChecked">Show timestamp</CheckBox>
+        <Button Name="btnResetAllMessages"  Margin="3" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="1"  Click="BtnResetAllMessages_OnClick">Delete all messages</Button>
+
+        <CheckBox Name="cbShowGeneral" IsChecked="True"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="1" Click="UpdateLogsShowing" >Show general</CheckBox>
+        <CheckBox Name="cbShowInternal"  IsChecked="True" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="1" Click="UpdateLogsShowing">Show internal</CheckBox>
+        <CheckBox Name="cbShowError"  IsChecked="True" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Click="UpdateLogsShowing">Show error</CheckBox>
+
+        <local:Helper_DataGridExtended x:Name="dgResult" ItemsSource="{Binding LogData}" MinColumnWidth="300" Grid.Row="2" Grid.Column="0" AutoGenerateColumns="False" Grid.ColumnSpan="3" IsSynchronizedWithCurrentItem="True" CanUserDeleteRows="False" CanUserAddRows="False" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Messages" Binding="{Binding Message}" Width="*" ></DataGridTextColumn>
+            </DataGrid.Columns>
+        </local:Helper_DataGridExtended>
+    </Grid>
+
+</UserControl>

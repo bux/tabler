@@ -1,0 +1,28 @@
+<UserControl x:Class="tabler.wpf.Controls.Helper_LabelTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="20" 
+             d:DesignWidth="100"
+               DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <!--<StackPanel Orientation="Horizontal" Width="{Binding Width}" >
+        <Label Name="LblDescription" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Left" Margin="5" Content="{Binding Description}" MinWidth="20"></Label>
+        <TextBox Name="TbValue" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Left" Margin="5" Text="{Binding Value}" MinWidth="60" HorizontalContentAlignment="Stretch"></TextBox>
+    </StackPanel>-->
+    <Grid >
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MaxHeight="60"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Name="LblDescription" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Content="{Binding Description}" MinWidth="20"></Label>
+        <TextBox Name="TbValue" IsReadOnly="{Binding IsReadonly}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" TextAlignment="Left" Text="{Binding Value, Mode=TwoWay}" TextChanged="TbValue_OnTextChanged" KeyUp="keyPressedinTextbox"></TextBox>
+
+    </Grid>
+</UserControl>

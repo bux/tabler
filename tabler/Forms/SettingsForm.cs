@@ -27,19 +27,13 @@ namespace tabler
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            var configHelper = new ConfigHelper();
-
-            var settings = configHelper.GetSettings();
-
-            if (settings != null)
-            {
-                if (settings.IndentationSettings == IndentationSettings.Tabs)
+                if (ConfigHelper.CurrentSettings.IndentationSettings == IndentationSettings.Tabs)
                 {
                     rbIndentTabs.Checked = true;
                 }
 
-                tbIndentation.Text = settings.TabSize.ToString();
-            }
+                tbIndentation.Text = ConfigHelper.CurrentSettings.TabSize.ToString();
+            
         }
 
 
@@ -56,22 +50,19 @@ namespace tabler
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            var configHelper = new ConfigHelper();
-            var newSettings = new Settings();
-
             if (rbIndentTabs.Checked)
             {
-                newSettings.IndentationSettings = IndentationSettings.Tabs;
+                ConfigHelper.CurrentSettings.IndentationSettings = IndentationSettings.Tabs;
             }
 
             if (rbIndentSpaces.Checked)
             {
-                newSettings.IndentationSettings = IndentationSettings.Spaces;
+                ConfigHelper.CurrentSettings.IndentationSettings = IndentationSettings.Spaces;
                 //newSettings.TabSize = 
                 int tabSizeValue;
                 if (int.TryParse(tbIndentation.Text, out tabSizeValue))
                 {
-                    newSettings.TabSize = tabSizeValue;
+                    ConfigHelper.CurrentSettings.TabSize = tabSizeValue;
                 }
                 else
                 {
@@ -79,8 +70,7 @@ namespace tabler
                     return;
                 }
             }
-
-            configHelper.SaveSettings(newSettings);
+            ConfigHelper.SaveSettings();
             Close();
         }
     }

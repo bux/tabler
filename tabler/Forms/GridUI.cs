@@ -17,7 +17,7 @@ namespace tabler
 {
     public partial class GridUI : Form
     {
-        private readonly ConfigHelper _configHelper;
+        
         public readonly TranslationHelper TranslationHelper;
         private GridUiHelper _gridUiHelper;
         private ReleaseVersion _newerRelease;
@@ -27,9 +27,9 @@ namespace tabler
         public GridUI()
         {
             InitializeComponent();
-            _configHelper = new ConfigHelper();
+          
             TranslationHelper = new TranslationHelper();
-            Logger.TextBoxToLogIn = _tbLog;
+           
         }
 
 
@@ -86,7 +86,7 @@ namespace tabler
                 // start the process
                 WaitingForm.ShowForm(this);
 
-                success = TranslationHelper.SaveGridData(_configHelper.GetLastPathOfDataFiles(), stringtables);
+                success = TranslationHelper.SaveGridData(new DirectoryInfo(ConfigHelper.CurrentSettings.LastPathOfDataFiles), stringtables);
 
                 WaitingForm.CloseForm();
             }
@@ -230,20 +230,13 @@ namespace tabler
         private void OpenOpenModFolderDialog()
         {
             var curPath = "";
-
-            var lastPath = _configHelper.GetLastPathOfDataFiles();
-
-            if (lastPath != null)
-            {
-                curPath = lastPath.FullName;
-            }
-
+            curPath = ConfigHelper.CurrentSettings.LastPathOfDataFiles;
+            
             var folderDialog = new CommonOpenFileDialog {IsFolderPicker = true};
             if (string.IsNullOrEmpty(curPath) == false)
             {
                 folderDialog.DefaultDirectory = curPath;
             }
-
 
             if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
@@ -286,8 +279,7 @@ namespace tabler
                 removeLanguageToolStripMenuItem.Enabled = true;
                 statisticsToolStripMenuItem.Enabled = true;
 
-                _configHelper.SetLastPathOfDataFiles(new DirectoryInfo(folderName));
-
+                ConfigHelper.CurrentSettings.LastPathOfDataFiles = folderName;
                 _stringtablesLoaded = true;
             }
             catch (AggregateException ae)

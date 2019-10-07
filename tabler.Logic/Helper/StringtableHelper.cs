@@ -1,3 +1,5 @@
+using Polenter.Serialization;
+using Polenter.Serialization.Advanced.Xml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,19 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using tabler.Logic.Classes;
 using tabler.Logic.Exceptions;
 
 namespace tabler.Logic.Helper
 {
-    public class StringtableHelper
+    public static class StringtableHelper
     {
-        private XmlReaderSettings _xmlReaderSettings;
+        private static XmlReaderSettings _xmlReaderSettings;
 
-        public XmlReaderSettings XmlReaderSettings
+        public static XmlReaderSettings XmlReaderSettings
         {
-            get {
+            get
+            {
                 if (_xmlReaderSettings == null)
                 {
                     var settings = new XmlReaderSettings
@@ -36,17 +40,22 @@ namespace tabler.Logic.Helper
         /// 
         /// </summary>
         /// <param name="allStringtableFiles"></param>
-        public IEnumerable<Stringtable> ParseStringtables(IEnumerable<FileInfo> allStringtableFiles)
+        public static IEnumerable<Stringtable> ParseStringtables(IEnumerable<FileInfo> allStringtableFiles)
         {
             var stringtables = new System.Collections.Concurrent.ConcurrentBag<Stringtable>();
             Parallel.ForEach(allStringtableFiles, currentFile =>
             {
-                var stringtable = ParseXmlFile(currentFile);
-                ValidateStringtable(stringtable);
-                stringtables.Add(stringtable);
+                stringtables.Add(ParseStringtable(currentFile));
             });
 
             return stringtables.ToList();
+        }
+        public static Stringtable ParseStringtable(FileInfo stringtableFile)
+        {
+
+            var stringtable = ParseXmlFile(stringtableFile);
+            ValidateStringtable(stringtable);
+            return stringtable;
         }
 
         /// <summary>
@@ -54,7 +63,7 @@ namespace tabler.Logic.Helper
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <returns></returns>
-        private Stringtable ParseXmlFile(FileInfo fileInfo)
+        private static Stringtable ParseXmlFile(FileInfo fileInfo)
         {
             var stringtable = new Stringtable
             {
@@ -72,7 +81,22 @@ namespace tabler.Logic.Helper
 
                     using (var reader = XmlReader.Create(sr.BaseStream, XmlReaderSettings))
                     {
-                        stringtable.Project = (Project) ser.Deserialize(reader);
+                        stringtable.Project = (Project)ser.Deserialize(reader);
+                        foreach (var package in stringtable.Project.Packages)
+                        {
+                            foreach (var item in package.Keys)
+                            {
+                                item.PackageName = package.Name;
+                            }
+                            foreach (var container in package.Containers)
+                            {
+                                foreach (var item in package.Keys)
+                                {
+                                    item.PackageName = package.Name;
+                                    item.ContainerName = container.Name;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -95,11 +119,13 @@ namespace tabler.Logic.Helper
             return stringtable;
         }
 
+
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="stringtable"></param>
-        private void ValidateStringtable(Stringtable stringtable)
+        private static void ValidateStringtable(Stringtable stringtable)
         {
             var duplicates = stringtable.AllKeys.GroupBy(k => k.Id).Where(g => g.Skip(1).Any()).ToList();
             if (duplicates.Any())
@@ -110,74 +136,99 @@ namespace tabler.Logic.Helper
             }
         }
 
+
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="filesByNameInDirectory"></param>
         /// <param name="lstStringtables"></param>
-        public void SaveStringtableFiles(List<FileInfo> filesByNameInDirectory, IEnumerable<Stringtable> lstStringtables)
+        public static void SaveStringtableFiles(List<FileInfo> filesByNameInDirectory, IEnumerable<Stringtable> lstStringtables)
         {
-            var configHelper = new ConfigHelper();
-            var settings = configHelper.GetSettings();
-
-            var dummyNamespace = new XmlSerializerNamespaces();
-            dummyNamespace.Add("","");
-
             Parallel.ForEach(filesByNameInDirectory, currentFileInfo =>
             {
                 var currentStringtable = lstStringtables.FirstOrDefault(x => string.Equals(x.Name.ToLowerInvariant(), currentFileInfo.Directory.Name.ToLowerInvariant(), StringComparison.OrdinalIgnoreCase));
 
-                if (currentStringtable == null)
-                {
-                    return;
-                }
-
-                if (!currentStringtable.HasChanges)
-                {
-                    return;
-                }
-
-
-                var xmlSettings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    IndentChars = "    ",
-                    Encoding = new UTF8Encoding(currentStringtable.FileHasBom)
-                };
-
-                if (settings != null)
-                {
-                    if (settings.IndentationSettings == IndentationSettings.Spaces)
-                    {
-                        var indentChars = "";
-
-                        for (var i = 0; i < settings.TabSize; i++)
-                        {
-                            indentChars += " ";
-                        }
-
-                        xmlSettings.IndentChars = indentChars;
-                    }
-
-                    if (settings.IndentationSettings == IndentationSettings.Tabs)
-                    {
-                        xmlSettings.IndentChars = "\t";
-                    }
-
-                    // TODO Remove empty nodes
-
-                }
-
-                var xmlSerializer = new XmlSerializer(typeof(Project));
-                using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings))
-                {
-                    xmlSerializer.Serialize(writer, currentStringtable.Project,dummyNamespace);
-                }
-
-                File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
-
-                currentStringtable.HasChanges = false;
+                SaveStringTableFile(currentFileInfo, currentStringtable);
             });
         }
+
+        public static void SaveStringTableFile(FileInfo currentFileInfo, Stringtable currentStringtable, List<ItemSelected> header)
+        {
+            if (currentStringtable == null)
+            {
+                return;
+            }
+
+            if (!currentStringtable.HasChanges)
+            {
+                return;
+            }
+
+            var dummyNamespace = new XmlSerializerNamespaces();
+            dummyNamespace.Add("", "");
+
+            var xmlSettings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "    ",
+                Encoding = new UTF8Encoding(currentStringtable.FileHasBom)
+            };
+
+            if (ConfigHelper.CurrentSettings.IndentationSettings == IndentationSettings.Spaces)
+            {
+                var indentChars = "";
+
+                for (var i = 0; i < ConfigHelper.CurrentSettings.TabSize; i++)
+                {
+                    indentChars += " ";
+                }
+
+                xmlSettings.IndentChars = indentChars;
+            }
+
+            if (ConfigHelper.CurrentSettings.IndentationSettings == IndentationSettings.Tabs)
+            {
+                xmlSettings.IndentChars = "\t";
+            }
+          
+            XDocument srcTree = new XDocument( new XDeclaration("1.0","utf-8","true"),currentStringtable.Project.AsXelement(true, header.Where(x => x.IsSelected).Select(x=> x.Key).ToList()));
+
+            var xmlSerializer = new XmlSerializer(typeof(Project));
+
+            using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings))
+            {
+                //xmlSerializer.Serialize(writer, currentStringtable.Project, dummyNamespace);
+                srcTree.Save(writer);
+            }
+
+            File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
+
+            currentStringtable.HasChanges = false;
+
+        }
+
+        private class Conv : ISimpleValueConverter
+        {
+            public object ConvertFromString(string text, Type type)
+            {
+                throw new NotImplementedException();
+            }
+
+            public string ConvertToString(object value)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public static void SaveStringTableFile(FileInfo currentFileInfo, Stringtable currentStringtable)
+        {
+            SaveStringTableFile(currentFileInfo, currentStringtable, null);
+
+
+
+        }
+
+
     }
 }
