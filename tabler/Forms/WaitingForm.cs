@@ -19,7 +19,6 @@ namespace tabler.Forms
             var startY = (parentForm.Height - ClientSize.Height) / 2;
 
             Location = new Point(parentForm.Location.X + startX, parentForm.Location.Y + startY);
-            Location = new Point(parentForm.Location.X + startX, parentForm.Location.Y + startY);
 
             progressBar1.MarqueeAnimationSpeed = 30;
             TaskbarManager.Instance.SetProgressState(TaskbarProgressBarState.Normal);
@@ -27,15 +26,9 @@ namespace tabler.Forms
 
         public static void ShowForm(Form parentForm)
         {
-            if (_waitingThread != null )
-            {
-                CloseForm();
-            }
-           
             _parentForm = parentForm;
             _waitingThread = new Thread(ThreadTask) {IsBackground = false};
             _waitingThread.Start();
-            
         }
 
         private static void ThreadTask(object owner)

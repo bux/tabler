@@ -256,7 +256,6 @@ namespace tabler
 
                 if (tc == null)
                 {
-                    WaitingForm.CloseForm();
                     MessageBox.Show(Resources.GridUI_No_stringtable_xml_files_found);
                     return;
                 }
@@ -270,7 +269,6 @@ namespace tabler
 
                 ResumeLayout();
                 tabControl1.Show();
-                WaitingForm.CloseForm();
 
                 saveToolStripMenuItem.Enabled = true;
                 findToolStripMenuItem.Enabled = true;
