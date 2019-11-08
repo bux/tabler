@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Threading;
 using tabler.Logic.Classes;
 using tabler.Logic.Helper;
+using tabler.wpf.Container;
 
 namespace tabler.wpf.Helper
 {
@@ -15,10 +16,10 @@ namespace tabler.wpf.Helper
     {
         private static DataFormat GetDataFormatOfKey()
         {
-            return DataFormats.GetDataFormat(typeof(List<Key>).FullName);
+            return DataFormats.GetDataFormat(typeof(List<Key_ExtendedWithChangeTracking>).FullName);
         }
 
-        public static void AddKeyObjectsToClipboard(List<Key> obj)
+        public static void AddKeyObjectsToClipboard(List<Key_ExtendedWithChangeTracking> obj)
         {
             if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
             {
@@ -40,19 +41,19 @@ namespace tabler.wpf.Helper
             }
         }
 
-        public static void AddKeyObjectToClipboard(Key obj)
+        public static void AddKeyObjectToClipboard(Key_ExtendedWithChangeTracking obj)
         {
-            AddKeyObjectsToClipboard(new List<Key> { obj });
+            AddKeyObjectsToClipboard(new List<Key_ExtendedWithChangeTracking> { obj });
         }
 
-        public static List<Key> GetKeyObjectsFromClipboard()
+        public static List<Key_ExtendedWithChangeTracking> GetKeyObjectsFromClipboard()
         {
             if (Thread.CurrentThread.GetApartmentState() != ApartmentState.STA)
             {
                 Logger.LogInternal($"To access the clipboard, the thread must be STA!");
                 return null;
             }
-            List<Key> doc = null;
+            List<Key_ExtendedWithChangeTracking> doc = null;
 
             try
             {
@@ -62,7 +63,7 @@ namespace tabler.wpf.Helper
                 if (dataObj != null && dataObj.GetDataPresent(format.Name))
                 {
                     var o = dataObj.GetData(format.Name);
-                    doc = o as List<Key>;
+                    doc = o as List<Key_ExtendedWithChangeTracking>;
                     Logger.LogGeneral($"Get key from clipboard SUCCESSS ");
                 }
                 else
@@ -80,7 +81,7 @@ namespace tabler.wpf.Helper
 
         }
 
-        public static Key GetKeyObjectFromClipboard()
+        public static Key_ExtendedWithChangeTracking GetKeyObjectFromClipboard()
         {
             return GetKeyObjectsFromClipboard().FirstOrDefault();
 

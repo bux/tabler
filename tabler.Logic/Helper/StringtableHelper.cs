@@ -82,21 +82,21 @@ namespace tabler.Logic.Helper
                     using (var reader = XmlReader.Create(sr.BaseStream, XmlReaderSettings))
                     {
                         stringtable.Project = (Project)ser.Deserialize(reader);
-                        foreach (var package in stringtable.Project.Packages)
-                        {
-                            foreach (var item in package.Keys)
-                            {
-                                item.PackageName = package.Name;
-                            }
-                            foreach (var container in package.Containers)
-                            {
-                                foreach (var item in package.Keys)
-                                {
-                                    item.PackageName = package.Name;
-                                    item.ContainerName = container.Name;
-                                }
-                            }
-                        }
+                        //foreach (var package in stringtable.Project.Packages)
+                        //{
+                        //    foreach (var item in package.Keys)
+                        //    {
+                        //        item.PackageName = package.Name;
+                        //    }
+                        //    foreach (var container in package.Containers)
+                        //    {
+                        //        foreach (var item in package.Keys)
+                        //        {
+                        //            item.PackageName = package.Name;
+                        //            item.ContainerName = container.Name;
+                        //        }
+                        //    }
+                        //}
                     }
                 }
             }
@@ -191,15 +191,13 @@ namespace tabler.Logic.Helper
             {
                 xmlSettings.IndentChars = "\t";
             }
-          
-            XDocument srcTree = new XDocument( new XDeclaration("1.0","utf-8","true"),currentStringtable.Project.AsXelement(true, header.Where(x => x.IsSelected).Select(x=> x.Key).ToList()));
-
+       
             var xmlSerializer = new XmlSerializer(typeof(Project));
 
             using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings))
             {
-                //xmlSerializer.Serialize(writer, currentStringtable.Project, dummyNamespace);
-                srcTree.Save(writer);
+                xmlSerializer.Serialize(writer, currentStringtable.Project, dummyNamespace);
+              
             }
 
             File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);
@@ -208,24 +206,9 @@ namespace tabler.Logic.Helper
 
         }
 
-        private class Conv : ISimpleValueConverter
-        {
-            public object ConvertFromString(string text, Type type)
-            {
-                throw new NotImplementedException();
-            }
-
-            public string ConvertToString(object value)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
         public static void SaveStringTableFile(FileInfo currentFileInfo, Stringtable currentStringtable)
         {
             SaveStringTableFile(currentFileInfo, currentStringtable, null);
-
-
 
         }
 

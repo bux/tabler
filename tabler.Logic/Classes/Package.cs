@@ -16,9 +16,9 @@ namespace tabler.Logic.Classes {
         [XmlElement("Key")]
         public List<Key> Keys { get; set; }
 
-        internal XElement AsXElement(bool ignoreEmptyValues, List<string> languagesToWrite)
-        {
-            return new XElement("Package", new XAttribute("name", Name), Keys.Select(x => x.AsXElement( ignoreEmptyValues, languagesToWrite)).ToList());
-        }
+        //internal XElement AsXElement(bool ignoreEmptyValues, List<string> languagesToWrite)
+        //{
+        //    return new XElement("Package", new XAttribute("name", Name), Keys.Select(x => x.AsXElement( ignoreEmptyValues, languagesToWrite)).ToList());
+        //}
     }
 }

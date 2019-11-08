@@ -65,14 +65,14 @@ namespace tabler.Logic.Classes
         [DataMember]
         public string Korean { get; set; }
 
-        [IgnoreDataMember]
-        [XmlIgnore]
-        [SoapIgnore]
-        public string PackageName { get; set; }
-        [IgnoreDataMember]
-        [XmlIgnore]
-        [SoapIgnore]
-        public string ContainerName { get; set; }
+        //[IgnoreDataMember]
+        //[XmlIgnore]
+        //[SoapIgnore]
+        //public string PackageName { get; set; }
+        //[IgnoreDataMember]
+        //[XmlIgnore]
+        //[SoapIgnore]
+        //public string ContainerName { get; set; }
 
         //[IgnoreDataMember]
         //[XmlIgnore]

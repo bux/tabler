@@ -85,18 +85,30 @@
                     <Setter Property="Background" Value="White" />
                 </Style>
             </DataGrid.RowStyle>-->
+
+            
             <DataGrid.CellStyle>
                 <Style  TargetType="DataGridCell">
-                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToBrushConverter}}" />
+                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToBrushConverter},ConverterParameter=test }" />
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="SeaGreen"/>
                         </Trigger>
                     </Style.Triggers>
+                    <!--<Style.Triggers>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToBrushConverter}}" Value="true">
+                            <Setter Property="Background" Value="Red"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToBrushConverter}}" Value="false">
+                            <Setter Property="Background" Value="Green"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>-->
+
                 </Style>
             </DataGrid.CellStyle>
+            
             <DataGrid.GroupStyle>
-                <!-- Style for groups at top level. -->
+                 <!--Style for groups at top level.--> 
                 <GroupStyle>
                     <GroupStyle.ContainerStyle>
                         <Style TargetType="{x:Type GroupItem}">
@@ -104,7 +116,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type GroupItem}">
-                                        <Expander IsExpanded="True" Background="#FF112255" BorderBrush="#FF002255" Foreground="#FFEEEEEE" BorderThickness="1,1,1,5">
+                                        <Expander IsExpanded="True" BorderThickness="1,1,1,5"><!--Background="#FF112255" BorderBrush="#FF002255" Foreground="#FFEEEEEE"-->
                                             <Expander.Header>
                                                 <DockPanel>
                                                     <TextBlock FontWeight="Bold" Text="{Binding Path=Name}"  Width="Auto" Margin="2"/>
@@ -121,7 +133,7 @@
                         </Style>
                     </GroupStyle.ContainerStyle>
                 </GroupStyle>
-                <!-- Style for groups under the top level. -->
+                 <!--Style for groups under the top level.--> 
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>

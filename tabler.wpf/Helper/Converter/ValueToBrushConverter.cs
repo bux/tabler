@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media;
 using tabler.Logic.Helper;
+using tabler.wpf.Container;
 
 namespace tabler.wpf.Helper.Converter
 {
@@ -17,39 +18,33 @@ namespace tabler.wpf.Helper.Converter
 
     {
         public static readonly IValueConverter Instance = new ValueToBrushConverter();
+        private readonly static SolidColorBrush _textMissing = new SolidColorBrush(Colors.Orange);
+        private readonly static SolidColorBrush _textOk = new SolidColorBrush(Colors.LightGreen);
+        private readonly static SolidColorBrush _textChanged = new SolidColorBrush(Colors.LightYellow);
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             try
             { 
                 var cell = value as DataGridCell;
-                if (cell == null)
+
+                var item = cell.DataContext as Key_ExtendedWithChangeTracking;
+                if (item != null )
                 {
-                    //return DependencyProperty.UnsetValue; 
-                    return new SolidColorBrush(Colors.Orange);
+                    ChangeTrackerString valueString;
+                    if (item.Languages.TryGetValue((string)cell.Column.Header, out valueString))
+                    {
+                        if (string.IsNullOrEmpty(valueString.CurrentValue))
+                        {
+                            return _textMissing;
+                        }
+                        if (valueString.HasChanged)
+                        {
+                            return _textChanged;
+                        }
+
+                        return _textOk;
+                    }
                 }
-
-                if (cell.Content  == null)
-                {
-                   // return DependencyProperty.UnsetValue;
-                    return new SolidColorBrush(Colors.Beige);
-
-                }
-
-                var tb = cell.Content as TextBlock;
-                if (tb == null)
-                {
-                    return DependencyProperty.UnsetValue;
-                    //return new SolidColorBrush(Colors.Beige);
-                }
-
-                if (!string.IsNullOrEmpty(tb.Text))
-                {
-                    return new SolidColorBrush(Colors.Green);
-                    //return DependencyProperty.UnsetValue;
-                }
-                return new SolidColorBrush(Colors.YellowGreen);
-               // return DependencyProperty.UnsetValue;
-
             }
             catch (Exception ex)
             {

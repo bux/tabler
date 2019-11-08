@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using MS.Internal.Annotations;
 using tabler.Logic.Classes;
 using tabler.Logic.Extensions;
 
@@ -18,27 +15,72 @@ namespace tabler.wpf.Container
     {
         [DataMember]
         public Dictionary<string, ChangeTrackerString> Languages { get; set; } = new Dictionary<string, ChangeTrackerString>();
+
         [DataMember]
         public Dictionary<string, ChangeTrackerString> SystemValues { get; set; } = new Dictionary<string, ChangeTrackerString>();
+        public bool HasChanged
+        {
+            get
+            {
+                return Languages.Values.Any(x => x.HasChanged) || SystemValues.Values.Any(x => x.HasChanged);
+            }
+        }
 
-        private const string IsComplete_PropertyName = "IsComplete";
-        private const string Id_PropertyName = "Id";
-        private const string Original_PropertyName = "Original";
-        private const string PackageName_PropertyName = "PackageName";
-        private const string ContainerName_PropertyName = "ContainerName";
-        
+        public void ResetHasChanged()
+        {
+            foreach (var item in Languages.Values)
+            {
+                item.HasChanged = false;
+            }
+            foreach (var item in SystemValues.Values)
+            {
+                item.HasChanged = false;
+            }
+        }
+
+        public bool IsComplete
+        {
+            get { return SystemValues[IsComplete_PropertyName].CurrentValue == "true" ? true : false; }
+        }
+
+        public string PackageName
+        {
+            get { return SystemValues[PackageName_PropertyName].CurrentValue; }
+        }
+
+        public string ProjectName
+        {
+            get { return SystemValues[Project_PropertyName].CurrentValue; }
+        }
+
+        public string ContainerName
+        {
+            get { return SystemValues[ContainerName_PropertyName].CurrentValue; }
+        }
+        public string Id
+        {
+            get { return SystemValues[Id_PropertyName].CurrentValue; }
+        }
+
+        public const string IsComplete_PropertyName = "IsComplete";
+        public const string Id_PropertyName = "Id";
+        public const string Original_PropertyName = "Original";
+        public const string PackageName_PropertyName = "PackageName";
+        public const string ContainerName_PropertyName = "ContainerName";
+        public const string Project_PropertyName = "ProjectName";
         public Key_ExtendedWithChangeTracking()
         {
 
         }
 
-        public Key_ExtendedWithChangeTracking(Key key)
+        public Key_ExtendedWithChangeTracking(Key key, string projectName, string packageName, string containerName)
         {
-            SystemValues.Add(nameof(key.Id),new ChangeTrackerString( key.Id));
+            SystemValues.Add(nameof(key.Id), new ChangeTrackerString(key.Id));
             SystemValues.Add(nameof(key.Original), new ChangeTrackerString(key.Original));
-            SystemValues.Add(nameof(key.ContainerName), new ChangeTrackerString(key.ContainerName));
-            SystemValues.Add(nameof(key.PackageName), new ChangeTrackerString(key.PackageName));
-            SystemValues.Add(IsCompletePropertyName, new ChangeTrackerString("false"));
+            SystemValues.Add(Project_PropertyName, new ChangeTrackerString(projectName));
+            SystemValues.Add(PackageName_PropertyName, new ChangeTrackerString(packageName));
+            SystemValues.Add(ContainerName_PropertyName, new ChangeTrackerString(containerName));
+            SystemValues.Add(IsComplete_PropertyName, new ChangeTrackerString("false"));
 
             Languages.Add(nameof(key.Chinese), new ChangeTrackerString(key.Chinese));
             Languages.Add(nameof(key.Chinesesimp), new ChangeTrackerString(key.Chinesesimp));
@@ -57,18 +99,18 @@ namespace tabler.wpf.Container
             Languages.Add(nameof(key.Turkish), new ChangeTrackerString(key.Turkish));
         }
 
-        public void Update_IsCompleted(List<string> languagesToHave)
+        public void Update_IsCompletedValue(List<string> languagesToHave)
         {
             foreach (var language in languagesToHave)
             {
                 if (string.IsNullOrEmpty(Languages[language].CurrentValue))
                 {
-                    SystemValues[IsCompletePropertyName].CurrentValue = "false";
+                    SystemValues[IsComplete_PropertyName].CurrentValue = "false";
                     return;
                 };
             }
 
-            SystemValues[IsCompletePropertyName].CurrentValue = "true";
+            SystemValues[IsComplete_PropertyName].CurrentValue = "true";
         }
 
         public bool ContainsText(string value, bool searchOnlyInId, bool ignoreCase)
@@ -97,7 +139,7 @@ namespace tabler.wpf.Container
                     return true;
                 }
             }
-            
+
 
             return false;
         }

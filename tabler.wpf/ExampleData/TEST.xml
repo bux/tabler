@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="ACE">
+    <Package name="Advanced_Ballistics">
+        <Key ID="STR_ACE_Advanced_Ballistics_WindInfoKey">
+            <English>TEST</English>
+            <German>Windinformationen anzeigen</German>
+            <French>Afficher les info sur le vent</French>
+            <Italian>Mostra indicazioni del vento</Italian>
+            <Spanish>Mostrar información del viento</Spanish>
+            <Portuguese>Mostrar Informação do Vento</Portuguese>
+            <Polish>Pokaż inf. o wietrze</Polish>
+            <Czech>Zobrazit informace o větru</Czech>
+            <Hungarian>Széladatok mutatása</Hungarian>
+            <Russian>Показать информацию о ветре</Russian>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_ProtractorKey">
+            <English>Show Protractor</English>
+            <German>Winkelmesser anzeigen</German>
+            <French>Afficher le rapporteur</French>
+            <Italian>Mostra il rapportatore</Italian>
+            <Spanish>Mostrar transportador</Spanish>
+            <Portuguese>Mostrar Transferidor</Portuguese>
+            <Polish>Pokaż kątomierz</Polish>
+            <Czech>Zobrazit úhloměr</Czech>
+            <Hungarian>Szögmérő mutatása</Hungarian>
+            <Russian>Показать транспортир</Russian>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_DisplayName">
+            <English>Advanced Ballistics</English>
+            <German>Erweiterte Ballistik</German>
+            <Spanish>Balística avanzada</Spanish>
+            <Portuguese>Balística avançada</Portuguese>
+            <Polish>Zaawansowana balistyka</Polish>
+            <Czech>Pokročilá balistika</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_enabled_DisplayName">
+            <English>Advanced Ballistics</English>
+            <German>Erweiterte Ballistik</German>
+            <Spanish>Balística avanzada</Spanish>
+            <Portuguese>Balística avançada</Portuguese>
+            <Polish>Zaawansowana balistyka</Polish>
+            <Czech>Pokročilá balistika</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_enabled_Description">
+            <English>Enables advanced ballistics</English>
+            <German>Aktiviert die erweiterte Ballistik</German>
+            <Spanish>Activa la balística avanzada</Spanish>
+            <Portuguese>Ativa balística avançada</Portuguese>
+            <Polish>Aktywuje zaawansowaną balistykę</Polish>
+            <Czech>Aktivuje pokročilou balistiku</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulateForSnipers_DisplayName">
+            <English>Enabled For Snipers</English>
+            <German>Für Scharfschützen aktiviert</German>
+            <Italian>dth</Italian>
+            <Spanish>Activada para francotiradores</Spanish>
+            <Portuguese>Ativar para caçadores</Portuguese>
+            <Polish>Akt. dla snajperów</Polish>
+            <Czech>Povoleno pro odstřelovače</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulateForSnipers_Description">
+            <English>Enables advanced ballistics for non local snipers (when using high power optics)</English>
+            <German>Aktiviert die erweiterte Ballistik für nicht lokale Scharfschützen (bei Benutzung von Optiken mit starker Vergrößerung)</German>
+            <French>thf</French>
+            <Spanish>Activa la balística avanzada para francotiradores no locales (cuando se usa una mira telescópica)</Spanish>
+            <Portuguese>Ativa balística avançada para caçadores não locais (quando usando miras telescópicas)</Portuguese>
+            <Polish>Aktywuje zaawansowaną balistykę dla nielokalnych snajperów (kiedy używają optyki)</Polish>
+            <Czech>Aktivuje pokročilou balistiku pro nelokální odstřelovače (když používá výkonnou optiku)</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulateForGroupMembers_DisplayName">
+            <English>Enabled For Group Members</English>
+            <German>Für Gruppenmitglieder aktiviert</German>
+            <Italian>dht</Italian>
+            <Spanish>Activada para miembros de grupo</Spanish>
+            <Portuguese>Ativada para membros do grupo</Portuguese>
+            <Polish>Akt. dla czł. grupy</Polish>
+            <Czech>Povoleno pro členy skupiny</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulateForGroupMembers_Description">
+            <English>Enables advanced ballistics for non local group members</English>
+            <German>Aktiviert die erweiterte Ballistik für nicht lokale Gruppenmitglieder</German>
+            <Spanish>Activada la balística avanzada para miembros de grupo no locales</Spanish>
+            <Portuguese>Ativa balística avançada para membros de grupo não locais</Portuguese>
+            <Polish>Aktywuje zaawansowaną balistykę dla nielokalnych członków grupy</Polish>
+            <Czech>Aktivuje pokročilou balistiku pro nelokální členy skupiny</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulateForEveryone_DisplayName">
+            <English>Enabled For Everyone</English>
+            <German>Für jeden aktiviert</German>
+            <French>t</French>
+            <Spanish>Activada para todos</Spanish>
+            <Portuguese>Ativada para todos</Portuguese>
+            <Polish>Akt. dla wszystkich</Polish>
+            <Czech>Povoleno pro všechny</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulateForEveryone_Description">
+            <English>Enables advanced ballistics for all non local players (enabling this may degrade performance during heavy firefights in multiplayer)</English>
+            <German>Aktiviert die erweiterte Ballistik für alle nicht lokalen Spieler (das Aktivieren dieser Funktion kann zur Beeinträchtigung des Spielerlebnisses im Multiplayer führen)</German>
+            <French>hhf</French>
+            <Spanish>Activada la balística avanzada para todos los jugadores no locales (activarlo puede degradar el rendimiento durante grandes tiroteos en multijugador).</Spanish>
+            <Portuguese>Ativa balística avançada para todos os jogadores não locais (ativando isso pode degradar a performance durante troca de tiros intensas no multiplayer)</Portuguese>
+            <Polish>Aktywuje zaawansowaną balistykę dla wszystkich nielokalnych graczy (aktywacja tej opcji może spodowować spory spadek wydajności podczas ciężkiej wymiany ognia)</Polish>
+            <Czech>Aktivovat pokročilou balistiku pro všechny nelokální hráče (aktivace této možnosti způsobuje pokles snímu za sekundu během těžké přestřelky v multiplayeru)</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_alwaysSimulateForGroupMembers_DisplayName">
+            <English>Always Enabled For Group Members</English>
+            <German>Für Gruppenmitglieder immer aktiviert</German>
+            <Spanish>Siempre activada para miembros de grupo</Spanish>
+            <Portuguese>Sempre ativada para membros do grupo</Portuguese>
+            <Polish>Zawsze akt. dla czł. grupy</Polish>
+            <Czech>Vždy povoleno pro členy skupiny</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_alwaysSimulateForGroupMembers_Description">
+            <English>Always enables advanced ballistics when a group member fires</English>
+            <German>Aktiviert die erweiterte Ballistik immer, wenn ein Gruppenmitglied schießt</German>
+            <Italian>h</Italian>
+            <Spanish>Activada la balística avanzada siempre cuando miembros de grupo disparan</Spanish>
+            <Portuguese>Sempre ative balística avançada quando um membro do grupo disparar</Portuguese>
+            <Polish>Aktywuje zaawansowaną balistykę dla wszystkich członków grupy</Polish>
+            <Czech>Aktivuje pokročilou balistiku pro členy skupiny</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_disabledInFullAutoMod_DisplayName">
+            <English>Disabled In FullAuto Mode</English>
+            <German>Beim vollautomatischen Feuern deaktiviert</German>
+            <Italian>htah</Italian>
+            <Spanish>Desactivada en modo automático</Spanish>
+            <Portuguese>Desabilitar no modo automático</Portuguese>
+            <Polish>Wył. podczas ognia auto.</Polish>
+            <Czech>Zakázáno v automatickém režimu střelby</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_disabledInFullAutoMod_Description">
+            <English>Disables the advanced ballistics during full auto fire</English>
+            <German>Deaktiviert die erweiterte Ballistik beim vollautomatischen Feuern</German>
+            <Spanish>Desactivada la balística avanzada durante el fuego automático</Spanish>
+            <Portuguese>Desabilitar a balística avançada durante fogo automático</Portuguese>
+            <Polish>Dezaktywuje zaawansowaną balistykę podczas ognia automatycznego</Polish>
+            <Czech>Zákáže pokročilou balistiku během střelby v režimu automat</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_ammoTemperatureEnabled_DisplayName">
+            <English>Enable Ammo Temperature Simulation</English>
+            <German>Simulation der Munitionstemperatur aktivieren</German>
+            <Spanish>Activar simulación de temperatura de munición</Spanish>
+            <Portuguese>Ativar simulação de temperatura de munição</Portuguese>
+            <Polish>Symulacja temp. amunicji</Polish>
+            <Czech>Povolit simulaci teploty munice</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_ammoTemperatureEnabled_Description">
+            <English>Muzzle velocity varies with ammo temperature</English>
+            <German>Munitionstemperatur hat Einfluss auf die Mündungsgeschwindigkeit</German>
+            <Spanish>La velocidad de salida varía con la temperatura de la munición</Spanish>
+            <Portuguese>A velocidade de saída varia com a temperatura da munição</Portuguese>
+            <Polish>Prędkość wylotowa pocisku jest zależna od temperatury amunicji</Polish>
+            <Czech>Úsťová rychlost je závislá na teplotě munice</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_barrelLengthInfluenceEnabled_DisplayName">
+            <English>Enable Barrel Length Simulation</English>
+            <German>Simulation der Lauflänge aktivieren</German>
+            <Spanish>Habilitar la simulación de longitud del cañón</Spanish>
+            <Portuguese>Ativar a simulação de comprimento do cano</Portuguese>
+            <Polish>Symulacja długości lufy</Polish>
+            <Czech>Povolit simulaci délky hlavně</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_barrelLengthInfluenceEnabled_Description">
+            <English>Muzzle velocity varies with barrel length</English>
+            <German>Lauflänge beeinflusst Mündungsgeschwindigkeit</German>
+            <Spanish>La velocidad de salidal varía con la longitud del cañón</Spanish>
+            <Portuguese>A velocidade de saída caria com o comprimento do cano</Portuguese>
+            <Polish>Prędkość wylotowa pocisku jest zależna od długości lufy</Polish>
+            <Czech>Úsťová rychlost je závislá na délce hlavně</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_bulletTraceEnabled_DisplayName">
+            <English>Enable Bullet Trace Effect</English>
+            <German>Geschossspureffekt aktivieren</German>
+            <Spanish>Activar el efecto trazador de la bala</Spanish>
+            <Portuguese>Ativa efeito traçante de projétil</Portuguese>
+            <Polish>Efekt smugi pocisku</Polish>
+            <Czech>Povolit efekt trasírek</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_bulletTraceEnabled_Description">
+            <English>Enables a bullet trace effect to high caliber bullets (only visible when looking through high power optics)</English>
+            <German>Aktiviere Geschossspureffekt für hohe Kaliber (bei Benutzung von Optiken mit starker Vergrößerung)</German>
+            <Spanish>Activa el efecto trazador de la balas de gran calibre (solo visible cuando se mira a través de una mira telescópica)</Spanish>
+            <Portuguese>Ativa o efeito traçante de projétil para projéteis de alto calibre (somente visível quando observado por miras telescópicas)</Portuguese>
+            <Polish>Aktywuje efekt smugi pocisku dla pocisków wysokokalibrowych (widoczne tylko podczas patrzenia przez optykę)</Polish>
+            <Czech>Aktivuje efekt trasírek z vysokokaliberních zbraní (viditelné pouze skrze výkonnou optiku)</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulationInterval_DisplayName">
+            <English>Simulation Interval</English>
+            <German>Simulationsintervall</German>
+            <Spanish>Intervalo de simulación</Spanish>
+            <Portuguese>Intervalo da simulação</Portuguese>
+            <Polish>Interwał symulacji</Polish>
+            <Czech>Interval simulace</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulationInterval_Description">
+            <English>Defines the interval between every calculation step</English>
+            <German>Legt das Intervall zwischen den Berechnungsschritten fest</German>
+            <Spanish>Define el intervalo entre cada cálculo</Spanish>
+            <Portuguese>Define o intervalo entre cada cálculo</Portuguese>
+            <Polish>Określa interwał pomiędzy każdym krokiem kalkulacji</Polish>
+            <Czech>Určuje interval mezi každým výpočtem</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulationRadius_DisplayName">
+            <English>Simulation Radius</English>
+            <German>Simulationsradius</German>
+            <Spanish>Radio de simulación</Spanish>
+            <Portuguese>Raio de simulação</Portuguese>
+            <Polish>Zasięg symulacji</Polish>
+            <Czech>Rozsah simulace</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_simulationRadius_Description">
+            <English>Defines the radius around the player (in meters) at which advanced ballistics are applied to projectiles</English>
+            <German>Gibt den Radius (in Metern) um den Spieler an, bei dem die erweiterte Ballistik auf Geschosse angewendet wird</German>
+            <Spanish>Define el radio alrededor del jugador (en metros) en el cual se aplica la balística avanzada a los proyectiles</Spanish>
+            <Portuguese>Define o raio ao redor do jogador (em metros) onde a balística avançada será aplicada aos projéteis</Portuguese>
+            <Polish>Określa obszar naokoło gracza (w metrach), na którym zaawansowana balistyka jest aplikowana dla pocisków</Polish>
+            <Czech>Určuje oblast kolem hráče (v metrech), kde je pokročilá balistika použita na projektil</Czech>
+        </Key>
+        <Key ID="STR_ACE_Advanced_Ballistics_Description">
+            <Portuguese>Este módulo permite que você ative cálculos de balística avançada, fazendo a trajetória do projétil levar em consideração coisas como temperatura do ar, pressão atmosférica, umidade, força de Coriolis, a gravidade, o modelo da arma no qual o disparo é realizado e o tipo de munição. Tudo isso acrescenta-se a um balística muito precisa.</Portuguese>
+            <Polish>Moduł ten pozwala aktywować zaawansowaną balistykę biorącą przy obliczeniach trajektorii lotu pocisku pod uwagę takie rzeczy jak temperatura powietrza, ciśnienie atmosferyczne, wilgotność powietrza, siły Coriolisa i Eotvosa, grawitację a także broń z jakiej wykonywany jest strzał oraz rodzaj amunicji. Wszystko to sprowadza się na bardzo dokładne odwzorowanie balistyki.</Polish>
+            <Czech>Tento modul umožňuje aktivovat pokročilou balistiku, která vypočítává trajektorii kulky a bere do úvahy věci jako je teplota vzduchu, atmosférický tlak, vlhkost vzduchu, gravitaci, typ munice a zbraň, ze které je náboj vystřelen. To vše přispívá k velmi přesné balistice.</Czech>
+        </Key>
+    </Package>
+</Project>
