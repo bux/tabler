@@ -95,7 +95,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\TranslationFileOverviewControl.xaml">
+    <Page Include="Controls\DirectoryFilesOverviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ListViewWrapperClass.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,8 +131,11 @@
     <Compile Include="Controls\ItemSelectControl.xaml.cs">
       <DependentUpon>ItemSelectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\TranslationFileOverviewControl.xaml.cs">
-      <DependentUpon>TranslationFileOverviewControl.xaml</DependentUpon>
+    <Compile Include="Controls\DirectoryFilesOverviewControl.xaml.cs">
+      <DependentUpon>DirectoryFilesOverviewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ListViewWrapperClass.xaml.cs">
+      <DependentUpon>ListViewWrapperClass.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\LogMessages_Window.xaml.cs">
       <DependentUpon>LogMessages_Window.xaml</DependentUpon>

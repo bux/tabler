@@ -40,7 +40,7 @@ namespace tabler.wpf.Container
 
         public bool IsComplete
         {
-            get { return SystemValues[IsComplete_PropertyName].CurrentValue == "true" ? true : false; }
+            get { return SystemValues[IsComplete_PropertyName].CurrentValue == "Complete" ? true : false; }
         }
 
         public string PackageName
@@ -105,12 +105,12 @@ namespace tabler.wpf.Container
             {
                 if (string.IsNullOrEmpty(Languages[language].CurrentValue))
                 {
-                    SystemValues[IsComplete_PropertyName].CurrentValue = "false";
+                    SystemValues[IsComplete_PropertyName].CurrentValue = "Incomplete";
                     return;
                 };
             }
 
-            SystemValues[IsComplete_PropertyName].CurrentValue = "true";
+            SystemValues[IsComplete_PropertyName].CurrentValue = "Complete";
         }
 
         public bool ContainsText(string value, bool searchOnlyInId, bool ignoreCase)
@@ -171,6 +171,10 @@ namespace tabler.wpf.Container
     public class ChangeTrackerString : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged(string propName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+        }
 
         public string OriginalValue { get; set; }
         private string _currentValue;
@@ -182,11 +186,7 @@ namespace tabler.wpf.Container
             _currentValue = OriginalValue;
         }
 
-        private void RaisePropertyChanged(string propName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
-        }
-
+   
         public bool HasChanged { get => _hasChanged; set => _hasChanged = value; }
 
 

@@ -61,10 +61,6 @@
                 <local:Helper_LabelTextBox Grid.Row="1" Grid.Column="1" Margin="2" MinWidth="200" Description="Search in all:" x:Name="tbe_FilterAndSearchAll" DoClearOnClickIn="False" CharactersEnteredCount="tbe_FilterAndSearchAll_3CharsAdded"></local:Helper_LabelTextBox>
 
             </Grid>
-
-           
-
-
         </Grid>
 
         <local:Helper_DataGridExtended Grid.Row="1" Grid.Column="0" x:Name="dge_Main"
@@ -95,15 +91,6 @@
                             <Setter Property="Background" Value="SeaGreen"/>
                         </Trigger>
                     </Style.Triggers>
-                    <!--<Style.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToBrushConverter}}" Value="true">
-                            <Setter Property="Background" Value="Red"></Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Converter={StaticResource ValueToBrushConverter}}" Value="false">
-                            <Setter Property="Background" Value="Green"></Setter>
-                        </DataTrigger>
-                    </Style.Triggers>-->
-
                 </Style>
             </DataGrid.CellStyle>
             
@@ -144,7 +131,33 @@
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>
-                
+
+                <!--<GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Margin" Value="0,0,0,5"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <Expander IsExpanded="False" BorderThickness="1,1,1,5" Background="AliceBlue">
+                                            --><!--Background="#FF112255" BorderBrush="#FF002255" Foreground="#FFEEEEEE"--><!--
+                                            <Expander.Header>
+                                                <DockPanel>
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=Name}"  Width="Auto" Margin="2"/>
+                                                    <TextBlock FontWeight="Bold" Text="{Binding Path=ItemCount}" Margin="2"/>
+                                                </DockPanel>
+                                            </Expander.Header>
+                                            <Expander.Content>
+                                                <ItemsPresenter Margin="20,0,0,0"  />
+                                            </Expander.Content>
+                                        </Expander>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>-->
+                <!--</GroupStyle>-->
+
             </DataGrid.GroupStyle>
 
             

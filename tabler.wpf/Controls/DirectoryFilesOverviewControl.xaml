@@ -1,4 +1,4 @@
-<UserControl x:Class="tabler.wpf.Controls.TranslationFileOverviewControl"
+<UserControl x:Class="tabler.wpf.Controls.DirectoryFilesOverviewControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -13,25 +13,18 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <local:Helper_TabControlExtended x:Name="tc_Main"  Grid.Row="0" Grid.Column="0" Margin="2">
+        <!--<local:Helper_TabControlExtended x:Name="tc_MainPerProject"  Grid.Row="0" Grid.Column="0" Margin="2">
 
-            <local:Helper_TabItemExtended Header="File1">
-                <local:TranslationFileSingleControl >
+        </local:Helper_TabControlExtended>-->
 
-                </local:TranslationFileSingleControl>
-            </local:Helper_TabItemExtended>
-
-            <local:Helper_TabItemExtended Header="File2">
-                <local:TranslationFileSingleControl >
-
-                </local:TranslationFileSingleControl>
-            </local:Helper_TabItemExtended>
-
-
-        </local:Helper_TabControlExtended>
+        <ListView Name="lvSubProjects" Grid.Column="0" Margin="2" DisplayMemberPath="{Binding Name}" SelectedValuePath="{Binding self}" SelectionChanged="LvSubProjects_SelectionChanged"></ListView>
+        <ContentControl Name="ccMainContent" Grid.Column="1" Margin="2"></ContentControl>
+        
+        
     </Grid>
     
    

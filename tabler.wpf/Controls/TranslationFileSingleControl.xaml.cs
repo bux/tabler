@@ -50,7 +50,7 @@ namespace tabler.wpf.Controls
                     return ((Key_ExtendedWithChangeTracking)value).SystemValues[_propertyName].CurrentValue;
                 }
                 return value;
-              
+
             }
 
             public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -69,6 +69,9 @@ namespace tabler.wpf.Controls
         private PropertyGroupDescription _groupDescriptionPackageName = new PropertyGroupDescription(null, new Key_ExtendedWithChangeTrackingValueConverter(Key_ExtendedWithChangeTracking.PackageName_PropertyName));
         private PropertyGroupDescription _groupDescriptionIsComplete = new PropertyGroupDescription(null, new Key_ExtendedWithChangeTrackingValueConverter(Key_ExtendedWithChangeTracking.IsComplete_PropertyName));
 
+        public ProgressHelper TranslationProgress { get; set; }
+
+
         #region CTOR and Load data
         public TranslationFileSingleControl(FileInfo file) : this()
         {
@@ -79,6 +82,7 @@ namespace tabler.wpf.Controls
         {
             InitializeComponent();
 
+            TranslationProgress = new ProgressHelper();
             _collViewSource.Source = _keyCollection;
             _collViewSource.Filter += _collViewSource_Filter;
 
@@ -91,7 +95,7 @@ namespace tabler.wpf.Controls
 
             dge_Main.ItemsSource = _collViewSource.View;
             //dge_Main.ItemsSource = _keyCollection;
-
+        
             var menu = new MenuItem { Header = "Copy complete row(s)" };
             menu.Click += copyCompleteRow;
             this.dge_Main.ContextMenu.Items.Add(menu);
@@ -109,22 +113,21 @@ namespace tabler.wpf.Controls
             e.NewItem = new Key();
         }
 
-        public void Load()
+        private bool _isLoadingStringtable;
+        private bool _doLoadAll;
+
+
+
+        public async Task LoadStringTableAsync(bool doLoadAll = false)
         {
-            if (AlreadyLoaded)
+            if (StringTable == null)
             {
-                return;
-            }
+                //about 0.03 seconds
+                //var ts = new StopWatch($"LoadStringTableAsync {CurrentFile.Directory.Name}");
+                //ts.Start();
+                _isLoadingStringtable = true;
+                StringTable = await StringtableHelper.ParseStringtable(CurrentFile);
 
-            try
-            {
-                AlreadyLoaded = true;
-                dge_Main.Columns.Clear();
-
-                StringTable = StringtableHelper.ParseStringtable(CurrentFile);
-
-                SetHeader();
-                UpdateIsCompleteFlag();
                 foreach (var package in StringTable.Project.Packages)
                 {
                     foreach (var key in package.Keys)
@@ -139,11 +142,123 @@ namespace tabler.wpf.Controls
                         }
                     }
                 }
+
+                var initHeader = TranslationHelper.GetHeaders(StringTable);
+
+                var allItems = new List<ItemSelected>();
+
+                foreach (var languageName in Enum.GetNames(typeof(Languages)))
+                {
+                    allItems.Add(new ItemSelected()
+                    {
+                        DisplayName = languageName,
+                        IsSelected = initHeader.Any(x => x == languageName),
+                        Key = languageName
+                    });
+                }
+                Header = allItems;
+
+                UpdateIsCompleteFlag();
+
+
+                UpdateTranslationProgress();
+
+                _isLoadingStringtable = false;
+                if (_doLoadAll || doLoadAll)
+                {
+                    _doLoadAll = false;
+                    Load();
+                }
+                //ts.StopAndLog();
+
+            }
+        }
+
+        private void UpdateTranslationProgress()
+        {
+            int progressValue = 0;
+            if (_keyCollection.Count == 0)
+            {
+                progressValue = 100;
+            }
+            else
+            {
+                progressValue =(int) (100 * ((double)_keyCollection.Count(x => x.IsComplete) / (double)_keyCollection.Count));
+                if (progressValue < 0)
+                {
+                    progressValue = 0;
+                }
+                if (progressValue > 100)
+                {
+                    progressValue = 100;
+                }
+            }
+
+            TranslationProgress.FireProgressChangedEvent(progressValue);
+        }
+
+        public async void Load()
+        {
+            if (AlreadyLoaded)
+            {
+                return;
+            }
+
+            if (_isLoadingStringtable)
+            {
+                _doLoadAll = true;
+                return;
+            }
+
+            _isLoadingStringtable = false;
+            _doLoadAll = false;
+            try
+            {
+                AlreadyLoaded = true;
+
+                var ts = new StopWatch($"Load {CurrentFile.Directory.Name}")
+                {
+                    LogStart = true
+                };
+                ts.Start();
+                ResetAll();
+
+                await LoadStringTableAsync();
+
+                CreateTableColumns();
+                ts.StopAndLog("CreateTableColumns done");
+
+                RefreshTableView();
+
+                var incomplete = _keyCollection.FirstOrDefault(x => x.IsComplete == false);
+
+                if (incomplete != null)
+                {
+                    dge_Main.ScrollIntoView(incomplete);
+
+                }
+               
+
+                ts.StopAndLog("RefreshTableView done");
             }
             catch (Exception ex)
             {
                 Logger.LogEx(ex);
             }
+        }
+
+        private void RefreshTableView()
+        {
+            _collViewSource.View.Refresh();
+        }
+
+        private void ResetAll()
+        {
+            AlreadyLoaded = false;
+            _keyCollection.Clear();
+            this.StringTable = null;
+            dge_Main.Columns.Clear();
+
         }
 
 
@@ -260,7 +375,7 @@ namespace tabler.wpf.Controls
                 }
             }
 
-            _collViewSource.View.Refresh();
+            //_collViewSource.View.Refresh();
         }
 
         #endregion      
@@ -268,11 +383,22 @@ namespace tabler.wpf.Controls
         #region ContextMenu actions
         private void pasteCompleteRowBelowCurrentRow(object sender, RoutedEventArgs e)
         {
-            //var keys = ClipBoardHelper.GetKeyObjectsFromClipboard();
-            //if (keys != null && keys.Any())
-            //{
-            //    StringTable.Project.Packages.FirstOrDefault().Keys.AddRange(keys);
-            //}
+            var selected = this.dge_Main.SelectedCells.FirstOrDefault();
+            if (selected == null)
+            {
+                Logger.LogGeneral("Please select a target row first.");
+                return;
+            }
+
+            var keys = ClipBoardHelper.GetKeyObjectsFromClipboard();
+
+            if (keys == null || !keys.Any())
+            {
+                return;
+            }
+
+            //StringTable.Project.Packages.FirstOrDefault().Keys.AddRange(keys);
+
         }
 
         private void copyCompleteRow(object sender, RoutedEventArgs e)
@@ -299,7 +425,7 @@ namespace tabler.wpf.Controls
             try
             {
                 StringTable.HasChanges = true;
-                SaveStringTableFile(CurrentFile, StringTable.FileHasBom,this._keyCollection.ToList(), Header);
+                SaveStringTableFile(CurrentFile, StringTable.FileHasBom, this._keyCollection.ToList(), Header);
 
             }
             catch (Exception ex)
@@ -308,7 +434,7 @@ namespace tabler.wpf.Controls
             }
         }
 
-        private  void SaveStringTableFile(
+        private void SaveStringTableFile(
                                 FileInfo currentFileInfo,
                                 bool fileHasBom,
                                 List<Key_ExtendedWithChangeTracking> currentKeys,
@@ -375,7 +501,7 @@ namespace tabler.wpf.Controls
 
                     foreach (var itemInPackage in package)
                     {
-                        toAddTo.Add(itemInPackage.AsXElement(true,languagesToWrite));
+                        toAddTo.Add(itemInPackage.AsXElement(true, languagesToWrite));
                     }
                 }
             }
@@ -394,7 +520,8 @@ namespace tabler.wpf.Controls
 
         private void btnReloadFile_click(object sender, RoutedEventArgs e)
         {
-            AlreadyLoaded = false;
+            ResetAll();
+            
             Load();
         }
 
@@ -409,7 +536,7 @@ namespace tabler.wpf.Controls
 
                 SynchVisibleHeader();
                 UpdateIsCompleteFlag();
-                _collViewSource.View.Refresh();
+
             }
             catch (Exception ex)
             {
@@ -422,29 +549,19 @@ namespace tabler.wpf.Controls
 
         #region private methods
 
-        private void SetHeader()
+        private void CreateTableColumns()
         {
-            var initHeader = TranslationHelper.GetHeaders(StringTable);
-
-            var allItems = new List<ItemSelected>();
-
-            foreach (var languageName in Enum.GetNames(typeof(Languages)))
-            {
-                allItems.Add(new ItemSelected() {
-                    DisplayName = languageName,
-                    IsSelected = initHeader.Any(x => x == languageName),
-                    Key = languageName });
-            }
-            Header = allItems;
 
             //AddColumns(new ItemSelected() { IsSelected = true, DisplayName = Key_ExtendedWithChangeTracking.IsComplete_PropertyName, Key = Key_ExtendedWithChangeTracking.IsComplete_PropertyName });
-            AddColumns(new ItemSelected() {
+            AddColumns(new ItemSelected()
+            {
                 IsSelected = true,
                 DisplayName = Key_ExtendedWithChangeTracking.Id_PropertyName,
-                Key = Key_ExtendedWithChangeTracking.Id_PropertyName }, "SystemValues");
+                Key = Key_ExtendedWithChangeTracking.Id_PropertyName
+            }, "SystemValues");
             //AddColumns(new ItemSelected() { IsSelected = true, DisplayName = Key_ExtendedWithChangeTracking.Project_PropertyName, Key = Key_ExtendedWithChangeTracking.Project_PropertyName });
 
-            foreach (var header in allItems)
+            foreach (var header in Header)
             {
                 AddColumns(header, "Languages");
             }
@@ -457,7 +574,7 @@ namespace tabler.wpf.Controls
             var dgNew = new DataGridTextColumn
             {
                 // bind to a dictionary property
-                Binding = new Binding(dictionaryInKey_ExtendedWithChangeTracking+"[" + header.Key + "].CurrentValue"),
+                Binding = new Binding(dictionaryInKey_ExtendedWithChangeTracking + "[" + header.Key + "].CurrentValue"),
                 Header = header.DisplayName,
                 Width = 100,
                 Visibility = header.IsSelected ? Visibility.Visible : Visibility.Collapsed,
@@ -477,6 +594,7 @@ namespace tabler.wpf.Controls
             {
                 item.Update_IsCompletedValue(selectedHeader);
             }
+           
         }
 
         private void SynchVisibleHeader()

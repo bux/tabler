@@ -1,5 +1,3 @@
-using Polenter.Serialization;
-using Polenter.Serialization.Advanced.Xml;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,13 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 using tabler.Logic.Classes;
 using tabler.Logic.Exceptions;
 
 namespace tabler.Logic.Helper
 {
+
+
     public static class StringtableHelper
     {
         private static XmlReaderSettings _xmlReaderSettings;
@@ -45,25 +44,27 @@ namespace tabler.Logic.Helper
             var stringtables = new System.Collections.Concurrent.ConcurrentBag<Stringtable>();
             Parallel.ForEach(allStringtableFiles, currentFile =>
             {
-                stringtables.Add(ParseStringtable(currentFile));
+                stringtables.Add(ParseStringtable(currentFile).Result);
             });
 
             return stringtables.ToList();
         }
-        public static Stringtable ParseStringtable(FileInfo stringtableFile)
-        {
 
-            var stringtable = ParseXmlFile(stringtableFile);
+        public static async Task<Stringtable> ParseStringtable(FileInfo stringtableFile)
+        {
+            var stringtable = await ParseXmlFile(stringtableFile);
             ValidateStringtable(stringtable);
             return stringtable;
         }
+
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <returns></returns>
-        private static Stringtable ParseXmlFile(FileInfo fileInfo)
+        private static async Task<Stringtable> ParseXmlFile(FileInfo fileInfo)
         {
             var stringtable = new Stringtable
             {
@@ -71,52 +72,45 @@ namespace tabler.Logic.Helper
                 Name = fileInfo.Directory.Name
             };
 
-            try
-            {
-                var ser = new XmlSerializer(typeof(Project));
-
-                using (var sr = new StreamReader(fileInfo.FullName))
+            var res = await new TaskFactory<Stringtable>().StartNew(
+                () =>
                 {
-                    stringtable.FileHasBom = FileHelper.FileHasBom(sr.BaseStream);
 
-                    using (var reader = XmlReader.Create(sr.BaseStream, XmlReaderSettings))
+                    try
                     {
-                        stringtable.Project = (Project)ser.Deserialize(reader);
-                        //foreach (var package in stringtable.Project.Packages)
-                        //{
-                        //    foreach (var item in package.Keys)
-                        //    {
-                        //        item.PackageName = package.Name;
-                        //    }
-                        //    foreach (var container in package.Containers)
-                        //    {
-                        //        foreach (var item in package.Keys)
-                        //        {
-                        //            item.PackageName = package.Name;
-                        //            item.ContainerName = container.Name;
-                        //        }
-                        //    }
-                        //}
+                        var ser = new XmlSerializer(typeof(Project));
+
+                        using (var sr = new StreamReader(fileInfo.FullName))
+                        {
+                            stringtable.FileHasBom = FileHelper.FileHasBom(sr.BaseStream);
+
+                            using (var reader = XmlReader.Create(sr.BaseStream, XmlReaderSettings))
+                            {
+                                stringtable.Project = (Project)ser.Deserialize(reader);
+                            }
+                        }
                     }
-                }
-            }
-            catch (XmlException ex)
-            {
-                throw new GenericXmlException("", fileInfo.FullName, ex.Message);
-            }
-            catch (InvalidOperationException ex)
-            {
-                var message = new StringBuilder();
-                message.Append(ex.Message);
-                if (ex.InnerException != null)
-                {
-                    message.AppendLine().Append(ex.InnerException.Message);
-                }
+                    catch (XmlException ex)
+                    {
+                        throw new GenericXmlException("", fileInfo.FullName, ex.Message);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        var message = new StringBuilder();
+                        message.Append(ex.Message);
+                        if (ex.InnerException != null)
+                        {
+                            message.AppendLine().Append(ex.InnerException.Message);
+                        }
 
-                throw new MalformedStringtableException(fileInfo.FullName, message.ToString());
-            }
+                        throw new MalformedStringtableException(fileInfo.FullName, message.ToString());
+                    }
 
-            return stringtable;
+                    return stringtable;
+
+                });
+
+            return res;
         }
 
 
@@ -191,13 +185,13 @@ namespace tabler.Logic.Helper
             {
                 xmlSettings.IndentChars = "\t";
             }
-       
+
             var xmlSerializer = new XmlSerializer(typeof(Project));
 
             using (var writer = XmlWriter.Create(currentFileInfo.FullName, xmlSettings))
             {
                 xmlSerializer.Serialize(writer, currentStringtable.Project, dummyNamespace);
-              
+
             }
 
             File.AppendAllText(currentFileInfo.FullName, Environment.NewLine);

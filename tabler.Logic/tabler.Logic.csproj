@@ -64,6 +64,7 @@
     <Compile Include="Enums\LogTypeEnum.cs" />
     <Compile Include="Exceptions\MalformedStringtableException.cs" />
     <Compile Include="Extensions\ExtensionMethods.cs" />
+    <Compile Include="Helper\IProgress.cs" />
     <Compile Include="Helper\Logger.cs" />
     <Compile Include="Helper\TranslationHelper.cs" />
     <Compile Include="Enums\Languages.cs" />

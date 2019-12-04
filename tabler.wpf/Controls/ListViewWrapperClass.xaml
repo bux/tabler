@@ -1,0 +1,21 @@
+<UserControl x:Class="tabler.wpf.Controls.ListViewWrapperClass"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:tabler.wpf.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Name="tbName" Grid.Column="0" Grid.Row="0"></Label>
+        <local:Helper_ProgressBar x:Name="pb_Progress"  Grid.Column="1" Grid.Row="0" Visibility="Visible"></local:Helper_ProgressBar>
+        
+    </Grid>
+</UserControl>

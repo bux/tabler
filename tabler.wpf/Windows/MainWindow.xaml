@@ -51,9 +51,9 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <controls:TranslationFileOverviewControl x:Name="ctrl_languageOverview">
+            <controls:DirectoryFilesOverviewControl x:Name="ctrl_languageOverview">
                 
-            </controls:TranslationFileOverviewControl>
+            </controls:DirectoryFilesOverviewControl>
         </Grid>
 
         <Grid Name="grd_Logging" Grid.Row="3" Grid.Column="1">

@@ -54,6 +54,8 @@ namespace tabler.wpf.Controls
         private int _currentMax;
         private int _currentMin;
 
+        public bool HandleVisibility { get; set; } = false;
+
         private void UpdateProgressName()
         {
             if (Dispatcher.HasShutdownStarted)
@@ -70,18 +72,25 @@ namespace tabler.wpf.Controls
                         //if not started or already done
                         if (_currentValue <= 0 || _currentValue >= _currentMax)
                         {
-                            if (Visibility != Visibility.Collapsed)
+                            if (HandleVisibility)
                             {
-                                Visibility = Visibility.Collapsed;
+                                if (Visibility != Visibility.Collapsed)
+                                {
+                                    Visibility = Visibility.Collapsed;
+                                }
                             }
+                           
                             return ;
                         }
-
-                        //make visible
-                        if (Visibility != Visibility.Visible)
+                        if (HandleVisibility)
                         {
-                            Visibility = Visibility.Visible;
+                            //make visible
+                            if (Visibility != Visibility.Visible)
+                            {
+                                Visibility = Visibility.Visible;
+                            }
                         }
+                          
 
                         if (_currentMax != pbCurrentProgress.Maximum)
                         {
@@ -99,7 +108,8 @@ namespace tabler.wpf.Controls
                         {
                             if (_currentMax == 0)
                             {
-                                lblProgressStatusMessage.Content = Name;
+                                //lblProgressStatusMessage.Content = Name;
+                                lblProgressStatusMessage.Content = "0%";
                                 return;
                             }
 
