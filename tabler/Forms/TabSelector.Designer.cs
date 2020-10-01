@@ -38,9 +38,9 @@ namespace tabler.Forms
             // 
             this.tbSelectTab.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbSelectTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbSelectTab.Location = new System.Drawing.Point(10, 10);
+            this.tbSelectTab.Location = new System.Drawing.Point(12, 12);
             this.tbSelectTab.Name = "tbSelectTab";
-            this.tbSelectTab.Size = new System.Drawing.Size(754, 32);
+            this.tbSelectTab.Size = new System.Drawing.Size(879, 32);
             this.tbSelectTab.TabIndex = 1;
             this.tbSelectTab.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSelectTab_KeyDown);
             // 
@@ -50,16 +50,17 @@ namespace tabler.Forms
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(0, 0);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Padding = new System.Windows.Forms.Padding(10);
-            this.panelContainer.Size = new System.Drawing.Size(774, 55);
+            this.panelContainer.Padding = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            this.panelContainer.Size = new System.Drawing.Size(903, 63);
             this.panelContainer.TabIndex = 1;
             // 
             // TabSelector
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(774, 55);
+            this.ClientSize = new System.Drawing.Size(903, 63);
             this.Controls.Add(this.panelContainer);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;

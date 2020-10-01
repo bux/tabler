@@ -123,10 +123,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cbSearchTerm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>78, 10</value>
+    <value>92, 12</value>
   </data>
   <data name="cbSearchTerm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>390, 21</value>
+    <value>454, 23</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="cbSearchTerm.TabIndex" type="System.Int32, mscorlib">
@@ -145,10 +145,10 @@
     <value>0</value>
   </data>
   <data name="btnFind.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 62</value>
+    <value>360, 72</value>
   </data>
   <data name="btnFind.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 27</value>
   </data>
   <data name="btnFind.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -169,10 +169,10 @@
     <value>1</value>
   </data>
   <data name="btnClose.Location" type="System.Drawing.Point, System.Drawing">
-    <value>390, 62</value>
+    <value>455, 72</value>
   </data>
   <data name="btnClose.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>87, 27</value>
   </data>
   <data name="btnClose.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -196,10 +196,10 @@
     <value>True</value>
   </data>
   <data name="lblFindWhat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 15</value>
+    <value>15, 17</value>
   </data>
   <data name="lblFindWhat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
+    <value>62, 15</value>
   </data>
   <data name="lblFindWhat.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -226,10 +226,10 @@
     <value>0, 0</value>
   </data>
   <data name="panel1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 10, 10, 10</value>
+    <value>12, 12, 12, 12</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>478, 100</value>
+    <value>558, 115</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -250,10 +250,13 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>7, 15</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>478, 100</value>
+    <value>558, 115</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterScreen</value>

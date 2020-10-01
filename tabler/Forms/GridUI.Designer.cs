@@ -42,8 +42,8 @@ namespace tabler
             this.findToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideTranslatedRowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeLanguageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForNewVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -167,17 +167,17 @@ namespace tabler
             this.addLanguageToolStripMenuItem.Name = "addLanguageToolStripMenuItem";
             this.addLanguageToolStripMenuItem.Click += new System.EventHandler(this.addLanguageToolStripMenuItem_Click);
             // 
-            // statisticsToolStripMenuItem
-            // 
-            resources.ApplyResources(this.statisticsToolStripMenuItem, "statisticsToolStripMenuItem");
-            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
-            // 
             // removeLanguageToolStripMenuItem
             // 
             resources.ApplyResources(this.removeLanguageToolStripMenuItem, "removeLanguageToolStripMenuItem");
             this.removeLanguageToolStripMenuItem.Name = "removeLanguageToolStripMenuItem";
             this.removeLanguageToolStripMenuItem.Click += new System.EventHandler(this.removeLanguageToolStripMenuItem_Click);
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.statisticsToolStripMenuItem, "statisticsToolStripMenuItem");
+            this.statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            this.statisticsToolStripMenuItem.Click += new System.EventHandler(this.statisticsToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 

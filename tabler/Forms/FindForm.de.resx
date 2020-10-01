@@ -119,10 +119,10 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="cbSearchTerm.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 10</value>
+    <value>167, 12</value>
   </data>
   <data name="cbSearchTerm.Size" type="System.Drawing.Size, System.Drawing">
-    <value>379, 21</value>
+    <value>379, 23</value>
   </data>
   <data name="btnFind.Text" xml:space="preserve">
     <value>Suchen</value>
@@ -131,7 +131,7 @@
     <value>Schließen</value>
   </data>
   <data name="lblFindWhat.Size" type="System.Drawing.Size, System.Drawing">
-    <value>70, 13</value>
+    <value>73, 15</value>
   </data>
   <data name="lblFindWhat.Text" xml:space="preserve">
     <value>Was suchen:</value>
