@@ -122,19 +122,19 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="copyDataToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 22</value>
+    <value>233, 22</value>
   </data>
   <data name="copyDataToolStripMenuItem.Text" xml:space="preserve">
     <value>Kopiere Daten</value>
   </data>
   <data name="copyDataasMdTableToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>235, 22</value>
+    <value>233, 22</value>
   </data>
   <data name="copyDataasMdTableToolStripMenuItem.Text" xml:space="preserve">
     <value>Kopiere Daten (als md Tabelle)</value>
   </data>
   <data name="contextMenu.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 48</value>
+    <value>234, 48</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

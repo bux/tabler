@@ -127,14 +127,8 @@
   <data name="btnSaveSettings.Text" xml:space="preserve">
     <value>Speichern</value>
   </data>
-  <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>177, 72</value>
-  </data>
-  <data name="grpBIndentation.Text" xml:space="preserve">
-    <value>Einrückung</value>
-  </data>
   <data name="rbIndentSpaces.Size" type="System.Drawing.Size, System.Drawing">
-    <value>83, 17</value>
+    <value>87, 19</value>
   </data>
   <data name="rbIndentSpaces.Text" xml:space="preserve">
     <value>Leerzeichen</value>
@@ -143,13 +137,19 @@
     <value>95, 42</value>
   </data>
   <data name="tbIndentation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>31, 20</value>
+    <value>31, 23</value>
   </data>
   <data name="rbIndentTabs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 17</value>
+    <value>87, 19</value>
   </data>
   <data name="rbIndentTabs.Text" xml:space="preserve">
     <value>Tabulatoren</value>
+  </data>
+  <data name="grpBIndentation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>177, 72</value>
+  </data>
+  <data name="grpBIndentation.Text" xml:space="preserve">
+    <value>Einrückung</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>201, 124</value>
