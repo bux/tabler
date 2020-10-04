@@ -20,17 +20,19 @@ namespace tabler.Helper
 
         private readonly GridUI _gridUi;
         private string _editedCellValue;
-        private bool _ignoreForHistory;
-        private bool _rowDeleted;
-        private TranslationComponents _tc;
-
-        private int _lastFindRowIndex = -1;
-        private int _lastFindColIndex = -1;
-        private string _lastFindTerm;
-        private bool _lastFindWasInLastRow;
-        private bool _lastFindWasInLastCol;
 
         private List<CellEditHistory> _editHistory = new List<CellEditHistory>();
+        private bool _ignoreForHistory;
+        private int _lastFindColIndex = -1;
+
+        private int _lastFindRowIndex = -1;
+        private string _lastFindTerm;
+        private bool _lastFindWasInLastCol;
+        private bool _lastFindWasInLastRow;
+        private bool _rowDeleted;
+        private readonly TranslationComponents _tc;
+
+        private List<int> _firstColumnInTabResized = new List<int>();
 
         public GridUiHelper(GridUI gridUi, TranslationComponents tc)
         {
@@ -58,8 +60,38 @@ namespace tabler.Helper
 
                 lstTabPages.Add(tabPage);
             }
-            
+
+            _gridUi.tabControl1.SelectedIndexChanged += tabPage_SelectedIndexChanged;
+
             _gridUi.tabControl1.TabPages.AddRange(lstTabPages.OrderBy(t => t.Name).ToArray());
+        }
+
+        private void tabPage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var tabControl = (TabControl) sender;
+
+            if (_firstColumnInTabResized.Contains(tabControl.SelectedIndex))
+            {
+                return;
+            }
+
+            var tabPage = tabControl.SelectedTab;
+            // it has to be there
+            var gridView = (DataGridView) tabPage.Controls[0];
+            ResizeFirstColumn(gridView);
+
+            _firstColumnInTabResized.Add(tabControl.SelectedIndex);
+        }
+
+        private void ResizeFirstColumn(DataGridView dgv)
+        {
+            dgv.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
+        }
+
+        public void ResizeFirstColumnInFirstTab()
+        {
+            _firstColumnInTabResized.Add(0);
+            ResizeFirstColumn((DataGridView) _gridUi.tabControl1.TabPages[0].Controls[0]);
         }
 
         private DataGridView CreateGridViewAndFillWithData(TranslationComponents tc, Stringtable stringtable)
@@ -70,10 +102,10 @@ namespace tabler.Helper
                 EditMode = DataGridViewEditMode.EditOnKeystroke
             };
 
-            if (!System.Windows.Forms.SystemInformation.TerminalServerSession)
+            if (!SystemInformation.TerminalServerSession)
             {
-                Type dgvType = gridView.GetType();
-                PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+                var dgvType = gridView.GetType();
+                var pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
                 pi.SetValue(gridView, true, null);
             }
 
@@ -139,12 +171,6 @@ namespace tabler.Helper
                         row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
                         AddMissingTranslationToStatistics(tc.Statistics, header, stringtable.Name);
                     }
-
-                    //if (!translationsWithKey.Value.ContainsKey(header) || string.IsNullOrWhiteSpace(translationsWithKey.Value[header]))
-                    //{
-                    //    row.Cells[index].Style.BackColor = Color.FromKnownColor(COLOR_EMPTYCELL);
-                    //    AddMissingTranslationToStatistics(tc.Statistics, header, stringtable);
-                    //}
                     else
                     {
                         row.Cells[index].Value = value;
@@ -174,7 +200,7 @@ namespace tabler.Helper
                 var currentStringtableName = tabPage.Text;
 
                 // it has to be there
-                var gridView = (DataGridView)tabPage.Controls[0];
+                var gridView = (DataGridView) tabPage.Controls[0];
 
                 var currentStringtable = _tc.Stringtables.FirstOrDefault(s => s.Name.Equals(currentStringtableName));
                 if (currentStringtable == null)
@@ -218,6 +244,7 @@ namespace tabler.Helper
                             {
                                 throw new InvalidOperationException($"Language '{dgvc.HeaderText}' does not exist for Arma 3.");
                             }
+
                             // Existing Key that gets edited
                             if (currentKey != null)
                             {
@@ -244,7 +271,6 @@ namespace tabler.Helper
 
             return _tc.Stringtables;
         }
-
 
 
         private void AddNewEditHistory(string currentMod, DataGridViewCell cell, string oldValue, string newValue, Color oldBackColor)
@@ -284,7 +310,7 @@ namespace tabler.Helper
             _gridUi.tabControl1.SelectTab(tabPage);
 
             // it has to be there
-            var grid = (DataGridView)tabPage.Controls[0];
+            var grid = (DataGridView) tabPage.Controls[0];
 
             var cell = grid.Rows[lastEdit.CellRowIndex].Cells[lastEdit.CellColumnIndex];
 
@@ -314,7 +340,7 @@ namespace tabler.Helper
 
             foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
             {
-                var grid = (DataGridView)tabPage.Controls[0];
+                var grid = (DataGridView) tabPage.Controls[0];
 
                 var dgvc = new DataGridViewTextBoxColumn
                 {
@@ -341,7 +367,8 @@ namespace tabler.Helper
             foreach (var stringtable in _tc.Stringtables)
             {
                 var propertyInfo = typeof(Key).GetProperty(language);
-                if (propertyInfo == null) {
+                if (propertyInfo == null)
+                {
                     throw new InvalidOperationException($"Language '{language}' does not exist for Arma 3.");
                 }
 
@@ -359,12 +386,13 @@ namespace tabler.Helper
             {
                 // it has to be there
                 var gridView = (DataGridView) tabPage.Controls[0];
-                
+
                 var columnToDelete = gridView.Columns[language];
                 if (columnToDelete == null)
                 {
                     continue;
                 }
+
                 columnIndexToDelete = columnToDelete.Index;
 
                 gridView.Columns.Remove(language);
@@ -503,12 +531,12 @@ namespace tabler.Helper
 
             for (var rowIndex = findRowStartIndex; rowIndex < dgv.Rows.Count; rowIndex++)
             {
-                DataGridViewRow dgvRow = dgv.Rows[rowIndex];
+                var dgvRow = dgv.Rows[rowIndex];
                 var found = false;
 
                 for (var colIndex = findColStartIndex; colIndex < dgvRow.Cells.Count; colIndex++)
                 {
-                    DataGridViewCell cell = dgvRow.Cells[colIndex];
+                    var cell = dgvRow.Cells[colIndex];
                     if (!string.IsNullOrEmpty(cell.Value?.ToString()) && cell.Value.ToString().ToLowerInvariant().Contains(findTerm.ToLowerInvariant()))
                     {
                         _lastFindColIndex = cell.ColumnIndex;
@@ -545,7 +573,6 @@ namespace tabler.Helper
 
         public void ToggleTranslatedRows(bool show)
         {
-
             foreach (TabPage tabPage in _gridUi.tabControl1.TabPages)
             {
                 // it has to be there
@@ -582,7 +609,7 @@ namespace tabler.Helper
 
         private void gridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var grid = (DataGridView)sender;
+            var grid = (DataGridView) sender;
             var selectedColumn = grid.Columns[e.ColumnIndex];
 
             grid.ClearSelection();
@@ -616,7 +643,7 @@ namespace tabler.Helper
                     var clipboard = Clipboard.GetText();
                     clipboard = clipboard.Replace("\r\n", "Ѡ");
                     var arrEntries = clipboard.Split('Ѡ');
-                    PasteEntriesToGrid(arrEntries, (DataGridView)sender);
+                    PasteEntriesToGrid(arrEntries, (DataGridView) sender);
                 }
             }
         }
@@ -624,7 +651,7 @@ namespace tabler.Helper
 
         private void gridView_KeyUp(object sender, KeyEventArgs e)
         {
-            var grid = (DataGridView)sender;
+            var grid = (DataGridView) sender;
             var activeCells = grid.SelectedCells;
 
             if (_rowDeleted)
@@ -652,13 +679,13 @@ namespace tabler.Helper
                     AddNewEditHistory(_gridUi.tabControl1.SelectedTab.Text, activeCell, oldValue, activeCell.Value.ToString(), oldColor);
                 }
 
-                ((DataGridView)sender).BeginEdit(false);
+                ((DataGridView) sender).BeginEdit(false);
             }
         }
 
         private void gridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            var cell = ((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
             if (cell.Value == null)
             {
                 _editedCellValue = string.Empty;
@@ -671,7 +698,7 @@ namespace tabler.Helper
 
         private void gridView_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            var cell = ((DataGridView)sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
+            var cell = ((DataGridView) sender).Rows[e.RowIndex].Cells[e.ColumnIndex];
 
             if (cell.Value == null)
             {
@@ -699,7 +726,5 @@ namespace tabler.Helper
         }
 
         #endregion
-
-
     }
 }
