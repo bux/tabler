@@ -277,6 +277,8 @@ namespace tabler
                 ResumeLayout();
                 tabControl1.Show();
 
+                _gridUiHelper.ResizeFirstColumnInFirstTab();
+
                 saveToolStripMenuItem.Enabled = true;
                 findToolStripMenuItem.Enabled = true;
                 hideTranslatedRowsToolStripMenuItem.Enabled = true;
